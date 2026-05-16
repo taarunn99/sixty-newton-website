@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─────────────────────────────────────────────────────────
+   SIXTY NEWTON — DESIGN TOKENS  (dark mode only)
+   Source-of-truth for colour, type and motion.
+   Edit here once; Tailwind picks them up via @theme inline.
+   ───────────────────────────────────────────────────────── */
+
+:root {
+  /* Surface */
+  --bg:                 #1a1410;  /* deep charcoal-brown — hero background */
+  --bg-elevated:        #221a14;  /* cards, modals */
+  --bg-inset:           #14100c;  /* deeper notches */
+
+  /* Foreground */
+  --fg:                 #f3ead2;  /* warm cream — primary type */
+  --fg-muted:           #a89a82;  /* secondary type */
+  --fg-subtle:          #6e6555;  /* labels, meta */
+
+  /* Accent — champagne gold */
+  --gold:               #c9a263;
+  --gold-hover:         #d9b478;
+  --gold-soft:          #8a6c3d;
+  --gold-tint:          rgba(201, 162, 99, 0.12);
+
+  /* Borders */
+  --border:             #3a2f25;
+  --border-strong:      #5a4a38;
+  --border-hairline:    rgba(243, 234, 210, 0.12);
+  --border-dashed:      rgba(243, 234, 210, 0.24);
+
+  /* Motion */
+  --ease-out-quint:     cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quint:  cubic-bezier(0.83, 0, 0.17, 1);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg:               var(--bg);
+  --color-bg-elevated:      var(--bg-elevated);
+  --color-bg-inset:         var(--bg-inset);
+  --color-fg:               var(--fg);
+  --color-fg-muted:         var(--fg-muted);
+  --color-fg-subtle:        var(--fg-subtle);
+  --color-gold:             var(--gold);
+  --color-gold-hover:       var(--gold-hover);
+  --color-gold-soft:        var(--gold-soft);
+  --color-border:           var(--border);
+  --color-border-strong:    var(--border-strong);
+
+  --font-serif:             var(--font-serif-display), Cormorant Garamond, "EB Garamond", Georgia, serif;
+  --font-sans:              var(--font-sans-ui), Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ─── Base ─── */
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100dvh;
+  font-feature-settings: "ss01", "ss02", "cv11";
+}
+
+* { box-sizing: border-box; }
+
+/* ─── Selection ─── */
+::selection { background: var(--gold); color: var(--bg); }
+::-moz-selection { background: var(--gold); color: var(--bg); }
+
+/* ─── Focus ring (WCAG 2.2 AA — required for keyboard nav) ─── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Reduced motion (a11y) ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Utility: font-family helpers backed by next/font CSS vars ─── */
+.font-serif { font-family: var(--font-serif-display), "Cormorant Garamond", Georgia, serif; }
+.font-sans  { font-family: var(--font-sans-ui), Geist, ui-sans-serif, system-ui, sans-serif; }
+
+/* ─── Utility: hairline rule ─── */
+.hairline { background: var(--border-hairline); height: 1px; width: 100%; }
+
+/* ─── Utility: tracked uppercase eyebrow ─── */
+.eyebrow {
+  font-family: var(--font-sans-ui), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6875rem;       /* 11px */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .eyebrow { font-size: 0.75rem; }
+}
+
+/* ─── Hide scrollbar utility (used by horizontal scrollers) ─── */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Slow vertical pulse for the scroll-cue hairline ─── */
+@keyframes scroll-pulse {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.4; }
+  50%      { transform: scaleY(1);    opacity: 1; }
+}
+.animate-scroll-pulse {
+  animation: scroll-pulse 2.4s var(--ease-in-out-quint) infinite;
+  transform-origin: top center;
+}

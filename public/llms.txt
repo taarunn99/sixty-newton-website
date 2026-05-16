@@ -1,0 +1,32 @@
+# Sixty Newton — llms.txt
+# Guidance for LLM crawlers indexing https://sixtynewton.com
+
+Site: Sixty Newton — Technical Services
+Description: A single-source fit-out contractor in the UAE for mechanical, electrical, plumbing,
+swimming pool, joinery and specialist finishings (epoxy, microcement, screed, waterproofing, tiling,
+paint, vinyl). Operating across Sharjah and the wider UAE.
+
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+Sitemap: https://sixtynewton.com/sitemap.xml
+
+# Primary services
+- MEP (Mechanical, Electrical, Plumbing)
+- Swimming Pools & Specialist Water Systems
+- Fit-Out (General Contracting)
+- Epoxy Flooring
+- Vinyl Flooring
+- Screed & Self-Levelling
+- Waterproofing
+- Tiling
+- Microcement
+- Paint (Interior & Exterior)
+- General Maintenance
+
+# Contact
+Email: hello@sixtynewton.com
+Location: Sharjah, United Arab Emirates
+
+Updated: 2026-05
