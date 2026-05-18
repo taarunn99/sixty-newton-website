@@ -9,26 +9,26 @@ import { cn } from "@/lib/utils";
 
 /**
  * Universal drawer menu.
- * - Visible at ALL viewports (lives to the right of "Request a Quote")
- * - On <md, slides as a full-screen overlay and includes the centre nav links
- *   at the top (because the navbar hides them at that size).
- * - On md+, slides in as a right-side panel and shows only overflow links
- *   (Disciplines sub-pages, applicators, blog/FAQ, legal).
+ * - Trigger visible at ALL viewports (right side of the navbar, beside Request a Quote)
+ * - On <md: full-screen overlay with NAV_ITEMS + Request a Quote at the top, then
+ *   HAMBURGER_GROUPS below.
+ * - On md+: right-side panel (460px) with HAMBURGER_GROUPS only (centre nav already
+ *   shows NAV_ITEMS).
+ * - Inner scroll is functional but the scrollbar is hidden — no second-scrollbar UX.
+ * - Page scroll is locked while open (document.body.style.overflow).
+ * - Explicit X close button in the drawer's top-right corner.
  */
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close on route change
   useEffect(() => setOpen(false), [pathname]);
 
-  // Body scroll lock while open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  // Esc to close
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
@@ -65,17 +65,26 @@ export function MobileMenu() {
         aria-modal="true"
         aria-hidden={!open}
         className={cn(
-          // Mobile: full-screen overlay
           "fixed inset-0 z-50 bg-bg/95 backdrop-blur-md transition-all duration-300",
-          // Desktop: right-side panel
           "md:left-auto md:right-0 md:top-0 md:h-dvh md:w-[460px] md:bg-bg-elevated md:border-l md:border-border md:backdrop-blur-none",
           open
             ? "opacity-100 pointer-events-auto translate-x-0"
             : "opacity-0 pointer-events-none md:translate-x-8",
         )}
       >
-        <div className="h-full overflow-y-auto px-6 md:px-10 pt-24 md:pt-28 pb-12">
-          {/* On <md only: surface the centre nav at the top */}
+        {/* Inline close X — top-right of the panel */}
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setOpen(false)}
+          className="absolute top-5 right-5 md:top-6 md:right-6 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-fg/90 hover:text-gold hover:border-gold transition-colors duration-200"
+        >
+          <X size={18} />
+        </button>
+
+        {/* Scrollable content — scrollbar hidden, scroll still works via wheel/touch */}
+        <div className="h-full overflow-y-auto scrollbar-hide px-6 md:px-10 pt-20 md:pt-24 pb-12">
+          {/* <md only: surface centre nav at top */}
           <div className="md:hidden">
             <p className="eyebrow text-fg-subtle">Main</p>
             <ul className="mt-5 space-y-4">

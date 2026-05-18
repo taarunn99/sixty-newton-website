@@ -28,10 +28,15 @@ export function Navbar() {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 md:h-[72px] max-w-[1600px] items-center justify-between px-5 md:px-12 lg:px-16">
-        <Logo size={56} priority />
+      {/* 3-col grid: equal-fr left + right with auto centre = true viewport-centred nav */}
+      <div className="mx-auto grid h-20 md:h-[120px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
+        {/* Left — brand */}
+        <div className="flex items-center">
+          <Logo size={112} priority />
+        </div>
 
-        <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+        {/* Centre — main nav */}
+        <nav className="hidden md:flex items-center gap-8 lg:gap-10 justify-self-center">
           {NAV_ITEMS.map(item => {
             const active =
               item.href === "/"
@@ -59,7 +64,8 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2 md:gap-3">
+        {/* Right — CTA + hamburger */}
+        <div className="flex items-center gap-2 md:gap-3 justify-self-end">
           <div className="hidden md:block">
             <Button asChild size="md">
               <Link href="/request-a-quote">Request a Quote</Link>

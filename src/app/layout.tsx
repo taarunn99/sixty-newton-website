@@ -7,7 +7,6 @@ import "./globals.css";
 import { SITE } from "@/constants/site";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { GTM } from "@/components/analytics/gtm";
 import { ConsentBanner } from "@/components/analytics/consent-banner";
@@ -95,7 +94,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-bg text-fg antialiased font-sans">
-        <SmoothScroll />
         <GTM />
         <a
           href="#main"

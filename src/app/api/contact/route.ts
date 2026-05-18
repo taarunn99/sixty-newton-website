@@ -83,13 +83,13 @@ export async function POST(req: Request) {
     ? Math.round(areaSqmRaw)
     : null;
 
-  // 5. Validate required fields
-  if (!companyName) return bad("Please enter your company name.");
-  if (!fullName)    return bad("Please enter your full name.");
+  // 5. Validate required fields — at least one of (companyName, fullName)
+  if (!companyName && !fullName) {
+    return bad("Please enter your company name or your full name.");
+  }
   if (!email || !validator.isEmail(email)) return bad("Please enter a valid email address.");
-  if (!phoneRaw)    return bad("Please enter your phone number.");
-  if (!message || message.length < 20) return bad("Please tell us a bit more about your project (min 20 characters).");
-  if (!consent)     return bad("Please accept the privacy notice to continue.");
+  if (!phoneRaw) return bad("Please enter your phone number.");
+  if (!consent)  return bad("Please accept the privacy notice to continue.");
 
   // 6. Phone — normalise to E.164 with UAE as default region
   const country = (req.headers.get("cf-ipcountry") || req.headers.get("x-vercel-ip-country") || "AE").toUpperCase();
@@ -108,19 +108,21 @@ export async function POST(req: Request) {
   // 8. Send
   try {
     const transporter = getTransporter();
-    const subject = `New enquiry from ${fullName} — ${companyName}`;
+    const subjectLabel = fullName || companyName;
+    const subjectCompany = companyName ? ` — ${companyName}` : "";
+    const subject = `New enquiry from ${subjectLabel}${subjectCompany}`;
     const text = [
       "New enquiry submitted from the Sixty Newton website.",
       "",
-      `Company:     ${companyName}`,
-      `Name:        ${fullName}`,
+      `Company:     ${companyName || "(not provided)"}`,
+      `Name:        ${fullName || "(not provided)"}`,
       `Email:       ${email}`,
       `Phone:       ${phoneE164}`,
       `Service:     ${service || "(not specified)"}`,
       `Area (sqm):  ${areaSqm != null ? areaSqm : "(not specified)"}`,
       "",
       "Message:",
-      message,
+      message || "(none)",
       "",
       "—",
       `IP:          ${ip}`,

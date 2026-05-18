@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 type FieldName =
   | "companyName"
   | "fullName"
+  | "identity"   // composite: at least one of (companyName, fullName) required
   | "email"
   | "phone"
   | "service"
@@ -36,30 +37,35 @@ export function QuoteForm() {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [touched, setTouched] = useState<Record<FieldName, boolean>>({} as Record<FieldName, boolean>);
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
 
   const markTouched = (k: FieldName) => setTouched(t => ({ ...t, [k]: true }));
 
   const errors: Partial<Record<FieldName, string>> = {};
-  if (!companyName.trim()) errors.companyName = "Please enter your company name.";
-  if (!fullName.trim())    errors.fullName    = "Please enter your full name.";
+  if (!companyName.trim() && !fullName.trim()) {
+    errors.identity = "Please enter your company name or your full name.";
+  }
   if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) errors.email = "Please enter a valid email.";
-  if (!phone.trim())       errors.phone       = "Please enter your phone number.";
-  if (message.trim().length < 20) errors.message = "Please give us a bit more detail (min 20 characters).";
-  if (!consent)            errors.consent     = "Please accept the privacy notice.";
+  if (!phone.trim())   errors.phone   = "Please enter your phone number.";
+  if (!consent)        errors.consent = "Please accept the privacy notice.";
 
   const isValid = Object.keys(errors).length === 0;
 
   const showError = (field: FieldName) => touched[field] && errors[field];
+
+  // identity error surfaces under whichever of company/name fields was touched
+  const showIdentityError =
+    (touched.companyName || touched.fullName) && errors.identity;
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isValid || submitting) {
       // touch everything so errors surface
       setTouched({
-        companyName: true, fullName: true, email: true, phone: true,
-        service: true, areaSqm: true, message: true, consent: true,
+        companyName: true, fullName: true, identity: true,
+        email: true, phone: true, service: true, areaSqm: true,
+        message: true, consent: true,
       });
       return;
     }
@@ -105,7 +111,7 @@ export function QuoteForm() {
       // Clear + bounce to /thank-you
       setCompanyName(""); setFullName(""); setEmail(""); setPhone("");
       setService(""); setAreaSqm(""); setMessage(""); setConsent(false);
-      setTouched({} as Record<FieldName, boolean>);
+      setTouched({});
 
       setTimeout(() => router.push("/thank-you"), 1500);
     } catch (err) {
@@ -123,26 +129,33 @@ export function QuoteForm() {
       noValidate
       className="grid gap-5"
     >
-      {/* Company + Name row */}
-      <div className="grid gap-5 md:grid-cols-2">
-        <Field
-          label="Company name"
-          required
-          value={companyName}
-          onChange={setCompanyName}
-          onBlur={() => markTouched("companyName")}
-          error={showError("companyName") ? errors.companyName : undefined}
-          autoComplete="organization"
-        />
-        <Field
-          label="Full name"
-          required
-          value={fullName}
-          onChange={setFullName}
-          onBlur={() => markTouched("fullName")}
-          error={showError("fullName") ? errors.fullName : undefined}
-          autoComplete="name"
-        />
+      {/* Company OR Name row — at least one required */}
+      <div>
+        <p className="eyebrow text-fg-subtle mb-3">
+          Who&rsquo;s asking? <span className="text-gold/70">*</span>{" "}
+          <span className="normal-case tracking-normal text-[10px] text-fg-subtle">
+            (company name or full name — either is fine)
+          </span>
+        </p>
+        <div className="grid gap-5 md:grid-cols-2">
+          <Field
+            label="Company name"
+            value={companyName}
+            onChange={setCompanyName}
+            onBlur={() => markTouched("companyName")}
+            autoComplete="organization"
+          />
+          <Field
+            label="Full name"
+            value={fullName}
+            onChange={setFullName}
+            onBlur={() => markTouched("fullName")}
+            autoComplete="name"
+          />
+        </div>
+        {showIdentityError && (
+          <p className="mt-2 text-xs text-red-400/90">{errors.identity}</p>
+        )}
       </div>
 
       {/* Email + Phone row */}
@@ -201,25 +214,19 @@ export function QuoteForm() {
         />
       </div>
 
-      {/* Message */}
+      {/* Message — optional */}
       <div>
         <label className="block">
-          <span className="eyebrow text-fg-subtle">Project brief <span className="text-gold/70">*</span></span>
+          <span className="eyebrow text-fg-subtle">Project brief</span>
           <textarea
             rows={6}
             value={message}
             onChange={e => setMessage(e.target.value)}
             onBlur={() => markTouched("message")}
-            className={cn(
-              "mt-2 w-full bg-transparent border-b focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light resize-none",
-              showError("message") ? "border-red-400/70" : "border-border",
-            )}
-            placeholder="Scope, location, timeline, budget range…"
+            className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light resize-none"
+            placeholder="Optional — scope, location, timeline, budget range…"
           />
         </label>
-        {showError("message") && (
-          <p className="mt-1 text-xs text-red-400/90">{errors.message}</p>
-        )}
       </div>
 
       {/* Honeypot — bots fill this, real users never see it */}
