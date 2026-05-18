@@ -24,22 +24,25 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300",
         scrolled
-          ? "bg-bg/85 backdrop-blur-md border-b border-border/60"
+          ? "bg-bg/85 backdrop-blur-md border-b border-border"
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 md:h-20 max-w-[1600px] items-center justify-between px-5 md:px-10">
+      <div className="mx-auto flex h-16 md:h-[72px] max-w-[1600px] items-center justify-between px-5 md:px-12 lg:px-16">
         <Logo size={56} priority />
 
         <nav className="hidden md:flex items-center gap-8 lg:gap-10">
           {NAV_ITEMS.map(item => {
-            const active = pathname === item.href || pathname.startsWith(item.href + "/");
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "eyebrow tracking-[0.22em] text-fg/85 hover:text-fg transition-colors relative",
+                  "eyebrow tracking-[0.22em] text-fg/85 hover:text-fg transition-colors duration-200 relative",
                   active && "text-gold",
                 )}
               >
@@ -56,13 +59,14 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="hidden md:block">
-          <Button asChild size="md">
-            <Link href="/request-a-quote">Request a Quote</Link>
-          </Button>
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="hidden md:block">
+            <Button asChild size="md">
+              <Link href="/request-a-quote">Request a Quote</Link>
+            </Button>
+          </div>
+          <MobileMenu />
         </div>
-
-        <MobileMenu />
       </div>
     </header>
   );

@@ -33,9 +33,14 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // 301 redirect map — to be populated before launch (DIP-REDUCER #1)
+  // 301 redirect map
   async redirects() {
-    return [];
+    return [
+      // /clients merged into /portfolio
+      { source: "/clients", destination: "/portfolio", permanent: true },
+      // /contact absorbed into /request-a-quote
+      { source: "/contact", destination: "/request-a-quote", permanent: true },
+    ];
   },
 
   compress: true,

@@ -191,13 +191,51 @@ export const REFERENCE_PROJECTS = [
 ] as const;
 
 // ─── Navbar items (top-level) ───
+// Order matters — left-to-right in the centre nav.
+// Hamburger drawer holds overflow links (DISCIPLINES sub-pages, applicators,
+// blog, FAQ, legal). See HAMBURGER_GROUPS below.
 export const NAV_ITEMS = [
+  { label: "Home",        href: "/" },
   { label: "Disciplines", href: "/disciplines" },
-  { label: "Approach", href: "/approach" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Clients", href: "/clients" },
-  { label: "Contact", href: "/contact" },
+  { label: "Approach",    href: "/approach" },
+  { label: "Portfolio",   href: "/portfolio" },
+  { label: "About",       href: "/about" },
 ] as const;
+
+// ─── Hamburger drawer groups (overflow nav, visible on ALL viewports) ───
+export type HamburgerLink = { label: string; href: string; external?: boolean };
+export type HamburgerGroup = { heading: string; items: readonly HamburgerLink[] };
+
+export const HAMBURGER_GROUPS: readonly HamburgerGroup[] = [
+  {
+    heading: "Disciplines",
+    items: DISCIPLINES.map(d => ({
+      label: d.title,
+      href: `/disciplines/${d.slug}`,
+    })),
+  },
+  {
+    heading: "Applicators",
+    items: APPROVED_APPLICATORS.map(b => ({
+      label: b.name,
+      href: `/about#applicators`,
+    })),
+  },
+  {
+    heading: "Reference",
+    items: [
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ",  href: "/faq" },
+    ],
+  },
+  {
+    heading: "Legal",
+    items: [
+      { label: "Privacy", href: "/legal/privacy" },
+      { label: "Terms",   href: "/legal/terms" },
+    ],
+  },
+];
 
 // ─── Footer secondary links ───
 export const FOOTER_SECONDARY = [

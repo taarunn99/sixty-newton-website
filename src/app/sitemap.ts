@@ -13,8 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/disciplines",
     "/approach",
     "/portfolio",
-    "/clients",
-    "/contact",
     "/about",
     "/blog",
     "/faq",
