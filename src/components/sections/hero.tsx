@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative isolate w-full min-h-[100dvh] overflow-hidden bg-bg pt-20 md:pt-[120px]"
+      className="relative isolate w-full min-h-[100dvh] overflow-hidden bg-bg pt-16 md:pt-[72px]"
     >
       {/* Soft warm vignette behind the type — pure CSS, no JS */}
       <div

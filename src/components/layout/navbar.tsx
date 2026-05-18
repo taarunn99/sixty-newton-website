@@ -29,10 +29,10 @@ export function Navbar() {
       )}
     >
       {/* 3-col grid: equal-fr left + right with auto centre = true viewport-centred nav */}
-      <div className="mx-auto grid h-20 md:h-[120px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
+      <div className="mx-auto grid h-16 md:h-[72px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
         {/* Left — brand */}
         <div className="flex items-center">
-          <Logo size={112} priority />
+          <Logo size={72} priority />
         </div>
 
         {/* Centre — main nav */}
