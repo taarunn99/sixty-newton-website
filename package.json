@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "frames:optimize": "tsx scripts/optimize-frames.ts"
+    "frames:optimize": "tsx scripts/optimize-frames.ts",
+    "frames:build": "tsx scripts/build-frames.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -21,6 +22,7 @@
     "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
     "gsap": "^3.13.0",
+    "lenis": "^1.3.23",
     "libphonenumber-js": "^1.12.33",
     "lucide-react": "^0.545.0",
     "next": "^16.1.6",
