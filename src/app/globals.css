@@ -56,6 +56,9 @@
 
 /* ─── Base ─── */
 html {
+  /* Lock root at 16px so iOS Safari does NOT auto-zoom on focused inputs
+     whose font-size resolves to < 16px. All rem consumers cascade from this. */
+  font-size: 16px;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
@@ -71,9 +74,16 @@ body {
   color: var(--fg);
   min-height: 100dvh;
   font-feature-settings: "ss01", "ss02", "cv11";
+  /* Kill the grey flash on taps (mobile) — we have our own focus / active states */
+  -webkit-tap-highlight-color: transparent;
 }
 
 * { box-sizing: border-box; }
+
+/* ─── Mobile input zoom guard ───
+   iOS Safari zooms the viewport in when a user focuses an <input> / <textarea>
+   / <select> whose computed font-size is below 16px. Force ≥ 16px everywhere. */
+input, textarea, select { font-size: 16px; }
 
 /* ─── Selection ─── */
 ::selection { background: var(--gold); color: var(--bg); }

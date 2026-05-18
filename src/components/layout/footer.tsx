@@ -24,7 +24,7 @@ export function Footer() {
           {FOOTER_SECTIONS.map((section) => (
             <div key={section.heading} className="md:col-span-2">
               <p className="eyebrow text-fg-subtle">{section.heading}</p>
-              <ul className="mt-5 space-y-3 text-sm">
+              <ul className="mt-5 space-y-1 text-sm">
                 {section.links.map((link) =>
                   link.external ? (
                     <li key={link.href}>
@@ -32,7 +32,7 @@ export function Footer() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-fg/90 hover:text-gold transition-colors duration-200"
+                        className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
                       >
                         {link.label}
                       </a>
@@ -41,7 +41,7 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-fg/90 hover:text-gold transition-colors duration-200"
+                        className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
                       >
                         {link.label}
                       </Link>
