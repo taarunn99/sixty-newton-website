@@ -7,7 +7,7 @@
 export const SITE = {
   name: "Sixty Newton",
   legalName: "Sixty Newton Technical Services L.L.C.",
-  parentGroup: "Lapiz Group of Companies",
+  parentGroup: "Lapiz Blue Group of Companies",
   tagline: "Your go-to applicators.",
   description:
     "Sixty Newton Technical Services is a specialist contracting company powering some of the UAE's most demanding projects — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
@@ -47,8 +47,9 @@ export const SITE = {
 
   // ─── Social ───
   social: {
-    instagram: "https://www.instagram.com/sixtynewton",
-    linkedin: "https://www.linkedin.com/company/sixty-newton",
+    instagram: "https://www.instagram.com/60newton/",
+    // Sixty Newton shares the LinkedIn presence of its parent Lapiz Blue Group.
+    linkedin: "https://www.linkedin.com/company/lapizblue/posts/?feedView=all",
   },
 
   // ─── Trade license (UAE Sharjah LLC) ───
@@ -206,3 +207,43 @@ export const FOOTER_SECONDARY = [
   { label: "Privacy", href: "/legal/privacy" },
   { label: "Terms", href: "/legal/terms" },
 ] as const;
+
+// ─── Footer 4-column structure (premium-fitout style: wayfinding map, not sitemap dump) ───
+export type FooterLink = { label: string; href: string; external?: boolean };
+export type FooterSection = { heading: string; links: readonly FooterLink[] };
+
+export const FOOTER_SECTIONS: readonly FooterSection[] = [
+  {
+    heading: "Practice",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Approach", href: "/approach" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
+    ],
+  },
+  {
+    heading: "Work",
+    links: [
+      { label: "Disciplines", href: "/disciplines" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Applicators", href: "/about#applicators" },
+    ],
+  },
+  {
+    heading: "Contact",
+    links: [
+      { label: "Request a Quote", href: "/request-a-quote" },
+      { label: "WhatsApp", href: `https://wa.me/${SITE.whatsappHref}`, external: true },
+      { label: "Instagram", href: SITE.social.instagram, external: true },
+      { label: "LinkedIn", href: SITE.social.linkedin, external: true },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy", href: "/legal/privacy" },
+      { label: "Terms", href: "/legal/terms" },
+    ],
+  },
+];
