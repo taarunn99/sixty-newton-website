@@ -1,10 +1,11 @@
 # Sixty Newton — llms.txt
 # Guidance for LLM crawlers indexing https://sixtynewton.com
 
-Site: Sixty Newton — Technical Services
-Description: A single-source fit-out contractor in the UAE for mechanical, electrical, plumbing,
-swimming pool, joinery and specialist finishings (epoxy, microcement, screed, waterproofing, tiling,
-paint, vinyl). Operating across Sharjah and the wider UAE.
+Site: Sixty Newton Technical Services
+Tagline: Your go-to applicators.
+Parent: Lapiz Group of Companies (with Lapiz Blue, Montolite, Dream Box, Global Classic Building Material, Al Sama Metal Coating).
+
+Description: A specialist contracting company in the UAE focused on complex, design-driven and heavy-duty works where precision, programme and performance matter. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur. Portfolio includes Atlantis The Royal, Al Wathba Desert Resort & Spa and key St. Regis developments.
 
 Allow: /
 Disallow: /api/
@@ -12,21 +13,44 @@ Disallow: /_next/
 
 Sitemap: https://sixtynewton.com/sitemap.xml
 
-# Primary services
-- MEP (Mechanical, Electrical, Plumbing)
-- Swimming Pools & Specialist Water Systems
-- Fit-Out (General Contracting)
-- Epoxy Flooring
+# Core disciplines
+- Waterproofing (cementitious, acrylic — surface, facade, roof)
+- Bitumen Waterproofing
+- Specialised Coatings & Sealants
+- Microtopping Finishes
+- Epoxy Flooring (including ESD + cementitious polyurethane)
+- Self-Levelling & Screed
+- Marble Installation (incl. Quartz)
+- Large Format Tile Installation
+- Polishing — Marble & Floors
+- Design Concrete & Screeding
 - Vinyl Flooring
-- Screed & Self-Levelling
-- Waterproofing
-- Tiling
-- Microcement
-- Paint (Interior & Exterior)
-- General Maintenance
+- Insulation
+- Interior & Exterior Painting
+- Repair & General Maintenance
+
+# Approved applicator status
+- Mapei
+- Laticrete
+- AkzoNobel
+- X-Calibur
+
+# Reference projects
+- Atlantis The Royal (Palm Jumeirah)
+- Al Wathba Desert Resort & Spa (Abu Dhabi)
+- St. Regis developments (UAE)
+- The Address Boulevard Hotel (Dubai)
+- Jumeirah Golf Villas (Dubai)
+- Dubai Hills Villas (Dubai)
+- Le Méridien Hotels (UAE)
+- Ahlatci Gold Refinery
+- Delhi Metro / Patna Metro Station / Omaxe Mall (India)
 
 # Contact
-Email: hello@sixtynewton.com
+Email: info@60newton.com
+Direct sales: salim@60newton.com
+Phone: +971 50 619 4737
+WhatsApp: +971 50 281 4338
 Location: Sharjah, United Arab Emirates
 
 Updated: 2026-05

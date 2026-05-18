@@ -159,7 +159,7 @@ export function ScrollSequence() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=520%",
+          end: "+=420%",
           // scrub: 3 gives a long, luxurious 3-second tail on the canvas after
           // the underlying scroll position settles. Combined with Lenis's 2.4s
           // smooth-scroll duration, the frame motion takes a full ~5 seconds to

@@ -8,6 +8,7 @@ import { SITE } from "@/constants/site";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { GTM } from "@/components/analytics/gtm";
 import { ConsentBanner } from "@/components/analytics/consent-banner";
 import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
@@ -107,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <FloatingWhatsApp />
         <ConsentBanner />
         <Toaster theme="dark" position="bottom-right" richColors closeButton />
       </body>

@@ -2,28 +2,29 @@
  * Single source of truth for site-wide brand + contact data.
  * Imported by: layout metadata, JSON-LD, navbar, footer, mailto/tel/wa.me, sitemap, SEO helpers.
  * NEVER hard-code these values anywhere else.
- *
- * TODO before launch: confirm every TODO_PLACEHOLDER value with the client.
  */
 
 export const SITE = {
   name: "Sixty Newton",
   legalName: "Sixty Newton Technical Services L.L.C.",
-  tagline: "Precision Engineered, at Scale.",
+  parentGroup: "Lapiz Group of Companies",
+  tagline: "Your go-to applicators.",
   description:
-    "A single-source fit-out contractor for mechanical, electrical, plumbing, swimming pool and joinery scopes — delivered with the discipline of an atelier and the throughput of a tier-one builder.",
+    "Sixty Newton Technical Services is a specialist contracting company powering some of the UAE's most demanding projects — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   shortDescription:
-    "Single-source MEP, fit-out, pools and specialist systems contractor in the UAE.",
+    "UAE specialist contracting — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sixtynewton.com",
   locale: "en_US",
   themeColor: "#1a1410",
 
-  // ─── Contact ───  (TODO_PLACEHOLDER values — confirm before launch)
-  phone: "+971 0 000 0000",
-  phoneHref: "+971000000000",
-  whatsapp: "+971 0 000 0000",
-  whatsappHref: "971000000000",
-  email: "hello@sixtynewton.com",
+  // ─── Contact ───
+  phone: "+971 50 619 4737",
+  phoneHref: "+971506194737",
+  whatsapp: "+971 50 281 4338",
+  whatsappHref: "971502814338",
+  whatsappMessage: "Hello Sixty Newton, I'd like to discuss a project.",
+  email: "info@60newton.com",
+  emailSalim: "salim@60newton.com", // direct sales contact per company profile
 
   address: {
     streetAddress: "TODO_PLACEHOLDER",
@@ -60,76 +61,133 @@ export const SITE = {
 export type SiteConfig = typeof SITE;
 
 // ─── Disciplines registered with /disciplines hub ───
+// Source-of-truth list per the company profile + client confirmation.
 export const DISCIPLINES = [
   {
-    slug: "mechanical-electrical-plumbing",
-    title: "Mechanical, Electrical & Plumbing",
-    short: "MEP",
-    description: "HVAC, power, lighting, ELV, plumbing and drainage — designed and installed as one coordinated package.",
+    slug: "waterproofing",
+    title: "Waterproofing",
+    short: "Waterproofing",
+    description:
+      "Cementitious and acrylic membrane systems — for surfaces, facades and roofs. Decades-deep applicator expertise across the building envelope.",
   },
   {
-    slug: "swimming-pools",
-    title: "Swimming Pools & Specialist Water",
-    short: "Pools",
-    description: "Filtration, dosing, hydraulics, finishing — pool builds and specialist water systems to spec.",
+    slug: "bitumen-waterproofing",
+    title: "Bitumen Waterproofing",
+    short: "Bitumen",
+    description:
+      "Hot- and cold-applied bituminous membrane systems for below-grade, podium decks and heavy-duty waterproofing scopes.",
   },
   {
-    slug: "fit-out",
-    title: "Fit-Out & General Contracting",
-    short: "Fit-Out",
-    description: "Single-point responsibility for interiors — from demolition through handover.",
+    slug: "specialised-coatings-and-sealants",
+    title: "Specialised Coatings & Sealants",
+    short: "Coatings",
+    description:
+      "Engineered protective coatings and joint sealants for industrial, hospitality and infrastructure projects.",
+  },
+  {
+    slug: "microtopping",
+    title: "Microtopping Finishes",
+    short: "Microtopping",
+    description:
+      "Seamless cementitious micro-finish for walls and floors — a refined, monolithic surface delivered to a designer's spec.",
   },
   {
     slug: "epoxy-flooring",
     title: "Epoxy Flooring",
     short: "Epoxy",
-    description: "Industrial, decorative and high-performance epoxy floor systems.",
+    description:
+      "Industrial, decorative and ESD epoxy floor systems — cementitious polyurethane and high-performance resin finishes.",
+  },
+  {
+    slug: "self-levelling",
+    title: "Self-Levelling & Screed",
+    short: "Self-Levelling",
+    description:
+      "Cementitious self-levelling and screed substrates — the precision base every premium finish depends on.",
+  },
+  {
+    slug: "marble-installation",
+    title: "Marble Installation",
+    short: "Marble",
+    description:
+      "Specialist marble installation across hotel, residential and infrastructure projects — including quartz and engineered stone.",
+  },
+  {
+    slug: "large-format-tiling",
+    title: "Large Format Tiling",
+    short: "Tiling",
+    description:
+      "Precision installation of large-format porcelain and stone slabs — the finish where tolerances are unforgiving.",
+  },
+  {
+    slug: "polishing",
+    title: "Polishing — Marble & Floors",
+    short: "Polishing",
+    description:
+      "Restoration and finishing polish for natural stone, marble and engineered floors — bringing surfaces back to specification.",
+  },
+  {
+    slug: "design-concrete",
+    title: "Design Concrete & Screeding",
+    short: "Design Concrete",
+    description:
+      "Decorative and structural concrete finishes — including pattern, polished and exposed-aggregate systems.",
   },
   {
     slug: "vinyl-flooring",
     title: "Vinyl Flooring",
     short: "Vinyl",
-    description: "LVT, sheet vinyl and resilient flooring — precision-laid and warranted.",
+    description:
+      "LVT, sheet vinyl and resilient flooring — precision-laid and warranted.",
   },
   {
-    slug: "screed-self-levelling",
-    title: "Screed & Self-Levelling",
-    short: "Screed",
-    description: "Cementitious and self-levelling screeds — the substrate the finish depends on.",
+    slug: "insulation",
+    title: "Insulation",
+    short: "Insulation",
+    description:
+      "Thermal and acoustic insulation systems for floors, walls and roofs.",
   },
   {
-    slug: "waterproofing",
-    title: "Waterproofing",
-    short: "Waterproofing",
-    description: "Membrane, liquid and crystalline systems for wet rooms, terraces and below-grade.",
-  },
-  {
-    slug: "tiling",
-    title: "Tiling",
-    short: "Tiling",
-    description: "Wall and floor tiling — large-format, mosaic, and natural stone.",
-  },
-  {
-    slug: "microcement",
-    title: "Microcement",
-    short: "Microcement",
-    description: "Seamless cementitious micro-finish for walls and floors.",
-  },
-  {
-    slug: "paint",
-    title: "Paint — Interior & Exterior",
-    short: "Paint",
-    description: "Specification-grade paint systems for interior walls, ceilings and exterior facades.",
+    slug: "painting",
+    title: "Interior & Exterior Painting",
+    short: "Painting",
+    description:
+      "Specification-grade paint systems for interior walls and ceilings, and weather-tested exterior facades.",
   },
   {
     slug: "general-maintenance",
-    title: "General Maintenance",
+    title: "Repair & General Maintenance",
     short: "Maintenance",
-    description: "Reactive and planned maintenance — the after-sales relationship that protects the work.",
+    description:
+      "Reactive and planned maintenance — the after-sales relationship that protects the work.",
   },
 ] as const;
 
 export type Discipline = (typeof DISCIPLINES)[number];
+
+// ─── Approved applicator brands (per company profile, page 22) ───
+export const APPROVED_APPLICATORS = [
+  { name: "Mapei",     slug: "mapei" },
+  { name: "Laticrete", slug: "laticrete" },
+  { name: "AkzoNobel", slug: "akzonobel" },
+  { name: "X-Calibur", slug: "x-calibur" },
+] as const;
+
+// ─── Selected reference projects (per company profile, pages 10-17) ───
+export const REFERENCE_PROJECTS = [
+  { name: "Atlantis The Royal",          location: "Palm Jumeirah, Dubai" },
+  { name: "Al Wathba Desert Resort & Spa", location: "Abu Dhabi" },
+  { name: "Ahlatci Gold Refinery",       location: "Industrial" },
+  { name: "St. Regis Developments",      location: "UAE" },
+  { name: "The Address Boulevard Hotel", location: "Dubai" },
+  { name: "Jumeirah Golf Villas",        location: "Dubai" },
+  { name: "Dubai Hills Villas",          location: "Dubai" },
+  { name: "Le Méridien Hotels",          location: "UAE" },
+  { name: "Masha'Allah Building",        location: "Al Nahda" },
+  { name: "Delhi Metro",                 location: "Delhi, India" },
+  { name: "Patna Metro Station",         location: "Patna, India" },
+  { name: "Omaxe Mall",                  location: "Delhi, India" },
+] as const;
 
 // ─── Navbar items (top-level) ───
 export const NAV_ITEMS = [

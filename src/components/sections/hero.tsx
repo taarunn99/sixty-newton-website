@@ -32,7 +32,7 @@ export function Hero() {
             <p className="eyebrow flex items-center gap-3 text-fg-muted">
               <span aria-hidden className="inline-block h-1 w-1 rounded-full bg-gold" />
               <span className="lowercase tracking-[0.28em]">
-                mep <span className="text-fg-subtle mx-1">·</span> fit-out <span className="text-fg-subtle mx-1">·</span> pools & specialist systems
+                waterproofing <span className="text-fg-subtle mx-1">·</span> microtopping <span className="text-fg-subtle mx-1">·</span> seamless flooring
               </span>
               <span aria-hidden className="inline-block h-1 w-1 rounded-full bg-gold" />
             </p>
@@ -42,18 +42,18 @@ export function Hero() {
               id="hero-heading"
               className="font-serif mt-10 text-fg leading-[0.95] tracking-[-0.01em] text-[clamp(3rem,9vw,8.5rem)] font-light"
             >
-              <span className="block">Precision</span>
+              <span className="block">Your go-to</span>
               <span className="block">
-                Engineered,{" "}
-                <em className="italic font-light">at Scale.</em>
+                <em className="italic font-light">applicators.</em>
               </span>
             </h1>
 
             {/* Sub-paragraph (italic serif) */}
-            <p className="font-serif italic mt-10 max-w-[34rem] text-balance text-lg md:text-xl text-fg-muted leading-relaxed">
-              A single-source fit-out contractor for mechanical, electrical, plumbing,
-              swimming pool and joinery scopes — delivered with the discipline of an
-              atelier and the throughput of a tier-one builder.
+            <p className="font-serif italic mt-10 max-w-[36rem] text-balance text-lg md:text-xl text-fg-muted leading-relaxed">
+              A specialist contracting partner powering the UAE&rsquo;s most demanding
+              projects — waterproofing, microtopping, epoxy, large-format tiling and
+              high-performance finishes. Approved applicators for Mapei, Laticrete,
+              AkzoNobel and X-Calibur.
             </p>
 
             {/* CTAs */}
