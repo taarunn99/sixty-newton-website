@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section
+      id="hero"
       aria-labelledby="hero-heading"
       className="relative isolate w-full min-h-[100dvh] overflow-hidden bg-bg pt-16 md:pt-[72px]"
     >

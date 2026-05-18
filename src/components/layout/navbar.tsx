@@ -8,22 +8,57 @@ import { MobileMenu } from "./mobile-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+/**
+ * Navbar — transparent at rest, solid on:
+ *  - desktop hover (mouseenter on the header)
+ *  - the drawer being open (visual continuity)
+ *  - scrolling past the home `#hero` section (mobile-friendly: no hover possible)
+ *  - any non-home route (no hero on the page → default to solid for readability)
+ */
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [hovered, setHovered] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  // Default: solid on non-home routes (no hero). Home: starts transparent, flips
+  // once the hero scrolls out of the viewport.
+  const [pastHero, setPastHero] = useState(pathname !== "/");
 
+  // Re-evaluate baseline when route changes
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setPastHero(pathname !== "/");
+  }, [pathname]);
+
+  // Track when the home `#hero` section leaves the viewport
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const heroEl = document.getElementById("hero");
+    if (!heroEl) {
+      setPastHero(true);
+      return;
+    }
+    setPastHero(false);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        // entry.isIntersecting === true while the hero is visible at all in the viewport.
+        // Navbar stays transparent while any of the hero is on screen; goes solid once
+        // we've scrolled past it entirely.
+        setPastHero(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "-64px 0px 0px 0px" }, // shrink top by navbar height
+    );
+    io.observe(heroEl);
+    return () => io.disconnect();
+  }, [pathname]);
+
+  const solid = hovered || drawerOpen || pastHero;
 
   return (
     <header
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300",
-        scrolled
+        solid
           ? "bg-bg/85 backdrop-blur-md border-b border-border"
           : "bg-transparent border-b border-transparent",
       )}
@@ -71,7 +106,7 @@ export function Navbar() {
               <Link href="/request-a-quote">Request a Quote</Link>
             </Button>
           </div>
-          <MobileMenu />
+          <MobileMenu open={drawerOpen} onOpenChange={setDrawerOpen} />
         </div>
       </div>
     </header>

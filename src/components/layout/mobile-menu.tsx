@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -17,10 +17,18 @@ import { cn } from "@/lib/utils";
  * - Inner scroll is functional but the scrollbar is hidden — no second-scrollbar UX.
  * - Page scroll is locked while open (document.body.style.overflow).
  * - Explicit X close button in the drawer's top-right corner.
+ *
+ * Open state is hoisted into <Navbar> so the navbar can flip to its "solid"
+ * appearance while the drawer is on screen.
  */
-export function MobileMenu() {
-  const [open, setOpen] = useState(false);
+type MobileMenuProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
   const pathname = usePathname();
+  const setOpen = onOpenChange;
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -42,7 +50,7 @@ export function MobileMenu() {
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        onClick={() => setOpen(v => !v)}
+        onClick={() => setOpen(!open)}
         className="inline-flex h-11 w-11 items-center justify-center text-fg/90 hover:text-gold transition-colors duration-200"
       >
         {open ? <X size={20} /> : <Menu size={20} />}
