@@ -15,7 +15,7 @@ export const SITE = {
     "UAE specialist contracting — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sixtynewton.com",
   locale: "en_US",
-  themeColor: "#1a1410",
+  themeColor: "#0a0807",
 
   // ─── Contact ───
   phone: "+971 50 619 4737",

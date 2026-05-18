@@ -8,27 +8,27 @@
    ───────────────────────────────────────────────────────── */
 
 :root {
-  /* Surface */
-  --bg:                 #1a1410;  /* deep charcoal-brown — hero background */
-  --bg-elevated:        #221a14;  /* cards, modals */
-  --bg-inset:           #14100c;  /* deeper notches */
+  /* Surface — near-black with a hint of warm */
+  --bg:                 #0a0807;  /* near-black ground */
+  --bg-elevated:        #11100e;  /* cards, modals */
+  --bg-inset:           #050403;  /* deepest notches (footer, etc.) */
 
   /* Foreground */
-  --fg:                 #f3ead2;  /* warm cream — primary type */
-  --fg-muted:           #a89a82;  /* secondary type */
-  --fg-subtle:          #6e6555;  /* labels, meta */
+  --fg:                 #efe8d5;  /* primary type — slightly cooler cream */
+  --fg-muted:           #8f8674;  /* secondary type */
+  --fg-subtle:          #5a5346;  /* labels, meta */
 
-  /* Accent — champagne gold */
-  --gold:               #c9a263;
-  --gold-hover:         #d9b478;
-  --gold-soft:          #8a6c3d;
-  --gold-tint:          rgba(201, 162, 99, 0.12);
+  /* Accent — champagne gold (desaturated one tone for premium feel) */
+  --gold:               #b8924f;
+  --gold-hover:         #cba569;
+  --gold-soft:          #6e572f;
+  --gold-tint:          rgba(184, 146, 79, 0.10);
 
-  /* Borders */
-  --border:             #3a2f25;
-  --border-strong:      #5a4a38;
-  --border-hairline:    rgba(243, 234, 210, 0.12);
-  --border-dashed:      rgba(243, 234, 210, 0.24);
+  /* Borders — hairlines by default */
+  --border:             rgba(239, 232, 213, 0.08);
+  --border-strong:      rgba(239, 232, 213, 0.18);
+  --border-hairline:    rgba(239, 232, 213, 0.06);
+  --border-dashed:      rgba(239, 232, 213, 0.14);
 
   /* Motion */
   --ease-out-quint:     cubic-bezier(0.22, 1, 0.36, 1);

@@ -16,17 +16,17 @@ export default function OG() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#1a1410",
+          background: "#0a0807",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          color: "#f3ead2",
+          color: "#efe8d5",
           fontFamily: "Georgia, serif",
           padding: 80,
           textAlign: "center",
           backgroundImage:
-            "radial-gradient(ellipse at 50% 55%, rgba(201,162,99,0.10), transparent 60%)",
+            "radial-gradient(ellipse at 50% 55%, rgba(184,146,79,0.10), transparent 60%)",
         }}
       >
         <div
@@ -37,36 +37,36 @@ export default function OG() {
             fontSize: 18,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "#a89a82",
+            color: "#8f8674",
             fontFamily: "Helvetica, Arial, sans-serif",
           }}
         >
-          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#c9a263" }} />
-          mep · fit-out · pools & specialist systems
-          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#c9a263" }} />
+          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#b8924f" }} />
+          waterproofing · microtopping · seamless flooring
+          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#b8924f" }} />
         </div>
         <div
           style={{
-            fontSize: 132,
+            fontSize: 138,
             fontWeight: 300,
             lineHeight: 1,
             marginTop: 40,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
           }}
         >
-          Precision Engineered,
+          Your go-to
         </div>
         <div
           style={{
-            fontSize: 132,
+            fontSize: 138,
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 1,
             marginTop: 8,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
           }}
         >
-          at Scale.
+          applicators.
         </div>
         <div
           style={{
@@ -74,7 +74,7 @@ export default function OG() {
             fontSize: 20,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "#c9a263",
+            color: "#b8924f",
             fontFamily: "Helvetica, Arial, sans-serif",
           }}
         >
