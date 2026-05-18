@@ -5,7 +5,7 @@ import { PageHero, StubBody } from "@/components/sections/page-hero";
 export const metadata: Metadata = buildMetadata({
   title: "Approach",
   description:
-    "How Sixty Newton operates — the atelier discipline and tier-one builder throughput that defines our delivery.",
+    "How Sixty Newton works — disciplined execution, precision delivery and approved-applicator standards on every project.",
   path: "/approach",
 });
 
@@ -15,7 +15,7 @@ export default function ApproachPage() {
       <PageHero
         eyebrow="How we work"
         title="Approach"
-        subtitle="The discipline of an atelier. The throughput of a tier-one builder."
+        subtitle="Disciplined execution. Precision delivery. Approved-applicator standards on every project."
       />
       <StubBody>
         Methodology, process diagrams and capability statement coming online.

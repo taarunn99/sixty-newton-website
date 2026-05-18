@@ -5,7 +5,7 @@ import { PageHero, StubBody } from "@/components/sections/page-hero";
 export const metadata: Metadata = buildMetadata({
   title: "Blog",
   description:
-    "Field notes on MEP, fit-out, swimming pools and finishings — written by the team delivering the work.",
+    "Field notes on waterproofing, microtopping, epoxy and large-format finishes — written by the team delivering the work.",
   path: "/blog",
 });
 

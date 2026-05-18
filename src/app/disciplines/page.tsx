@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
-import { PageHero, StubBody } from "@/components/sections/page-hero";
+import { PageHero } from "@/components/sections/page-hero";
 import { DISCIPLINES } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Disciplines",
   description:
-    "Eleven disciplines, delivered under one contract: MEP, swimming pools, fit-out, epoxy and vinyl flooring, screed, waterproofing, tiling, microcement, paint and maintenance.",
+    "Specialist contracting disciplines — waterproofing, microtopping, epoxy, marble installation, large-format tiling, painting and maintenance. Delivered across the UAE.",
   path: "/disciplines",
 });
 
@@ -16,19 +16,20 @@ export default function DisciplinesPage() {
       <PageHero
         eyebrow="What we do"
         title="Disciplines"
-        subtitle="Eleven disciplines, one contract. Coordinated from drawing to handover."
+        subtitle="Specialist services delivered under one contract — coordinated from substrate to finish."
       />
-      <section className="mx-auto max-w-[1200px] px-5 md:px-10 py-20 md:py-28">
-        <ul className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3 border border-border">
+      <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-20 md:py-28">
+        <ul className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3 border border-border-hairline">
           {DISCIPLINES.map(d => (
             <li key={d.slug} className="bg-bg p-8 md:p-10">
               <p className="eyebrow text-gold">{d.short}</p>
-              <h2 className="font-serif text-3xl text-fg mt-4 leading-tight">{d.title}</h2>
+              <h2 className="font-serif font-light text-3xl text-fg mt-4 leading-tight tracking-[-0.01em]">
+                {d.title}
+              </h2>
               <p className="mt-4 text-fg-muted text-sm leading-relaxed">{d.description}</p>
             </li>
           ))}
         </ul>
-        <StubBody>Per-discipline pages, photography and case studies coming online next.</StubBody>
       </section>
     </>
   );
