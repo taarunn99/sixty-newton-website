@@ -41,7 +41,8 @@ export function ClientReel() {
               playOnInit: true,
               speed: 0.6,
               stopOnInteraction: false,
-              stopOnMouseEnter: true,
+              stopOnMouseEnter: false,
+              stopOnFocusIn: false,
             }),
           ]}
         >
