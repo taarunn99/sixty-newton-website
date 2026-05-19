@@ -2,108 +2,105 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { HAMBURGER_GROUPS, NAV_ITEMS } from "@/constants/site";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /**
- * Universal drawer menu.
- * - Trigger visible at ALL viewports (right side of the navbar, beside Request a Quote)
- * - On <md: full-screen overlay with NAV_ITEMS + Request a Quote at the top, then
- *   HAMBURGER_GROUPS below.
- * - On md+: right-side panel (460px) with HAMBURGER_GROUPS only (centre nav already
- *   shows NAV_ITEMS).
- * - Inner scroll is functional but the scrollbar is hidden — no second-scrollbar UX.
- * - Page scroll is locked while open (document.body.style.overflow).
- * - Explicit X close button in the drawer's top-right corner.
+ * Drawer overlay/panel — controlled component, no internal open state.
+ * Hamburger trigger lives in Navbar (parent). This component renders only
+ * the backdrop + the panel itself.
  *
- * Open state is hoisted into <Navbar> so the navbar can flip to its "solid"
- * appearance while the drawer is on screen.
+ * Mobile (<md): full-screen overlay. Contents (top → bottom):
+ *   1. Primary nav (Home, Disciplines, Approach, Portfolio, About) —
+ *      LARGE editorial serif. Visually dominant — these are the main routes.
+ *   2. Hairline divider
+ *   3. Overflow groups (Disciplines sub-pages, Applicators, Reference,
+ *      Legal) — small tracked sans with eyebrow headings.
+ *
+ * Desktop (md+): right-side 460px panel. Contents:
+ *   - ONLY the overflow groups (primary nav already lives in the centre nav).
+ *
+ * Page scroll is locked while open; scrollbar inside the drawer is hidden
+ * via .scrollbar-hide; wheel/touch scroll still works.
  */
-type MobileMenuProps = {
+type DrawerProps = {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onClose: () => void;
 };
 
-export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
+export function Drawer({ open, onClose }: DrawerProps) {
   const pathname = usePathname();
-  const setOpen = onOpenChange;
 
-  useEffect(() => setOpen(false), [pathname]);
-
+  // Body scroll lock while open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Esc to close
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, onClose]);
 
   return (
     <>
-      <button
-        type="button"
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        onClick={() => setOpen(!open)}
-        className="inline-flex h-11 w-11 items-center justify-center text-fg/90 hover:text-gold transition-colors duration-200"
-      >
-        {open ? <X size={20} /> : <Menu size={20} />}
-      </button>
-
-      {/* Backdrop (md+) — z-[55] so it sits above the navbar (z-50) but below the panel */}
+      {/* Backdrop (md+ only — mobile drawer is full-screen already) */}
       <div
         className={cn(
-          "fixed inset-0 z-[55] bg-bg/70 backdrop-blur-sm transition-opacity duration-300",
+          "fixed inset-0 z-[55] hidden md:block bg-bg/70 backdrop-blur-sm transition-opacity duration-300",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-          "hidden md:block",
         )}
-        onClick={() => setOpen(false)}
+        onClick={onClose}
         aria-hidden
       />
 
-      {/* Drawer panel — z-[60] guarantees it sits above the navbar regardless of stacking quirks */}
-      <div
+      {/* Drawer panel */}
+      <aside
+        id="sn-drawer"
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
         className={cn(
+          // Mobile: full-screen overlay
           "fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md transition-all duration-300",
+          // Desktop: right-side panel
           "md:left-auto md:right-0 md:top-0 md:h-dvh md:w-[460px] md:bg-bg-elevated md:border-l md:border-border md:backdrop-blur-none",
           open
             ? "opacity-100 pointer-events-auto translate-x-0"
             : "opacity-0 pointer-events-none md:translate-x-8",
         )}
       >
-        {/* Inline close X — top-right of the panel */}
+        {/* Close X — top-right of panel */}
         <button
           type="button"
           aria-label="Close menu"
-          onClick={() => setOpen(false)}
-          className="absolute top-5 right-5 md:top-6 md:right-6 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-fg/90 hover:text-gold hover:border-gold transition-colors duration-200"
+          onClick={onClose}
+          className="absolute top-5 right-5 md:top-6 md:right-6 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-fg hover:text-gold hover:border-gold transition-colors duration-200"
         >
           <X size={18} />
         </button>
 
-        {/* Scrollable content — scrollbar hidden, scroll still works via wheel/touch */}
-        <div className="h-full overflow-y-auto scrollbar-hide px-6 md:px-10 pt-20 md:pt-24 pb-12">
-          {/* <md only: surface centre nav at top */}
+        <div className="h-full overflow-y-auto scrollbar-hide px-8 md:px-10 pt-20 md:pt-24 pb-12">
+          {/* ── Primary nav (mobile only) — editorial serif treatment ── */}
           <div className="md:hidden">
-            <p className="eyebrow text-fg-subtle">Main</p>
-            <ul className="mt-5 space-y-4">
+            <p className="eyebrow text-fg-subtle">Navigate</p>
+            <ul className="mt-6 space-y-5">
               {NAV_ITEMS.map(item => {
-                const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/"));
+                const active = item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(item.href + "/");
                 return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      onClick={onClose}
                       className={cn(
-                        "font-serif text-3xl tracking-tight transition-colors duration-200 block",
+                        "block font-serif font-extralight text-4xl tracking-[-0.02em] transition-colors duration-200",
                         active ? "text-gold" : "text-fg hover:text-gold",
                       )}
                     >
@@ -112,21 +109,16 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
                   </li>
                 );
               })}
-              <li className="pt-2">
-                <Button asChild size="md">
-                  <Link href="/request-a-quote">Request a Quote</Link>
-                </Button>
-              </li>
             </ul>
-            <div className="my-10 h-px bg-border" />
+            <div className="my-10 h-px w-full bg-border" />
           </div>
 
-          {/* Overflow groups */}
-          <div className="space-y-10">
+          {/* ── Overflow groups (both viewports) — small tracked sans ── */}
+          <div className="space-y-9">
             {HAMBURGER_GROUPS.map(group => (
               <div key={group.heading}>
-                <p className="eyebrow text-fg-subtle">{group.heading}</p>
-                <ul className="mt-5 space-y-2.5">
+                <p className="eyebrow text-gold">{group.heading}</p>
+                <ul className="mt-4 space-y-2">
                   {group.items.map(item =>
                     item.external ? (
                       <li key={`${group.heading}-${item.label}-${item.href}`}>
@@ -134,7 +126,8 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-fg/85 hover:text-gold transition-colors duration-200 text-base"
+                          onClick={onClose}
+                          className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
                         >
                           {item.label}
                         </a>
@@ -143,7 +136,8 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
                       <li key={`${group.heading}-${item.label}-${item.href}`}>
                         <Link
                           href={item.href}
-                          className="text-fg/85 hover:text-gold transition-colors duration-200 text-base"
+                          onClick={onClose}
+                          className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
                         >
                           {item.label}
                         </Link>
@@ -154,8 +148,17 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
               </div>
             ))}
           </div>
+
+          {/* ── Bottom CTA bar (mobile only) — primary action stays one tap away ── */}
+          <div className="md:hidden mt-12 pt-8 border-t border-border">
+            <Button asChild size="lg" className="w-full">
+              <Link href="/request-a-quote" onClick={onClose}>
+                Request a Quote
+              </Link>
+            </Button>
+          </div>
         </div>
-      </div>
+      </aside>
     </>
   );
 }
