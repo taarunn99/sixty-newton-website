@@ -14,13 +14,16 @@ export const metadata: Metadata = buildMetadata({
 export default function DisciplinesPage() {
   return (
     <>
+      {/* PageHero — bottom border + bottom padding cut so the reel sits
+          seamlessly under the subtitle on this route. */}
       <PageHero
         eyebrow="What we do"
         title="Disciplines"
         subtitle="Specialist services delivered under one contract — coordinated from substrate to finish."
+        className="border-b-0 pb-6 md:pb-10"
       />
 
-      {/* Auto-scrolling reel of discipline icons */}
+      {/* Auto-scrolling reel of discipline icons — seamless under the subtitle */}
       <DisciplineReel />
 
       <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-20 md:py-28">

@@ -25,7 +25,7 @@ export function DisciplineReel() {
   return (
     <section
       aria-label="Disciplines — visual reel"
-      className="relative w-full border-b border-border bg-bg py-10 md:py-14 overflow-hidden"
+      className="relative w-full bg-bg py-3 md:py-5 overflow-hidden"
     >
       <div className="relative mx-auto w-full">
         <Carousel
@@ -45,14 +45,14 @@ export function DisciplineReel() {
             {[...ICONS, ...ICONS].map((id, i) => (
               <CarouselItem
                 key={`${id}-${i}`}
-                className="flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-[12.5%]"
+                className="flex basis-1/4 justify-center pl-0 sm:basis-1/5 md:basis-1/6 lg:basis-1/8 xl:basis-[10%]"
               >
-                <div className="mx-8 md:mx-12 flex h-16 md:h-20 shrink-0 items-center justify-center">
+                <div className="mx-6 md:mx-10 flex h-8 md:h-10 shrink-0 items-center justify-center">
                   <Image
                     src={`/icons/disciplines/${id}.webp`}
                     alt=""
-                    width={120}
-                    height={120}
+                    width={64}
+                    height={64}
                     className="h-full w-auto object-contain opacity-80 transition-opacity duration-300 hover:opacity-100"
                   />
                 </div>
