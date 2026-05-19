@@ -90,20 +90,22 @@ export function CredentialsSection({ showAboutLink = false }: CredentialsSection
           </div>
         </div>
 
-        {/* Bottom-right About Us CTA — home page only */}
+        {/* Bottom-right About Us CTA — home page only.
+            Outline at rest, fills solid gold on hover (matches the navbar
+            Request a Quote button's filled-gold appearance). */}
         {showAboutLink && (
           <div className="mt-12 flex justify-end">
             <Link
               href="/about"
-              className="group inline-flex items-center gap-2 rounded-md border border-gold/50 bg-gradient-to-br from-bg-elevated to-bg-inset px-5 py-3 hover:border-gold transition-colors duration-200"
+              className="group inline-flex items-center gap-2 rounded-md border border-gold bg-transparent px-5 py-3 transition-colors duration-200 hover:bg-gold"
             >
-              <span className="eyebrow text-gold group-hover:text-gold-hover transition-colors">
+              <span className="eyebrow text-gold transition-colors group-hover:text-bg">
                 About Us
               </span>
               <ArrowRight
                 size={14}
-                className="text-gold group-hover:translate-x-1 transition-transform duration-200"
                 aria-hidden
+                className="text-gold transition-all duration-200 group-hover:text-bg group-hover:translate-x-1"
               />
             </Link>
           </div>
