@@ -9,26 +9,23 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /**
- * Navbar — transparent at rest, solid on:
+ * Navbar — transparent-feeling at rest (always shows a faint top-fade so items
+ * remain readable on any background), solid when:
  *  - desktop hover (mouseenter on the header)
- *  - the drawer being open (visual continuity)
- *  - scrolling past the home `#hero` section (mobile-friendly: no hover possible)
- *  - any non-home route (no hero on the page → default to solid for readability)
+ *  - drawer is open (visual continuity with the menu)
+ *  - the home `#hero` section has fully scrolled out of view
+ *  - any non-home route (no hero → default to solid)
  */
 export function Navbar() {
   const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // Default: solid on non-home routes (no hero). Home: starts transparent, flips
-  // once the hero scrolls out of the viewport.
   const [pastHero, setPastHero] = useState(pathname !== "/");
 
-  // Re-evaluate baseline when route changes
   useEffect(() => {
     setPastHero(pathname !== "/");
   }, [pathname]);
 
-  // Track when the home `#hero` section leaves the viewport
   useEffect(() => {
     if (pathname !== "/") return;
     const heroEl = document.getElementById("hero");
@@ -38,13 +35,8 @@ export function Navbar() {
     }
     setPastHero(false);
     const io = new IntersectionObserver(
-      ([entry]) => {
-        // entry.isIntersecting === true while the hero is visible at all in the viewport.
-        // Navbar stays transparent while any of the hero is on screen; goes solid once
-        // we've scrolled past it entirely.
-        setPastHero(!entry.isIntersecting);
-      },
-      { threshold: 0, rootMargin: "-64px 0px 0px 0px" }, // shrink top by navbar height
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { threshold: 0, rootMargin: "-64px 0px 0px 0px" },
     );
     io.observe(heroEl);
     return () => io.disconnect();
@@ -63,14 +55,25 @@ export function Navbar() {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      {/* 3-col grid: equal-fr left + right with auto centre = true viewport-centred nav */}
+      {/* Always-on subtle top-fade so navbar items remain readable even when
+          the header itself is "transparent". Sits behind navbar content, doesn't
+          intercept clicks, doesn't add visual weight when content underneath
+          is already dark. */}
+      {!solid && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-bg/60 via-bg/20 to-transparent"
+        />
+      )}
+
+      {/* 3-col grid: equal-fr left + right with auto centre = viewport-centred nav */}
       <div className="mx-auto grid h-16 md:h-[72px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
         {/* Left — brand */}
         <div className="flex items-center">
           <Logo size={72} priority />
         </div>
 
-        {/* Centre — main nav */}
+        {/* Centre — main nav (hidden below md, lives in hamburger drawer there) */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-10 justify-self-center">
           {NAV_ITEMS.map(item => {
             const active =
@@ -82,7 +85,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "eyebrow tracking-[0.22em] text-fg/85 hover:text-fg transition-colors duration-200 relative",
+                  "eyebrow tracking-[0.22em] text-fg hover:text-gold transition-colors duration-200 relative",
                   active && "text-gold",
                 )}
               >
@@ -99,13 +102,14 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right — CTA + hamburger */}
+        {/* Right — CTA + hamburger. Both visible at ALL viewports now. */}
         <div className="flex items-center gap-2 md:gap-3 justify-self-end">
-          <div className="hidden md:block">
-            <Button asChild size="md">
-              <Link href="/request-a-quote">Request a Quote</Link>
-            </Button>
-          </div>
+          <Button asChild size="sm" className="md:hidden">
+            <Link href="/request-a-quote">Quote</Link>
+          </Button>
+          <Button asChild size="md" className="hidden md:inline-flex">
+            <Link href="/request-a-quote">Request a Quote</Link>
+          </Button>
           <MobileMenu open={drawerOpen} onOpenChange={setDrawerOpen} />
         </div>
       </div>

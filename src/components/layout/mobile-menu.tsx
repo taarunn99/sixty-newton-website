@@ -56,10 +56,10 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Backdrop (md+) */}
+      {/* Backdrop (md+) — z-[55] so it sits above the navbar (z-50) but below the panel */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-bg/70 backdrop-blur-sm transition-opacity duration-300",
+          "fixed inset-0 z-[55] bg-bg/70 backdrop-blur-sm transition-opacity duration-300",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           "hidden md:block",
         )}
@@ -67,13 +67,13 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
         aria-hidden
       />
 
-      {/* Drawer panel */}
+      {/* Drawer panel — z-[60] guarantees it sits above the navbar regardless of stacking quirks */}
       <div
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
         className={cn(
-          "fixed inset-0 z-50 bg-bg/95 backdrop-blur-md transition-all duration-300",
+          "fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md transition-all duration-300",
           "md:left-auto md:right-0 md:top-0 md:h-dvh md:w-[460px] md:bg-bg-elevated md:border-l md:border-border md:backdrop-blur-none",
           open
             ? "opacity-100 pointer-events-auto translate-x-0"
