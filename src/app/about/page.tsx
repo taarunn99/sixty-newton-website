@@ -73,7 +73,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-6">
             <Button asChild variant="outlineFill" size="md" className="group">
-              <Link href="/applicator-certifications">
+              <Link href="/approach#applicators">
                 View certifications
                 <ArrowRight
                   size={14}

@@ -199,7 +199,7 @@ export type Discipline = (typeof DISCIPLINES)[number];
 
 // ─── Approved applicator brands (per company profile, page 22) ───
 // Slugs MUST match APPLICATOR_CERTIFICATES[].slug below so hamburger / footer
-// anchors resolve to certificate cards on /applicator-certifications.
+// anchors resolve to certificate cards on /approach.
 export const APPROVED_APPLICATORS = [
   { name: "Mapei",     slug: "mapei" },
   { name: "Laticrete", slug: "laticrete" },
@@ -251,7 +251,7 @@ export const HAMBURGER_GROUPS: readonly HamburgerGroup[] = [
     heading: "Applicators",
     items: APPROVED_APPLICATORS.map(b => ({
       label: b.name,
-      href: `/applicator-certifications#${b.slug}`,
+      href: `/approach#${b.slug}`,
     })),
   },
   {
@@ -373,7 +373,7 @@ export const FOOTER_SECTIONS: readonly FooterSection[] = [
     links: [
       { label: "Disciplines", href: "/disciplines" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Applicators", href: "/applicator-certifications" },
+      { label: "Applicators", href: "/approach#applicators" },
     ],
   },
   {

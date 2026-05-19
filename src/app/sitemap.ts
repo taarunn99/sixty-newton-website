@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/approach",
     "/portfolio",
     "/about",
-    "/applicator-certifications",
     "/blog",
     "/faq",
     "/request-a-quote",

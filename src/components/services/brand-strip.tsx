@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
  * Approved-applicator logo strip.
  * Used at the foot of the ServiceHero and again before the closing CTA.
  * Logos render in their natural colour over the dark background; each links
- * to the certificate row on /applicator-certifications.
+ * to the certificate row on /approach (pillar page for credentials).
  */
 export function BrandStrip({
   className,
@@ -28,7 +28,7 @@ export function BrandStrip({
       {APPLICATOR_CERTIFICATES.map(cert => (
         <Link
           key={cert.slug}
-          href={`/applicator-certifications#${cert.slug}`}
+          href={`/approach#${cert.slug}`}
           className="group relative block opacity-70 transition-opacity duration-200 hover:opacity-100 focus-visible:opacity-100"
           aria-label={`${cert.brand} — approved applicator certificate`}
         >

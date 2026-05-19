@@ -40,6 +40,9 @@ const nextConfig: NextConfig = {
       { source: "/clients", destination: "/portfolio", permanent: true },
       // /contact absorbed into /request-a-quote
       { source: "/contact", destination: "/request-a-quote", permanent: true },
+      // /applicator-certifications absorbed into /approach (first sections)
+      { source: "/applicator-certifications", destination: "/approach", permanent: true },
+      { source: "/applicator-certifications/:path*", destination: "/approach", permanent: true },
     ];
   },
 
