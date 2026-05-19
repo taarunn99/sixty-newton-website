@@ -66,10 +66,10 @@ export const metadata: Metadata = {
     images: [SITE.ogImage],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  icons: {
-    icon: [{ url: "/icon", type: "image/svg+xml" }],
-    apple: [{ url: "/apple-icon.png" }],
-  },
+  // Favicon + Apple touch icon — Next.js auto-detects /src/app/icon.svg and
+  // /src/app/apple-icon.png and injects the correct <link rel> tags, so no
+  // explicit `icons` field is needed here. Removed to avoid stale references
+  // to the deleted dynamic /icon route.
 };
 
 export const viewport: Viewport = {
