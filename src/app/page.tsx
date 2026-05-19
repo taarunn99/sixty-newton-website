@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ScrollSequence } from "@/components/sections/scroll-sequence";
 import { CredentialsSection } from "@/components/sections/credentials";
+import { HomeEnquiry } from "@/components/sections/home-enquiry";
 import { SITE } from "@/constants/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -16,11 +17,8 @@ export default function HomePage() {
     <>
       <Hero />
       <ScrollSequence />
-      <CredentialsSection />
-      {/*
-        More scroll-driven sections to come below:
-        Disciplines reveal · Approach beats · Selected work · Clients · Closing CTA.
-      */}
+      <CredentialsSection showAboutLink />
+      <HomeEnquiry />
     </>
   );
 }

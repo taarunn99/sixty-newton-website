@@ -270,15 +270,16 @@ export const COMPANY_DOCUMENTS: readonly CompanyDocument[] = [
 ];
 
 // ─── Applicator certificates from manufacturer partners ───
-// slug matches /public/brand/applicators/<slug>.png
+// Each logo uses whichever format compressed smaller (mixed PNG/WebP).
+// `puzzleSpan` controls the bento layout at md+ (col-span on a 12-col grid).
 export type ApplicatorCertificate = {
   slug: "mapei" | "laticrete" | "akzonobel" | "xcalibur";
   brand: string;
   scope: string;
   href: string;
-  // Logos vary wildly in aspect — let each one size itself within the chip
-  // rather than forcing a uniform box.
-  logoAspect?: "square" | "wide";
+  logoSrc: string;
+  logoAspect: "square" | "wide";
+  puzzleSpan: 5 | 7;  // 12-col bento: alternates 7+5 / 5+7 for zigzag interlock
 };
 
 export const APPLICATOR_CERTIFICATES: readonly ApplicatorCertificate[] = [
@@ -287,25 +288,36 @@ export const APPLICATOR_CERTIFICATES: readonly ApplicatorCertificate[] = [
     brand: "Mapei",
     scope: "Adhesives, grouts, waterproofing",
     href: "/docs/mapei-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/mapei.png",
+    logoAspect: "square",
+    puzzleSpan: 7,
   },
   {
     slug: "laticrete",
     brand: "Laticrete",
     scope: "Tile & stone systems",
     href: "/docs/laticrete-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/laticrete.webp",
+    logoAspect: "square",
+    puzzleSpan: 5,
   },
   {
     slug: "akzonobel",
     brand: "AkzoNobel · Dulux",
     scope: "Decorative & protective coatings",
     href: "/docs/akzonobel-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/akzonobel.webp",
+    logoAspect: "square",
+    puzzleSpan: 5,
   },
   {
     slug: "xcalibur",
     brand: "X-Calibur",
-    scope: "Concrete admixtures & repair systems",
+    scope: "Concrete admixtures & repair",
     href: "/docs/xcalibur-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/xcalibur.webp",
     logoAspect: "wide",
+    puzzleSpan: 7,
   },
 ];
 

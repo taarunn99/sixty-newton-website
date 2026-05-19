@@ -5,14 +5,15 @@ import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * DocButton — full-width client-island anchor that opens a PDF in a new tab.
+ * DocButton — client-island anchor that opens a PDF in a new tab.
  *
- * - Mouse-tracking radial gradient (gold spotlight that follows the cursor on
- *   hover) — adapted from the user-provided snippet, recoloured to the brand
- *   palette. No effect on touch devices (opacity stays at 0).
- * - Optional logo chip on the left. Brand logos stay in their native colours
- *   inside a neutral chip so the variety doesn't fight the dark background.
- * - Right-aligned "View" + ArrowUpRight signals "opens externally / in a new tab".
+ * - Mouse-tracking gold radial spotlight on hover (adapted from the
+ *   user-provided snippet, recoloured to brand palette).
+ * - Logo renders NAKED (no chip / no border around it) per design feedback.
+ *   Brand logos stay in their native colours; the dark button background
+ *   provides enough contrast.
+ * - Fills its parent cell — height is controlled by the grid cell, not by
+ *   the button itself. Lets callers compose puzzle / bento layouts freely.
  */
 type DocButtonProps = {
   href: string;
@@ -21,8 +22,10 @@ type DocButtonProps = {
   logoSrc?: string;
   logoAlt?: string;
   logoAspect?: "square" | "wide";
-  /** When true, omit the logo chip even if logoSrc is provided. */
+  /** When true, omit the logo entirely (used for legal docs row). */
   hideLogo?: boolean;
+  /** Optional extra className to override layout in puzzle/bento cells. */
+  className?: string;
 };
 
 export function DocButton({
@@ -33,6 +36,7 @@ export function DocButton({
   logoAlt,
   logoAspect = "square",
   hideLogo = false,
+  className,
 }: DocButtonProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -58,11 +62,11 @@ export function DocButton({
       onFocus={() => setOpacity(1)}
       onBlur={() => setOpacity(0)}
       className={cn(
-        "group relative flex w-full items-center gap-4 overflow-hidden rounded-md",
-        "h-16 md:h-[68px] px-4 md:px-5",
-        "border border-gold/40 bg-gradient-to-r from-bg-elevated to-bg-inset",
+        "group relative flex h-full min-h-[72px] w-full items-center gap-4 overflow-hidden rounded-md px-5 md:px-6 py-4",
+        "border border-gold/40 bg-gradient-to-br from-bg-elevated to-bg-inset",
         "text-fg transition-colors duration-300",
         "hover:border-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+        className,
       )}
     >
       {/* Mouse-tracking gold spotlight */}
@@ -71,24 +75,24 @@ export function DocButton({
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{
           opacity,
-          background: `radial-gradient(140px circle at ${pos.x}px ${pos.y}px, rgba(184,146,79,0.30), rgba(0,0,0,0))`,
+          background: `radial-gradient(180px circle at ${pos.x}px ${pos.y}px, rgba(184,146,79,0.32), rgba(0,0,0,0))`,
         }}
       />
 
-      {/* Logo chip — keeps brand logos in their native colours */}
+      {/* Logo — naked, no chip */}
       {showLogo && logoSrc && (
         <span
           aria-hidden
           className={cn(
-            "relative z-10 inline-flex h-10 shrink-0 items-center justify-center rounded border border-border-hairline bg-fg/[0.04] p-1.5",
-            logoAspect === "wide" ? "w-16" : "w-10",
+            "relative z-10 inline-flex shrink-0 items-center justify-center",
+            logoAspect === "wide" ? "h-7 w-20" : "h-10 w-10",
           )}
         >
           <Image
             src={logoSrc}
             alt={logoAlt ?? ""}
-            width={64}
-            height={40}
+            width={logoAspect === "wide" ? 160 : 80}
+            height={logoAspect === "wide" ? 40 : 80}
             className="h-full w-full object-contain"
           />
         </span>
@@ -96,11 +100,11 @@ export function DocButton({
 
       {/* Title + subtitle */}
       <span className="relative z-10 flex min-w-0 flex-1 flex-col text-left">
-        <span className="font-serif font-light text-base md:text-lg tracking-[-0.01em] leading-tight truncate">
+        <span className="font-serif font-light text-lg md:text-xl tracking-[-0.01em] leading-tight truncate">
           {title}
         </span>
         {subtitle && (
-          <span className="eyebrow text-fg-subtle mt-1 truncate normal-case tracking-[0.18em]">
+          <span className="eyebrow text-fg-subtle mt-1.5 truncate normal-case tracking-[0.18em]">
             {subtitle}
           </span>
         )}

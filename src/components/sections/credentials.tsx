@@ -1,16 +1,24 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { APPLICATOR_CERTIFICATES, COMPANY_DOCUMENTS } from "@/constants/site";
 import { DocButton } from "@/components/ui/doc-button";
+import { cn } from "@/lib/utils";
+
+type CredentialsSectionProps = {
+  /** Adds a small bottom-right "About Us →" CTA — only used on the home page,
+   *  hidden on the About page itself (would self-link). */
+  showAboutLink?: boolean;
+};
 
 /**
  * Credentials & Approved-Applicator section.
  *
- * Two distinct rows:
- *   1. Licensed & Compliant — Trade License + VAT (no brand logos; editorial)
- *   2. Approved Applicators — Mapei / Laticrete / AkzoNobel / X-Calibur (with logos)
- *
- * Used on home (after ScrollSequence) AND on the about page.
+ * Row 1 — Licensed & Compliant (Trade License + VAT): simple 2-col, no logos.
+ * Row 2 — Approved Applicators: bento puzzle layout (4 cards on a 12-col grid,
+ *         alternating 7/5 + 5/7 col-spans for zigzag interlock). On <md the
+ *         puzzle collapses to a single column so each card stays readable.
  */
-export function CredentialsSection() {
+export function CredentialsSection({ showAboutLink = false }: CredentialsSectionProps) {
   return (
     <section
       aria-label="Credentials and approved applicators"
@@ -18,7 +26,7 @@ export function CredentialsSection() {
     >
       <div className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-20 md:py-28">
 
-        {/* Section eyebrow + heading */}
+        {/* Heading */}
         <div className="max-w-2xl">
           <p className="eyebrow text-gold flex items-center gap-3">
             <span aria-hidden className="inline-block h-1 w-1 rounded-full bg-gold" />
@@ -33,7 +41,7 @@ export function CredentialsSection() {
           </p>
         </div>
 
-        {/* ── Row 1 — Legal credentials (no logos) ── */}
+        {/* ── Row 1 — Legal credentials (no logos, simple 2-col) ── */}
         <div className="mt-14">
           <p className="eyebrow text-fg-subtle">Licensed &amp; Compliant</p>
           <div className="mt-6 grid gap-3 md:grid-cols-2 md:gap-4">
@@ -44,31 +52,62 @@ export function CredentialsSection() {
                 title={doc.title}
                 subtitle={doc.subtitle}
                 hideLogo
+                className="min-h-[84px]"
               />
             ))}
           </div>
         </div>
 
-        {/* ── Hairline divider between the two rows ── */}
         <div aria-hidden className="my-14 h-px w-full bg-border" />
 
-        {/* ── Row 2 — Approved applicator certificates (with brand logos) ── */}
+        {/* ── Row 2 — Approved Applicator (bento puzzle on md+) ──
+            12-col grid, 2 rows. Row 1: 7+5. Row 2: 5+7. Zigzag.
+            On <md it collapses to 1 column where everything stacks naturally. */}
         <div>
           <p className="eyebrow text-fg-subtle">Approved Applicator</p>
-          <div className="mt-6 grid gap-3 md:grid-cols-2 md:gap-4">
+          <div className="mt-6 grid gap-3 md:grid-cols-12 md:gap-4">
             {APPLICATOR_CERTIFICATES.map(cert => (
-              <DocButton
+              <div
                 key={cert.slug}
-                href={cert.href}
-                title={cert.brand}
-                subtitle={cert.scope}
-                logoSrc={`/brand/applicators/${cert.slug}.png`}
-                logoAlt={`${cert.brand} logo`}
-                logoAspect={cert.logoAspect}
-              />
+                className={cn(
+                  "min-h-[120px]",
+                  cert.puzzleSpan === 7 ? "md:col-span-7" : "md:col-span-5",
+                  // Vary row height for the bento feel: bigger spans get the
+                  // taller cells, smaller spans get the shorter cells.
+                  cert.puzzleSpan === 7 ? "md:min-h-[160px]" : "md:min-h-[140px]",
+                )}
+              >
+                <DocButton
+                  href={cert.href}
+                  title={cert.brand}
+                  subtitle={cert.scope}
+                  logoSrc={cert.logoSrc}
+                  logoAlt={`${cert.brand} logo`}
+                  logoAspect={cert.logoAspect}
+                />
+              </div>
             ))}
           </div>
         </div>
+
+        {/* Bottom-right About Us CTA — home page only */}
+        {showAboutLink && (
+          <div className="mt-12 flex justify-end">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 rounded-md border border-gold/50 bg-gradient-to-br from-bg-elevated to-bg-inset px-5 py-3 hover:border-gold transition-colors duration-200"
+            >
+              <span className="eyebrow text-gold group-hover:text-gold-hover transition-colors">
+                About Us
+              </span>
+              <ArrowRight
+                size={14}
+                className="text-gold group-hover:translate-x-1 transition-transform duration-200"
+                aria-hidden
+              />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
