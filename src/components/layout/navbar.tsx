@@ -75,14 +75,21 @@ export function Navbar() {
           />
         )}
 
+        {/*
+          3-col grid with EXPLICIT col-start anchors. Without these, when the
+          centre <nav> is display:none on mobile, CSS Grid auto-flows the
+          remaining items into cols 1 and 2 — the right cluster falls into
+          col 2 and col 3 collapses, leaving empty space on the far right.
+          col-start fixes each item to its column regardless of hidden siblings.
+        */}
         <div className="mx-auto grid h-16 md:h-[72px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
-          {/* Left — brand */}
-          <div className="flex items-center">
+          {/* Left — brand (col 1) */}
+          <div className="col-start-1 flex items-center justify-self-start">
             <Logo size={72} priority />
           </div>
 
-          {/* Centre — main nav (md+ only) */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10 justify-self-center">
+          {/* Centre — main nav (col 2, md+ only) */}
+          <nav className="col-start-2 hidden md:flex items-center gap-8 lg:gap-10 justify-self-center">
             {NAV_ITEMS.map(item => {
               const active =
                 item.href === "/"
@@ -110,8 +117,8 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right — Hamburger (left of CTA) + Request a Quote (far right) */}
-          <div className="flex items-center gap-2 md:gap-3 justify-self-end">
+          {/* Right — Hamburger + Request a Quote (col 3, both viewports, hard-pinned to viewport edge) */}
+          <div className="col-start-3 flex items-center gap-2 md:gap-3 justify-self-end">
             <button
               type="button"
               aria-label={drawerOpen ? "Close menu" : "Open menu"}
