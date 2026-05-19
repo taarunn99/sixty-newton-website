@@ -66,6 +66,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+/* Next.js 16 manages the data-scroll-behavior attribute on <html> — it sets
+   it to "smooth" by default and removes it during route transitions so
+   the new page lands instantly at the top. The CSS hook follows the attr. */
+html[data-scroll-behavior="smooth"] {
   scroll-behavior: smooth;
 }
 

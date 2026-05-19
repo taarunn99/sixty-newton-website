@@ -246,6 +246,69 @@ export const FOOTER_SECONDARY = [
   { label: "Terms", href: "/legal/terms" },
 ] as const;
 
+// ─── Company-issued documents (Trade License, VAT, etc.) ───
+export type CompanyDocument = {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  href: string;
+};
+
+export const COMPANY_DOCUMENTS: readonly CompanyDocument[] = [
+  {
+    slug: "trade-license",
+    title: "Trade License",
+    subtitle: "2025 – 26 · Issued by UAE authorities",
+    href: "/docs/trade-license-2025-26.pdf",
+  },
+  {
+    slug: "vat-certificate",
+    title: "VAT Registration",
+    subtitle: "2025 – 26 · Federal Tax Authority",
+    href: "/docs/vat-registration-2025-26.pdf",
+  },
+];
+
+// ─── Applicator certificates from manufacturer partners ───
+// slug matches /public/brand/applicators/<slug>.png
+export type ApplicatorCertificate = {
+  slug: "mapei" | "laticrete" | "akzonobel" | "xcalibur";
+  brand: string;
+  scope: string;
+  href: string;
+  // Logos vary wildly in aspect — let each one size itself within the chip
+  // rather than forcing a uniform box.
+  logoAspect?: "square" | "wide";
+};
+
+export const APPLICATOR_CERTIFICATES: readonly ApplicatorCertificate[] = [
+  {
+    slug: "mapei",
+    brand: "Mapei",
+    scope: "Adhesives, grouts, waterproofing",
+    href: "/docs/mapei-applicator-certificate.pdf",
+  },
+  {
+    slug: "laticrete",
+    brand: "Laticrete",
+    scope: "Tile & stone systems",
+    href: "/docs/laticrete-applicator-certificate.pdf",
+  },
+  {
+    slug: "akzonobel",
+    brand: "AkzoNobel · Dulux",
+    scope: "Decorative & protective coatings",
+    href: "/docs/akzonobel-applicator-certificate.pdf",
+  },
+  {
+    slug: "xcalibur",
+    brand: "X-Calibur",
+    scope: "Concrete admixtures & repair systems",
+    href: "/docs/xcalibur-applicator-certificate.pdf",
+    logoAspect: "wide",
+  },
+];
+
 // ─── Footer 4-column structure (premium-fitout style: wayfinding map, not sitemap dump) ───
 export type FooterLink = { label: string; href: string; external?: boolean };
 export type FooterSection = { heading: string; links: readonly FooterLink[] };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { CredentialsSection } from "@/components/sections/credentials";
 import { APPROVED_APPLICATORS, SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -83,6 +84,8 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      <CredentialsSection />
     </>
   );
 }
