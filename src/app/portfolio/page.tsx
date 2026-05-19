@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { ClientReel } from "@/components/sections/client-reel";
 import { REFERENCE_PROJECTS, SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -12,11 +13,18 @@ export const metadata: Metadata = buildMetadata({
 export default function PortfolioPage() {
   return (
     <>
+      {/* PageHero — bottom border + bottom padding cut so the reel sits
+          seamlessly under the subtitle, same treatment as /disciplines. */}
       <PageHero
         eyebrow="Selected work"
         title="Portfolio"
         subtitle="The hotels, resorts, residences and infrastructure works we&rsquo;ve helped build."
+        className="border-b-0 pb-6 md:pb-10"
       />
+
+      {/* Auto-scrolling reel of client / project-owner logos */}
+      <ClientReel />
+
       <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-16 md:py-24">
         <ul className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3 border border-border-hairline">
           {REFERENCE_PROJECTS.map(p => (
