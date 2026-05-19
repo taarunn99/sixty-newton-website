@@ -104,6 +104,15 @@ export interface ServiceMeta {
   ogImage?: string;
 }
 
+export interface ComparisonTable {
+  /** Column headers — first column is the row-label column (no header text required). */
+  columns: string[];
+  /** Each row: first cell is the row label, remaining cells map 1:1 to `columns`. */
+  rows: { label: string; cells: string[] }[];
+  /** Optional caption shown below the table. */
+  caption?: string;
+}
+
 /** What renders on the page, in declared order. */
 export type ServiceSection =
   | { type: "intro";          eyebrow: string; heading: string; body: string }
@@ -116,6 +125,7 @@ export type ServiceSection =
   | { type: "warranty";       eyebrow: string; heading: string; specs: SpecBlock[]; body: string }
   | { type: "before-after";   eyebrow: string; heading: string; pairs: BeforeAfterPair[] }
   | { type: "swatch-picker";  eyebrow: string; heading: string; swatches: ColourSwatch[]; body?: string }
+  | { type: "comparison";     eyebrow: string; heading: string; table: ComparisonTable; body?: string }
   | { type: "faq";            eyebrow: string; heading: string; items: FAQItem[] }
   | { type: "related";        eyebrow: string; heading: string; items: RelatedService[] }
   | { type: "cta";            heading: string; body: string };

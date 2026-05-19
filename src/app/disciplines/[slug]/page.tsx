@@ -26,6 +26,7 @@ import { BrandStrip } from "@/components/services/brand-strip";
 import { DualCTA } from "@/components/services/dual-cta";
 import { BeforeAfterSlider } from "@/components/services/before-after-slider";
 import { ColourSwatchPicker } from "@/components/services/colour-swatch-picker";
+import { ComparisonTable } from "@/components/services/comparison-table";
 
 import type { ServiceSection } from "@/content/services/types";
 
@@ -263,6 +264,19 @@ function SectionRenderer({ section }: { section: ServiceSection }) {
             body={section.body}
             className="mt-10"
           />
+        </Section>
+      );
+
+    case "comparison":
+      return (
+        <Section>
+          <Header eyebrow={section.eyebrow} heading={section.heading} />
+          {section.body && (
+            <p className="mt-6 max-w-2xl text-fg-muted text-lg font-serif font-light leading-relaxed">
+              {section.body}
+            </p>
+          )}
+          <ComparisonTable table={section.table} className="mt-10" />
         </Section>
       );
 

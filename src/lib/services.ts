@@ -21,6 +21,17 @@ export async function getServicePage(slug: string): Promise<ServicePage | null> 
  */
 export const PUBLISHED_SERVICE_SLUGS = [
   "waterproofing",
-  "epoxy-flooring",
+  "bitumen-waterproofing",
+  "specialised-coatings-and-sealants",
   "microtopping",
+  "epoxy-flooring",
+  "self-levelling",
+  "marble-installation",
+  "large-format-tiling",
+  "polishing",
+  "design-concrete",
+  "vinyl-flooring",
+  "insulation",
+  "painting",
+  "general-maintenance",
 ] as const;

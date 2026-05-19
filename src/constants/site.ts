@@ -81,7 +81,7 @@ export const DISCIPLINES = [
     title: "Bitumen Waterproofing",
     short: "Bitumen",
     bucket: "Waterproofing Systems",
-    published: false,
+    published: true,
     description:
       "Hot- and cold-applied bituminous membrane systems for below-grade, podium decks and heavy-duty waterproofing scopes.",
   },
@@ -90,7 +90,7 @@ export const DISCIPLINES = [
     title: "Specialised Coatings & Sealants",
     short: "Coatings",
     bucket: "Coatings & Protection",
-    published: false,
+    published: true,
     description:
       "Engineered protective coatings and joint sealants for industrial, hospitality and infrastructure projects.",
   },
@@ -117,7 +117,7 @@ export const DISCIPLINES = [
     title: "Self-Levelling & Screed",
     short: "Self-Levelling",
     bucket: "Flooring Systems",
-    published: false,
+    published: true,
     description:
       "Cementitious self-levelling and screed substrates — the precision base every premium finish depends on.",
   },
@@ -126,7 +126,7 @@ export const DISCIPLINES = [
     title: "Marble Installation",
     short: "Marble",
     bucket: "Tile & Stone Works",
-    published: false,
+    published: true,
     description:
       "Specialist marble installation across hotel, residential and infrastructure projects — including quartz and engineered stone.",
   },
@@ -135,7 +135,7 @@ export const DISCIPLINES = [
     title: "Large Format Tiling",
     short: "Tiling",
     bucket: "Tile & Stone Works",
-    published: false,
+    published: true,
     description:
       "Precision installation of large-format porcelain and stone slabs — the finish where tolerances are unforgiving.",
   },
@@ -144,7 +144,7 @@ export const DISCIPLINES = [
     title: "Polishing — Marble & Floors",
     short: "Polishing",
     bucket: "Tile & Stone Works",
-    published: false,
+    published: true,
     description:
       "Restoration and finishing polish for natural stone, marble and engineered floors — bringing surfaces back to specification.",
   },
@@ -153,7 +153,7 @@ export const DISCIPLINES = [
     title: "Design Concrete & Screeding",
     short: "Design Concrete",
     bucket: "Decorative Concrete",
-    published: false,
+    published: true,
     description:
       "Decorative and structural concrete finishes — including pattern, polished and exposed-aggregate systems.",
   },
@@ -162,7 +162,7 @@ export const DISCIPLINES = [
     title: "Vinyl Flooring",
     short: "Vinyl",
     bucket: "Flooring Systems",
-    published: false,
+    published: true,
     description:
       "LVT, sheet vinyl and resilient flooring — precision-laid and warranted.",
   },
@@ -171,7 +171,7 @@ export const DISCIPLINES = [
     title: "Insulation",
     short: "Insulation",
     bucket: "Building Repair & Insulation",
-    published: false,
+    published: true,
     description:
       "Thermal and acoustic insulation systems for floors, walls and roofs.",
   },
@@ -180,7 +180,7 @@ export const DISCIPLINES = [
     title: "Interior & Exterior Painting",
     short: "Painting",
     bucket: "Coatings & Protection",
-    published: false,
+    published: true,
     description:
       "Specification-grade paint systems for interior walls and ceilings, and weather-tested exterior facades.",
   },
@@ -189,7 +189,7 @@ export const DISCIPLINES = [
     title: "Repair & General Maintenance",
     short: "Maintenance",
     bucket: "Building Repair & Insulation",
-    published: false,
+    published: true,
     description:
       "Reactive and planned maintenance — the after-sales relationship that protects the work.",
   },
