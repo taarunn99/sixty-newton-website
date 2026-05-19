@@ -1,30 +1,36 @@
 "use client";
+import { useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 /**
- * Discipline icon reel — auto-scrolling, infinite loop, paused on hover.
- *
- * 10 gold line-art icons drift left-to-right (or right-to-left) across the
- * full width of the disciplines page. Sits directly under the PageHero band's
- * hairline divider as a quiet brand strip — no heading, no copy, just motion.
- *
- * Edge gradients (--bg fading to transparent) mask the loop seam so icons
- * appear to dissolve in/out of the page edges rather than hard-cutting.
+ * Discipline icon reel — auto-scrolling, paused never, with a gold radial
+ * spotlight that follows the cursor while it's over the strip.
  */
 
-// Filename order matches the source folder (107..116) — the icons read as
-// a sequence of disciplines: waterproofing, finishes, sealants, spray,
-// installer, tiling, pools, maintenance, trowelling, polishing.
 const ICONS = [
   "107", "108", "109", "110", "111", "112", "113", "114", "115", "116",
 ] as const;
 
 export function DisciplineReel() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+
+  const onMove = (e: MouseEvent<HTMLElement>) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
   return (
     <section
+      ref={sectionRef}
       aria-label="Disciplines — visual reel"
+      onMouseMove={onMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className="relative w-full bg-bg py-3 md:py-5 overflow-hidden"
     >
       <div className="relative mx-auto w-full">
@@ -41,8 +47,6 @@ export function DisciplineReel() {
           ]}
         >
           <CarouselContent className="ml-0">
-            {/* Render the icon set twice so the loop seam is invisible while
-                Embla rebuilds — visual continuity at the wrap point. */}
             {[...ICONS, ...ICONS].map((id, i) => (
               <CarouselItem
                 key={`${id}-${i}`}
@@ -62,14 +66,24 @@ export function DisciplineReel() {
           </CarouselContent>
         </Carousel>
 
-        {/* Edge fades — dissolve the icons into the page bg at both ends */}
+        {/* Mouse-tracking gold spotlight — "shadow button" pattern, scaled up */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-32 bg-gradient-to-r from-bg to-transparent"
+          className="pointer-events-none absolute -inset-px z-[5] transition-opacity duration-500"
+          style={{
+            opacity: hovered ? 1 : 0,
+            background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(184,146,79,0.25), transparent 70%)`,
+          }}
+        />
+
+        {/* Edge fades — above the spotlight so the glow also dissolves at the edges */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 md:w-32 bg-gradient-to-r from-bg to-transparent"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-32 bg-gradient-to-l from-bg to-transparent"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 md:w-32 bg-gradient-to-l from-bg to-transparent"
         />
       </div>
     </section>

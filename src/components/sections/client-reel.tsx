@@ -1,21 +1,17 @@
 "use client";
+import { useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 /**
- * Client logo reel — auto-scrolling, infinite loop, paused on hover.
+ * Client logo reel — auto-scrolling, paused never, with a gold radial
+ * spotlight that follows the cursor while it's over the strip.
  *
- * Same mechanic as DisciplineReel: a quiet brand strip sitting under the
- * /portfolio PageHero with no divider line between subtitle and reel.
- *
- * Logos are normalised to white silhouettes via CSS filter so the variety
- * of brand colours doesn't fight the dark page — universal "trust strip"
- * pattern used by Apple / Stripe / Anthropic for partner / client rails.
+ * Logos normalised to white silhouettes via CSS filter so the brand-colour
+ * variety doesn't fight the dark page (Apple / Stripe trust-strip pattern).
  */
 
-// Display order — alternates wide wordmarks and stacked marks so adjacent
-// logos don't all share the same shape and the reel reads as varied.
 const CLIENTS = [
   { slug: "emaar",         alt: "Emaar Properties" },
   { slug: "atlantis",      alt: "Atlantis The Royal" },
@@ -28,9 +24,23 @@ const CLIENTS = [
 ] as const;
 
 export function ClientReel() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+
+  const onMove = (e: MouseEvent<HTMLElement>) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
   return (
     <section
+      ref={sectionRef}
       aria-label="Selected clients — visual reel"
+      onMouseMove={onMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className="relative w-full bg-bg py-3 md:py-5 overflow-hidden"
     >
       <div className="relative mx-auto w-full">
@@ -47,8 +57,6 @@ export function ClientReel() {
           ]}
         >
           <CarouselContent className="ml-0">
-            {/* Duplicate the set so the loop seam is invisible while Embla
-                rebuilds — visual continuity at the wrap point. */}
             {[...CLIENTS, ...CLIENTS].map((c, i) => (
               <CarouselItem
                 key={`${c.slug}-${i}`}
@@ -68,14 +76,24 @@ export function ClientReel() {
           </CarouselContent>
         </Carousel>
 
-        {/* Edge fades — dissolve into page bg at both ends */}
+        {/* Mouse-tracking gold spotlight — "shadow button" pattern, scaled up */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-32 bg-gradient-to-r from-bg to-transparent"
+          className="pointer-events-none absolute -inset-px z-[5] transition-opacity duration-500"
+          style={{
+            opacity: hovered ? 1 : 0,
+            background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(184,146,79,0.25), transparent 70%)`,
+          }}
+        />
+
+        {/* Edge fades — above the spotlight so the glow dissolves at the edges */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 md:w-32 bg-gradient-to-r from-bg to-transparent"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-32 bg-gradient-to-l from-bg to-transparent"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 md:w-32 bg-gradient-to-l from-bg to-transparent"
         />
       </div>
     </section>
