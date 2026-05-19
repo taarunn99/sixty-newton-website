@@ -82,6 +82,12 @@ export function HomeEnquiry() {
                 >
                   {SITE.email}
                 </a>
+                <a
+                  href={`mailto:${SITE.emailGeneral}`}
+                  className="mt-1 inline-block text-sm text-fg-muted hover:text-gold transition-colors duration-200 break-words"
+                >
+                  {SITE.emailGeneral}
+                </a>
               </div>
             </div>
 

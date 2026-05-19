@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
-import { CredentialsSection } from "@/components/sections/credentials";
-import { APPROVED_APPLICATORS, SITE } from "@/constants/site";
+import { Button } from "@/components/ui/button";
+import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "About",
@@ -57,20 +59,30 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Approved applicators */}
-        <div id="applicators" className="mt-16 scroll-mt-28">
+        {/* Approved applicators — moved to a dedicated certifications page.
+            Block left here as a wayfinder, with a CTA to the full credentials surface. */}
+        <div className="mt-16">
           <p className="eyebrow text-gold">Approved Applicators</p>
           <p className="font-serif font-light text-xl text-fg mt-4 leading-relaxed">
-            Certified to install and warrant systems from four leading global
-            construction-materials brands.
+            Certified to install and warrant systems from{" "}
+            <span className="text-fg">Mapei</span>,{" "}
+            <span className="text-fg">Laticrete</span>,{" "}
+            <span className="text-fg">AkzoNobel</span> and{" "}
+            <span className="text-fg">X-Calibur</span>. Certificates and trade
+            licence sit on a dedicated page.
           </p>
-          <ul className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border-hairline">
-            {APPROVED_APPLICATORS.map(b => (
-              <li key={b.slug} className="bg-bg p-6 text-center">
-                <p className="font-serif font-light text-2xl text-fg">{b.name}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-6">
+            <Button asChild variant="outlineFill" size="md" className="group">
+              <Link href="/applicator-certifications">
+                View certifications
+                <ArrowRight
+                  size={14}
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Parent group */}
@@ -84,8 +96,6 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-
-      <CredentialsSection />
     </>
   );
 }

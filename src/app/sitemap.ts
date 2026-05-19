@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/approach",
     "/portfolio",
     "/about",
+    "/applicator-certifications",
     "/blog",
     "/faq",
     "/request-a-quote",
@@ -28,11 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: path === "/" ? 1 : 0.7,
     })),
-    ...DISCIPLINES.map(d => ({
+    // Only published service pages enter the sitemap — others 404.
+    ...DISCIPLINES.filter(d => d.published).map(d => ({
       url: new URL(`/disciplines/${d.slug}`, SITE.url).toString(),
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.6,
+      priority: 0.9,
     })),
   ];
 }

@@ -9,7 +9,10 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "frames:optimize": "tsx scripts/optimize-frames.ts",
-    "frames:build": "tsx scripts/build-frames.ts"
+    "frames:build": "tsx scripts/build-frames.ts",
+    "image:visit": "tsx scripts/optimize-visit-image.ts",
+    "images:seed": "tsx scripts/seed-placeholders.ts",
+    "image:debg": "tsx scripts/remove-white-bg.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

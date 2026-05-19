@@ -23,16 +23,17 @@ export const SITE = {
   whatsapp: "+971 50 281 4338",
   whatsappHref: "971502814338",
   whatsappMessage: "Hello Sixty Newton, I'd like to discuss a project.",
-  email: "info@60newton.com",
-  emailSalim: "salim@60newton.com", // direct sales contact per company profile
+  email: "salim@60newton.com",          // primary sales contact (direct)
+  emailGeneral: "info@60newton.com",    // general/secondary
 
   address: {
     streetAddress: "TODO_PLACEHOLDER",
-    locality: "Sharjah",
-    region: "Sharjah",
+    locality: "Dubai",
+    region: "Dubai",
     postalCode: "TODO_PLACEHOLDER",
     country: "United Arab Emirates",
     countryCode: "AE",
+    geo: { latitude: 25.1972, longitude: 55.2744 },
   },
 
   // ─── Brand assets ───
@@ -63,11 +64,15 @@ export type SiteConfig = typeof SITE;
 
 // ─── Disciplines registered with /disciplines hub ───
 // Source-of-truth list per the company profile + client confirmation.
+// `published: true` = a dedicated /disciplines/[slug] page exists; only
+// published disciplines are linked from the navbar/hamburger to avoid 404s.
 export const DISCIPLINES = [
   {
     slug: "waterproofing",
     title: "Waterproofing",
     short: "Waterproofing",
+    bucket: "Waterproofing Systems",
+    published: true,
     description:
       "Cementitious and acrylic membrane systems — for surfaces, facades and roofs. Decades-deep applicator expertise across the building envelope.",
   },
@@ -75,6 +80,8 @@ export const DISCIPLINES = [
     slug: "bitumen-waterproofing",
     title: "Bitumen Waterproofing",
     short: "Bitumen",
+    bucket: "Waterproofing Systems",
+    published: false,
     description:
       "Hot- and cold-applied bituminous membrane systems for below-grade, podium decks and heavy-duty waterproofing scopes.",
   },
@@ -82,6 +89,8 @@ export const DISCIPLINES = [
     slug: "specialised-coatings-and-sealants",
     title: "Specialised Coatings & Sealants",
     short: "Coatings",
+    bucket: "Coatings & Protection",
+    published: false,
     description:
       "Engineered protective coatings and joint sealants for industrial, hospitality and infrastructure projects.",
   },
@@ -89,6 +98,8 @@ export const DISCIPLINES = [
     slug: "microtopping",
     title: "Microtopping Finishes",
     short: "Microtopping",
+    bucket: "Decorative Concrete",
+    published: true,
     description:
       "Seamless cementitious micro-finish for walls and floors — a refined, monolithic surface delivered to a designer's spec.",
   },
@@ -96,6 +107,8 @@ export const DISCIPLINES = [
     slug: "epoxy-flooring",
     title: "Epoxy Flooring",
     short: "Epoxy",
+    bucket: "Flooring Systems",
+    published: true,
     description:
       "Industrial, decorative and ESD epoxy floor systems — cementitious polyurethane and high-performance resin finishes.",
   },
@@ -103,6 +116,8 @@ export const DISCIPLINES = [
     slug: "self-levelling",
     title: "Self-Levelling & Screed",
     short: "Self-Levelling",
+    bucket: "Flooring Systems",
+    published: false,
     description:
       "Cementitious self-levelling and screed substrates — the precision base every premium finish depends on.",
   },
@@ -110,6 +125,8 @@ export const DISCIPLINES = [
     slug: "marble-installation",
     title: "Marble Installation",
     short: "Marble",
+    bucket: "Tile & Stone Works",
+    published: false,
     description:
       "Specialist marble installation across hotel, residential and infrastructure projects — including quartz and engineered stone.",
   },
@@ -117,6 +134,8 @@ export const DISCIPLINES = [
     slug: "large-format-tiling",
     title: "Large Format Tiling",
     short: "Tiling",
+    bucket: "Tile & Stone Works",
+    published: false,
     description:
       "Precision installation of large-format porcelain and stone slabs — the finish where tolerances are unforgiving.",
   },
@@ -124,6 +143,8 @@ export const DISCIPLINES = [
     slug: "polishing",
     title: "Polishing — Marble & Floors",
     short: "Polishing",
+    bucket: "Tile & Stone Works",
+    published: false,
     description:
       "Restoration and finishing polish for natural stone, marble and engineered floors — bringing surfaces back to specification.",
   },
@@ -131,6 +152,8 @@ export const DISCIPLINES = [
     slug: "design-concrete",
     title: "Design Concrete & Screeding",
     short: "Design Concrete",
+    bucket: "Decorative Concrete",
+    published: false,
     description:
       "Decorative and structural concrete finishes — including pattern, polished and exposed-aggregate systems.",
   },
@@ -138,6 +161,8 @@ export const DISCIPLINES = [
     slug: "vinyl-flooring",
     title: "Vinyl Flooring",
     short: "Vinyl",
+    bucket: "Flooring Systems",
+    published: false,
     description:
       "LVT, sheet vinyl and resilient flooring — precision-laid and warranted.",
   },
@@ -145,6 +170,8 @@ export const DISCIPLINES = [
     slug: "insulation",
     title: "Insulation",
     short: "Insulation",
+    bucket: "Building Repair & Insulation",
+    published: false,
     description:
       "Thermal and acoustic insulation systems for floors, walls and roofs.",
   },
@@ -152,6 +179,8 @@ export const DISCIPLINES = [
     slug: "painting",
     title: "Interior & Exterior Painting",
     short: "Painting",
+    bucket: "Coatings & Protection",
+    published: false,
     description:
       "Specification-grade paint systems for interior walls and ceilings, and weather-tested exterior facades.",
   },
@@ -159,6 +188,8 @@ export const DISCIPLINES = [
     slug: "general-maintenance",
     title: "Repair & General Maintenance",
     short: "Maintenance",
+    bucket: "Building Repair & Insulation",
+    published: false,
     description:
       "Reactive and planned maintenance — the after-sales relationship that protects the work.",
   },
@@ -167,11 +198,13 @@ export const DISCIPLINES = [
 export type Discipline = (typeof DISCIPLINES)[number];
 
 // ─── Approved applicator brands (per company profile, page 22) ───
+// Slugs MUST match APPLICATOR_CERTIFICATES[].slug below so hamburger / footer
+// anchors resolve to certificate cards on /applicator-certifications.
 export const APPROVED_APPLICATORS = [
   { name: "Mapei",     slug: "mapei" },
   { name: "Laticrete", slug: "laticrete" },
   { name: "AkzoNobel", slug: "akzonobel" },
-  { name: "X-Calibur", slug: "x-calibur" },
+  { name: "X-Calibur", slug: "xcalibur" },
 ] as const;
 
 // ─── Selected reference projects (per company profile, pages 10-17) ───
@@ -209,7 +242,7 @@ export type HamburgerGroup = { heading: string; items: readonly HamburgerLink[] 
 export const HAMBURGER_GROUPS: readonly HamburgerGroup[] = [
   {
     heading: "Disciplines",
-    items: DISCIPLINES.map(d => ({
+    items: DISCIPLINES.filter(d => d.published).map(d => ({
       label: d.title,
       href: `/disciplines/${d.slug}`,
     })),
@@ -218,7 +251,7 @@ export const HAMBURGER_GROUPS: readonly HamburgerGroup[] = [
     heading: "Applicators",
     items: APPROVED_APPLICATORS.map(b => ({
       label: b.name,
-      href: `/about#applicators`,
+      href: `/applicator-certifications#${b.slug}`,
     })),
   },
   {
@@ -340,13 +373,15 @@ export const FOOTER_SECTIONS: readonly FooterSection[] = [
     links: [
       { label: "Disciplines", href: "/disciplines" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Applicators", href: "/about#applicators" },
+      { label: "Applicators", href: "/applicator-certifications" },
     ],
   },
   {
     heading: "Contact",
     links: [
       { label: "Request a Quote", href: "/request-a-quote" },
+      { label: SITE.email, href: `mailto:${SITE.email}`, external: true },
+      { label: SITE.emailGeneral, href: `mailto:${SITE.emailGeneral}`, external: true },
       { label: "WhatsApp", href: `https://wa.me/${SITE.whatsappHref}`, external: true },
       { label: "Instagram", href: SITE.social.instagram, external: true },
       { label: "LinkedIn", href: SITE.social.linkedin, external: true },

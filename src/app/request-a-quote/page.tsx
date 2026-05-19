@@ -80,12 +80,12 @@ export default function RequestQuotePage() {
               </div>
 
               <div>
-                <p className="eyebrow text-fg-subtle">Direct sales</p>
+                <p className="eyebrow text-fg-subtle">General enquiries</p>
                 <a
-                  href={`mailto:${SITE.emailSalim}`}
+                  href={`mailto:${SITE.emailGeneral}`}
                   className="mt-2 inline-block font-serif font-light text-2xl text-fg hover:text-gold transition-colors duration-200 break-words"
                 >
-                  {SITE.emailSalim}
+                  {SITE.emailGeneral}
                 </a>
               </div>
             </div>

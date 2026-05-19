@@ -42,7 +42,7 @@ export function organizationJsonLd() {
 export function localBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "GeneralContractor",
     "@id": `${SITE.url}#localbusiness`,
     name: SITE.name,
     image: `${SITE.url}${SITE.ogImage}`,
@@ -58,7 +58,76 @@ export function localBusinessJsonLd() {
       postalCode: SITE.address.postalCode,
       addressCountry: SITE.address.countryCode,
     },
-    areaServed: { "@type": "Country", name: "United Arab Emirates" },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: SITE.address.geo.latitude,
+      longitude: SITE.address.geo.longitude,
+    },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Dubai" },
+      { "@type": "AdministrativeArea", name: "Abu Dhabi" },
+      { "@type": "AdministrativeArea", name: "Sharjah" },
+      { "@type": "AdministrativeArea", name: "Ajman" },
+      { "@type": "AdministrativeArea", name: "Ras Al Khaimah" },
+      { "@type": "AdministrativeArea", name: "Fujairah" },
+      { "@type": "AdministrativeArea", name: "Umm Al Quwain" },
+    ],
+    hasCredential: [
+      "Approved applicator — MAPEI",
+      "Approved applicator — LATICRETE",
+      "Approved applicator — AKZONOBEL",
+      "Approved applicator — X-CALIBUR",
+    ],
+  };
+}
+
+type ServiceJsonLdInput = {
+  serviceType: string;
+  name: string;
+  description: string;
+  url: string;
+  systemVariants?: string[];
+};
+export function serviceJsonLd({ serviceType, name, description, url, systemVariants = [] }: ServiceJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    serviceType,
+    provider: { "@id": `${SITE.url}#localbusiness` },
+    name,
+    description,
+    url,
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Dubai" },
+      { "@type": "AdministrativeArea", name: "Abu Dhabi" },
+      { "@type": "AdministrativeArea", name: "Sharjah" },
+    ],
+    ...(systemVariants.length
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${name} systems`,
+            itemListElement: systemVariants.map(v => ({
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: v },
+            })),
+          },
+        }
+      : {}),
+    termsOfService: `${SITE.url}/legal/terms`,
+  };
+}
+
+export function faqJsonLd(items: Array<{ q: string; a: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(it => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: it.a },
+    })),
   };
 }
 

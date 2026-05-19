@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/hero";
 import { ScrollSequence } from "@/components/sections/scroll-sequence";
 import { CredentialsSection } from "@/components/sections/credentials";
 import { HomeEnquiry } from "@/components/sections/home-enquiry";
+import { VisitUs } from "@/components/sections/visit-us";
 import { SITE } from "@/constants/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ScrollSequence />
       <CredentialsSection showAboutLink />
       <HomeEnquiry />
+      <VisitUs />
     </>
   );
 }
