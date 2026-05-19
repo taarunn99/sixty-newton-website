@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { DisciplineReel } from "@/components/sections/discipline-reel";
 import { DISCIPLINES } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -18,6 +19,10 @@ export default function DisciplinesPage() {
         title="Disciplines"
         subtitle="Specialist services delivered under one contract — coordinated from substrate to finish."
       />
+
+      {/* Auto-scrolling reel of discipline icons */}
+      <DisciplineReel />
+
       <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-20 md:py-28">
         <ul className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3 border border-border-hairline">
           {DISCIPLINES.map(d => (
