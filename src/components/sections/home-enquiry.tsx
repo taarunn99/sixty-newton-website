@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { QuoteForm } from "@/components/sections/quote-form";
 import { SITE } from "@/constants/site";
 
@@ -84,21 +85,18 @@ export function HomeEnquiry() {
               </div>
             </div>
 
-            {/* Bottom CTA — outline-to-fill on hover (matches About Us button) */}
+            {/* Bottom CTA — outlineFill variant; matches About Us button */}
             <div className="mt-10 border-t border-border pt-8">
-              <Link
-                href="/request-a-quote"
-                className="group inline-flex items-center gap-2 rounded-md border border-gold bg-transparent px-5 py-3 transition-colors duration-200 hover:bg-gold"
-              >
-                <span className="eyebrow text-gold transition-colors group-hover:text-bg">
+              <Button asChild variant="outlineFill" size="md" className="group">
+                <Link href="/request-a-quote">
                   Open Full Contact Page
-                </span>
-                <ArrowRight
-                  size={14}
-                  aria-hidden
-                  className="text-gold transition-all duration-200 group-hover:text-bg group-hover:translate-x-1"
-                />
-              </Link>
+                  <ArrowRight
+                    size={14}
+                    aria-hidden
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </Link>
+              </Button>
             </div>
           </aside>
         </div>

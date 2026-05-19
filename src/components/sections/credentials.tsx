@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { APPLICATOR_CERTIFICATES, COMPANY_DOCUMENTS } from "@/constants/site";
 import { DocButton } from "@/components/ui/doc-button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type CredentialsSectionProps = {
@@ -91,23 +92,20 @@ export function CredentialsSection({ showAboutLink = false }: CredentialsSection
         </div>
 
         {/* Bottom-right About Us CTA — home page only.
-            Outline at rest, fills solid gold on hover (matches the navbar
-            Request a Quote button's filled-gold appearance). */}
+            outlineFill variant: outline at rest, fills solid gold on hover.
+            Text + icon flip to bg colour automatically (currentColor inherit). */}
         {showAboutLink && (
           <div className="mt-12 flex justify-end">
-            <Link
-              href="/about"
-              className="group inline-flex items-center gap-2 rounded-md border border-gold bg-transparent px-5 py-3 transition-colors duration-200 hover:bg-gold"
-            >
-              <span className="eyebrow text-gold transition-colors group-hover:text-bg">
+            <Button asChild variant="outlineFill" size="md" className="group">
+              <Link href="/about">
                 About Us
-              </span>
-              <ArrowRight
-                size={14}
-                aria-hidden
-                className="text-gold transition-all duration-200 group-hover:text-bg group-hover:translate-x-1"
-              />
-            </Link>
+                <ArrowRight
+                  size={14}
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+            </Button>
           </div>
         )}
       </div>

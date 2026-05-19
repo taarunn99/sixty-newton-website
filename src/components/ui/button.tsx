@@ -8,10 +8,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // Solid filled — "gold button" in conversation
         primary:
           "bg-gold text-bg hover:bg-gold-hover",
+        // Outline at rest, stays outline (text just brightens)
         outline:
           "bg-transparent text-fg border border-gold/70 hover:border-gold hover:text-gold",
+        // Outline → fills on hover. Text + icons flip to bg colour automatically
+        // (lucide icons inherit currentColor) so contrast stays correct.
+        outlineFill:
+          "bg-transparent text-gold border border-gold hover:bg-gold hover:text-bg",
         ghost:
           "bg-transparent text-fg/80 hover:text-fg",
         link:
