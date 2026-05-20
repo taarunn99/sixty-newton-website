@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { DISCIPLINES, REFERENCE_PROJECTS, SITE } from "@/constants/site";
+import { AREAS } from "@/content/areas/_data";
 
 /**
  * Dynamic sitemap. Add blog/portfolio routes here as they come online.
@@ -42,5 +43,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+    // Local-SEO area landing pages — 14 disciplines × 13 areas = 182 entries.
+    // Priority 0.85 sits between disciplines (0.9) and case studies (0.8).
+    ...DISCIPLINES.filter(d => d.published).flatMap(d =>
+      AREAS.map(a => ({
+        url: new URL(`/disciplines/${d.slug}/${a.slug}`, SITE.url).toString(),
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.85,
+      })),
+    ),
   ];
 }
