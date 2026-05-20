@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { AboutHero } from "@/components/sections/about-hero";
-import { AboutScrollWrapper } from "@/components/sections/about-scroll-wrapper";
 import { LeadershipTeam } from "@/components/sections/leadership-team";
 import { SustainabilityBand } from "@/components/sections/sustainability-band";
 import { CompanyProfileDownload } from "@/components/sections/company-profile-download";
@@ -29,7 +28,6 @@ export const metadata: Metadata = buildMetadata({
 export default function AboutPage() {
   return (
     <>
-      <AboutScrollWrapper>
       {/* Hero — "About" wordmark + big Sixty Newton logo, no eyebrow */}
       <AboutHero />
 
@@ -119,12 +117,9 @@ export default function AboutPage() {
       <LeadershipTeam />
 
       {/* ── Sustainability — "60 Newton · 0 Carbon Emission" ── */}
-      {/* This is the LAST section the scroll-line spans — Company Profile
-          sits OUTSIDE the wrapper so the line ends here. */}
       <SustainabilityBand />
-      </AboutScrollWrapper>
 
-      {/* ── Company profile download — sits OUTSIDE the scroll-line wrapper ── */}
+      {/* ── Company profile download ── */}
       <CompanyProfileDownload />
     </>
   );
