@@ -102,7 +102,7 @@ export default function RequestQuotePage() {
 
             <p className="mt-12 text-sm text-fg-muted leading-relaxed border-t border-border pt-8">
               We&rsquo;re based in the United Arab Emirates and reply within one business day,
-              Sunday–Thursday.
+              Monday–Saturday.
             </p>
           </aside>
         </div>

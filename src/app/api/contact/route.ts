@@ -16,8 +16,6 @@ type Payload = {
   email?: string;
   phone?: string;
   service?: string;
-  emirate?: string;
-  timeline?: string;
   areaSqm?: number | string | null;
   message?: string;
   consent?: boolean;
@@ -76,8 +74,6 @@ export async function POST(req: Request) {
   const email       = trim(body.email, MAX_FIELD).toLowerCase();
   const phoneRaw    = trim(body.phone, MAX_FIELD);
   const service     = trim(body.service, MAX_FIELD);
-  const emirate     = trim(body.emirate, MAX_FIELD);
-  const timeline    = trim(body.timeline, MAX_FIELD);
   const message     = trim(body.message, MAX_MESSAGE);
   const consent     = body.consent === true;
   const areaSqmRaw  = typeof body.areaSqm === "number" ? body.areaSqm
@@ -123,8 +119,6 @@ export async function POST(req: Request) {
       `Email:       ${email}`,
       `Phone:       ${phoneE164}`,
       `Service:     ${service || "(not specified)"}`,
-      `Emirate:     ${emirate || "(not specified)"}`,
-      `Timeline:    ${timeline || "(not specified)"}`,
       `Area (sqm):  ${areaSqm != null ? areaSqm : "(not specified)"}`,
       "",
       "Message:",

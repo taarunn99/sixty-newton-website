@@ -28,7 +28,7 @@ export function HomeEnquiry() {
             Tell us about your project.
           </h2>
           <p className="font-serif font-light text-fg-muted mt-4 text-lg md:text-xl leading-relaxed">
-            We respond inside one business day, Sunday – Thursday.
+            We respond inside one business day, Monday – Saturday.
           </p>
         </div>
 

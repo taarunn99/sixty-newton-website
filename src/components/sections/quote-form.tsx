@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DISCIPLINES, SITE } from "@/constants/site";
+import { DISCIPLINES } from "@/constants/site";
 import { cn } from "@/lib/utils";
 
 type SubmitStatus = "idle" | "sending" | "sent" | "error";
@@ -16,19 +16,9 @@ type FieldName =
   | "email"
   | "phone"
   | "service"
-  | "emirate"
-  | "timeline"
   | "areaSqm"
   | "message"
   | "consent";
-
-const TIMELINES = [
-  "ASAP",
-  "Within 1 month",
-  "1–3 months",
-  "3+ months",
-  "Not sure yet",
-] as const;
 
 /**
  * Quote / contact enquiry form.
@@ -50,8 +40,6 @@ export function QuoteForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
-  const [emirate, setEmirate] = useState("");
-  const [timeline, setTimeline] = useState("");
   const [areaSqm, setAreaSqm] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
@@ -94,8 +82,8 @@ export function QuoteForm() {
     if (!isValid || submitting) {
       setTouched({
         companyName: true, fullName: true, identity: true,
-        email: true, phone: true, service: true, emirate: true,
-        timeline: true, areaSqm: true, message: true, consent: true,
+        email: true, phone: true, service: true,
+        areaSqm: true, message: true, consent: true,
       });
       return;
     }
@@ -113,8 +101,6 @@ export function QuoteForm() {
           email: email.trim(),
           phone: phone.trim(),
           service: service.trim(),
-          emirate: emirate.trim(),
-          timeline: timeline.trim(),
           areaSqm: areaSqm.trim() ? Number(areaSqm) : null,
           message: message.trim(),
           consent,
@@ -151,7 +137,7 @@ export function QuoteForm() {
       }
 
       setCompanyName(""); setFullName(""); setEmail(""); setPhone("");
-      setService(""); setEmirate(""); setTimeline(""); setAreaSqm("");
+      setService(""); setAreaSqm("");
       setMessage(""); setConsent(false);
       setTouched({});
 
@@ -259,33 +245,6 @@ export function QuoteForm() {
           inputMode="numeric"
           min={0}
         />
-      </div>
-
-      {/* Emirate + Timeline */}
-      <div className="grid gap-5 md:grid-cols-2">
-        <SelectField
-          label="Project Emirate"
-          value={emirate}
-          onChange={setEmirate}
-          onBlur={() => markTouched("emirate")}
-        >
-          <option value="" className="bg-bg-elevated text-white">— optional —</option>
-          {SITE.serviceAreas.map(em => (
-            <option key={em} value={em} className="bg-bg-elevated text-white">{em}</option>
-          ))}
-          <option value="Outside UAE" className="bg-bg-elevated text-white">Outside UAE</option>
-        </SelectField>
-        <SelectField
-          label="Programme"
-          value={timeline}
-          onChange={setTimeline}
-          onBlur={() => markTouched("timeline")}
-        >
-          <option value="" className="bg-bg-elevated text-white">— optional —</option>
-          {TIMELINES.map(t => (
-            <option key={t} value={t} className="bg-bg-elevated text-white">{t}</option>
-          ))}
-        </SelectField>
       </div>
 
       {/* Message */}
