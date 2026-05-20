@@ -5,8 +5,12 @@ import { cn } from "@/lib/utils";
 
 /**
  * Branded gold-pill link to the parent company (lapizblue.com).
- * Use this anywhere we mention "Lapiz Blue Group" — it both attributes
- * the relationship and back-links the parent brand for SEO + traffic.
+ *
+ * We do NOT use the global `.eyebrow` class here because it sets
+ * `color: var(--fg-muted)` via globals.css — that overrode the variant's
+ * text colour and made the pill label invisible on the gold background.
+ * Eyebrow styling is replicated inline (uppercase, tracking, weight)
+ * without the colour rule.
  */
 export function LapizBlueLink({
   label = "Lapiz Blue Group",
@@ -25,10 +29,10 @@ export function LapizBlueLink({
       aria-label={`${SITE.parentGroup} — opens in a new tab`}
       className={cn(
         "group inline-flex items-center gap-2.5 rounded-full px-4 py-2 transition-colors duration-200",
-        "eyebrow tracking-[0.2em]",
+        "font-sans uppercase tracking-[0.2em] text-[11px] md:text-xs font-medium",
         variant === "gold"
-          ? "bg-gold text-bg hover:bg-gold-hover"
-          : "border border-gold/60 bg-transparent text-gold hover:bg-gold hover:text-bg",
+          ? "bg-gold !text-bg hover:bg-gold-hover"
+          : "border border-gold/60 bg-transparent !text-gold hover:bg-gold hover:!text-bg",
         className,
       )}
     >

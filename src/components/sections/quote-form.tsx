@@ -2,10 +2,12 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DISCIPLINES, SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
+
+type SubmitStatus = "idle" | "sending" | "sent" | "error";
 
 type FieldName =
   | "companyName"
@@ -56,6 +58,8 @@ export function QuoteForm() {
   const [website, setWebsite] = useState(""); // honeypot
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Pre-fill service from URL on mount (lands here from a service-page CTA)
   useEffect(() => {
@@ -96,7 +100,9 @@ export function QuoteForm() {
       return;
     }
     setSubmitting(true);
-    const toastId = toast.loading("Sending your enquiry…");
+    setStatus("sending");
+    setErrorMessage("");
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -115,14 +121,24 @@ export function QuoteForm() {
           website, // honeypot
         }),
       });
-      const data = await res.json();
+
+      let data: { ok?: boolean; error?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        // Non-JSON response — treat as server error
+      }
 
       if (!res.ok || !data.ok) {
-        toast.error(data?.error || "Could not send the enquiry. Please try again.", { id: toastId });
+        const errMsg = data?.error || "Could not send the enquiry. Please try again or WhatsApp us.";
+        setStatus("error");
+        setErrorMessage(errMsg);
+        toast.error(errMsg);
         return;
       }
 
-      toast.success("Thank you — your enquiry is with us.", { id: toastId });
+      // Success — analytics + cleanup + redirect to /thank-you
+      setStatus("sent");
 
       if (typeof window !== "undefined") {
         const w = window as Window & { dataLayer?: Record<string, unknown>[] };
@@ -139,21 +155,31 @@ export function QuoteForm() {
       setMessage(""); setConsent(false);
       setTouched({});
 
-      setTimeout(() => router.push("/thank-you"), 1500);
+      // Pause briefly so the user sees "Sent" before navigating
+      setTimeout(() => router.push("/thank-you"), 1400);
     } catch (err) {
-      console.error(err);
-      toast.error("Network error. Please try again or WhatsApp us.", { id: toastId });
+      console.error("[contact] submit failed:", err);
+      const errMsg = "Network error. Please try again or WhatsApp us.";
+      setStatus("error");
+      setErrorMessage(errMsg);
+      toast.error(errMsg);
     } finally {
       setSubmitting(false);
     }
   }
+
+  const isLocked = status === "sending" || status === "sent";
 
   return (
     <form
       id="sixty-newton-quote"
       onSubmit={onSubmit}
       noValidate
-      className="grid gap-5"
+      className={cn(
+        "grid gap-5 transition-opacity duration-200",
+        isLocked && "opacity-90 pointer-events-none",
+      )}
+      aria-busy={isLocked}
     >
       {/* Company OR Name row */}
       <div>
@@ -291,7 +317,7 @@ export function QuoteForm() {
         </label>
       </div>
 
-      {/* Consent + Submit */}
+      {/* Consent + Submit + Status indicator */}
       <div className="mt-2 flex flex-col gap-5">
         <label className="flex items-start gap-3 text-sm text-fg-muted">
           <input
@@ -307,15 +333,60 @@ export function QuoteForm() {
           </span>
         </label>
 
+        {/* Inline status — visible above the submit button */}
+        {status !== "idle" && (
+          <div
+            role={status === "error" ? "alert" : "status"}
+            aria-live="polite"
+            className={cn(
+              "flex items-center gap-3 rounded-md border px-4 py-3 text-sm",
+              status === "sending" && "border-gold/40 bg-gold/5 text-fg",
+              status === "sent" && "border-gold/60 bg-gold/10 text-fg",
+              status === "error" && "border-red-400/50 bg-red-500/5 text-red-200",
+            )}
+          >
+            {status === "sending" && (
+              <>
+                <Loader2 size={16} aria-hidden className="text-gold animate-spin shrink-0" />
+                <span>Sending your enquiry…</span>
+              </>
+            )}
+            {status === "sent" && (
+              <>
+                <CheckCircle2 size={16} aria-hidden className="text-gold shrink-0" />
+                <span>
+                  Enquiry sent — redirecting you to the confirmation page…
+                </span>
+              </>
+            )}
+            {status === "error" && (
+              <>
+                <AlertCircle size={16} aria-hidden className="text-red-300 shrink-0" />
+                <span>{errorMessage}</span>
+              </>
+            )}
+          </div>
+        )}
+
         <div>
           <Button
             type="submit"
             size="lg"
-            disabled={!isValid || submitting}
+            disabled={!isValid || submitting || status === "sent"}
             className="w-full sm:w-auto"
           >
-            {submitting ? "Sending…" : "Send enquiry"}
-            <ArrowRight size={14} className="ml-1" />
+            {status === "sending" && (
+              <Loader2 size={14} aria-hidden className="mr-1 animate-spin" />
+            )}
+            {status === "sent" && (
+              <CheckCircle2 size={14} aria-hidden className="mr-1" />
+            )}
+            {status === "sending"
+              ? "Sending…"
+              : status === "sent"
+                ? "Sent"
+                : "Send enquiry"}
+            {status === "idle" && <ArrowRight size={14} className="ml-1" />}
           </Button>
         </div>
       </div>

@@ -29,4 +29,18 @@ export function getTransporter(): Transporter {
 }
 
 export const MAIL_FROM = process.env.MAIL_FROM ?? '"Sixty Newton Website" <noreply@60newton.com>';
-export const MAIL_TO = process.env.MAIL_TO ?? "info@60newton.com";
+
+/**
+ * Recipients for form submissions.
+ *
+ * MAIL_TO accepts a comma-separated list of addresses — every address
+ * receives a copy. Defaults to a 2-recipient setup so enquiries hit
+ * info@60newton.com (general inbox) AND tarun.s@lapizblue.com (group
+ * oversight) by default.
+ *
+ * Override per environment in Vercel by setting MAIL_TO to a comma-
+ * separated list, e.g.
+ *   MAIL_TO="info@60newton.com,salim@60newton.com,tarun.s@lapizblue.com"
+ */
+const RAW_MAIL_TO = process.env.MAIL_TO ?? "info@60newton.com,tarun.s@lapizblue.com";
+export const MAIL_TO = RAW_MAIL_TO.split(",").map(s => s.trim()).filter(Boolean);
