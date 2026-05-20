@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
-import { PageHero } from "@/components/sections/page-hero";
+import { AboutHero } from "@/components/sections/about-hero";
+import { AboutScrollWrapper } from "@/components/sections/about-scroll-wrapper";
 import { LeadershipTeam } from "@/components/sections/leadership-team";
 import { SustainabilityBand } from "@/components/sections/sustainability-band";
 import { CompanyProfileDownload } from "@/components/sections/company-profile-download";
@@ -27,15 +28,12 @@ export const metadata: Metadata = buildMetadata({
 
 export default function AboutPage() {
   return (
-    <>
-      <PageHero
-        eyebrow="Sixty Newton"
-        title="About"
-        subtitle="A specialist contracting and applicator company powering some of the UAE&rsquo;s most demanding projects."
-      />
+    <AboutScrollWrapper>
+      {/* Hero — "About" wordmark + big Sixty Newton logo, no eyebrow */}
+      <AboutHero />
 
       {/* ── Body intro + Mission / Vision + Applicator pointer + Group attribution ── */}
-      <section className="mx-auto max-w-3xl px-5 md:px-12 lg:px-16 py-16 md:py-24">
+      <section className="relative mx-auto max-w-3xl px-5 md:px-12 lg:px-16 py-16 md:py-24">
         <div className="space-y-8 text-fg-muted">
           <p className="font-serif font-light text-2xl md:text-3xl text-fg leading-snug">
             We focus on complex, design-driven and heavy-duty works where precision,
@@ -98,7 +96,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Parent group — updated company list, Dream Box GCC removed */}
+        {/* Parent group */}
         <div className="mt-16">
           <p className="eyebrow text-fg-subtle">Part of</p>
           <p className="font-serif font-light text-2xl text-fg mt-3">{SITE.parentGroup}</p>
@@ -122,8 +120,8 @@ export default function AboutPage() {
       {/* ── Sustainability — "60 Newton · 0 Carbon Emission" ── */}
       <SustainabilityBand />
 
-      {/* ── Company profile download (scroll-revealed gold band) ── */}
+      {/* ── Company profile download — fixed contrast, real PDF cover ── */}
       <CompanyProfileDownload />
-    </>
+    </AboutScrollWrapper>
   );
 }
