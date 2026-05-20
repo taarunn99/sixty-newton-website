@@ -19,9 +19,11 @@ export function AboutScrollLine({
   scrollYProgress: MotionValue<number>;
   className?: string;
 }) {
-  // Original Skiper19 transform — path starts half-drawn (0.5) so a stub
-  // is visible at the top of the page, then completes as the user scrolls.
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
+  // Animation: line draws from nothing to fully-drawn as the user
+  // scrolls through the wrapper range. Wider range than the Skiper19
+  // source (which used 0.5 → 1) so the draw is clearly perceptible
+  // as the user moves down the page.
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <svg

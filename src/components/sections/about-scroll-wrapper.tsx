@@ -7,15 +7,20 @@ import { AboutScrollLine } from "./about-scroll-line";
 /**
  * /about page wrapper that drives the AboutScrollLine from page scroll.
  *
- * Positioning mirrors the original Skiper19 reference:
- *   - SVG is anchored TOP-RIGHT of the wrapper
- *   - Pushed right by -40% of its width so the tight coordinate-curl
- *     sits OFF-SCREEN past the viewport's right edge — only the sweeping
- *     tail and the outer edges of the loops bleed into view through the
- *     right gutter, well away from the centred content (max-w-3xl)
- *   - z-0 behind page content; pointer-events: none
- *   - hidden on mobile (the SVG's intrinsic 1278×2319 dimensions would
- *     dominate a narrow viewport; the curl is desktop decoration)
+ * Layout strategy:
+ *   1. Outer ref-bearing div tracks scroll progress through the WHOLE
+ *      about page (from hero to just-before Company Profile).
+ *   2. An absolutely-positioned layer covers the wrapper. Inside it,
+ *      a `position: sticky` viewport-height container holds the SVG —
+ *      this keeps the curl visible at the top-right of the viewport
+ *      as the user scrolls down, instead of letting it scroll off
+ *      after the first 2 viewports (which is what was happening before).
+ *   3. The SVG's pathLength animates from 0 → 1 based on scrollYProgress,
+ *      so the line "draws itself" continuously as the user scrolls
+ *      through the entire wrapper range.
+ *
+ * Mobile: hidden (lg+ only) — the 1278 px native SVG would dominate
+ * a narrow viewport.
  */
 export function AboutScrollWrapper({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,17 +31,30 @@ export function AboutScrollWrapper({ children }: { children: ReactNode }) {
 
   return (
     <div ref={ref} className="relative overflow-x-clip">
-      {/* Decorative curl — top-right, pushed off-screen so only the sweep
-          is visible through the right gutter */}
+      {/* Sticky-positioned scroll-line layer.
+          The outer absolute div spans the wrapper's full height; the
+          inner sticky element keeps the SVG at viewport top throughout
+          the scroll, so the curl is always visible while pathLength
+          animates from 0 → 1.
+          Inner positioning div pushes the SVG -40% to the right so the
+          tight coordinate-curl sits OFF-SCREEN past the viewport's
+          right edge — only the smooth sweeping tail bleeds into the
+          right gutter, well away from the centred body content. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-0 z-0 hidden lg:block"
-        style={{
-          right: "-40%",
-          width: "1278px",
-        }}
+        className="pointer-events-none absolute inset-0 z-0 hidden lg:block"
       >
-        <AboutScrollLine scrollYProgress={scrollYProgress} />
+        <div className="sticky top-0 h-screen w-full overflow-visible">
+          <div
+            className="absolute top-0"
+            style={{
+              right: "-40%",
+              width: "1278px",
+            }}
+          >
+            <AboutScrollLine scrollYProgress={scrollYProgress} />
+          </div>
+        </div>
       </div>
 
       {/* Content stays above */}
