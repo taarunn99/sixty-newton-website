@@ -5,14 +5,17 @@ import { useScroll } from "framer-motion";
 import { AboutScrollLine } from "./about-scroll-line";
 
 /**
- * Client wrapper for the /about page that drives the AboutScrollLine
- * from page scroll. Reads scroll position relative to its own bounding
- * box so the line "draws itself" as the user moves down the page.
+ * /about page wrapper that drives the AboutScrollLine from page scroll.
  *
- * The SVG layer is absolutely-positioned, full-width × full-height of
- * the wrapper, behind all page content (z-0). Visible across all
- * viewport sizes — preserveAspectRatio in the SVG keeps the curls
- * gracefully framed.
+ * Positioning mirrors the original Skiper19 reference:
+ *   - SVG is anchored TOP-RIGHT of the wrapper
+ *   - Pushed right by -40% of its width so the tight coordinate-curl
+ *     sits OFF-SCREEN past the viewport's right edge — only the sweeping
+ *     tail and the outer edges of the loops bleed into view through the
+ *     right gutter, well away from the centred content (max-w-3xl)
+ *   - z-0 behind page content; pointer-events: none
+ *   - hidden on mobile (the SVG's intrinsic 1278×2319 dimensions would
+ *     dominate a narrow viewport; the curl is desktop decoration)
  */
 export function AboutScrollWrapper({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -23,20 +26,20 @@ export function AboutScrollWrapper({ children }: { children: ReactNode }) {
 
   return (
     <div ref={ref} className="relative overflow-x-clip">
-      {/* Scroll-tracking gold path layer.
-          z-0 so page content sits above it.
-          pointer-events: none so it never intercepts clicks. */}
+      {/* Decorative curl — top-right, pushed off-screen so only the sweep
+          is visible through the right gutter */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute top-0 z-0 hidden lg:block"
+        style={{
+          right: "-40%",
+          width: "1278px",
+        }}
       >
-        <AboutScrollLine
-          scrollYProgress={scrollYProgress}
-          className="absolute inset-0 h-full w-full"
-        />
+        <AboutScrollLine scrollYProgress={scrollYProgress} />
       </div>
 
-      {/* Content stays above the line */}
+      {/* Content stays above */}
       <div className="relative z-10">{children}</div>
     </div>
   );
