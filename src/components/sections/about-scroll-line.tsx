@@ -3,14 +3,23 @@
 import { motion, useTransform, type MotionValue } from "framer-motion";
 
 /**
- * Continuous single-stroke gold curl that "draws itself" as the user
- * scrolls /about. Path is the original Skiper19 / 21st.dev coordinates —
- * a tight scribble that opens into a long sweeping tail down the page.
- * Recoloured to brand gold and slightly thinner than the 20 px original.
+ * Continuous gold scroll-line for /about — single unbroken stroke that
+ * dodges page content.
  *
- * Caller positions the SVG; this component just renders the curl + drives
- * the draw-on-scroll. The SVG is set to `overflow: visible` so the path
- * extends beyond the box (matches the original behaviour).
+ *   Top-right → swings down-left through the body-section gutter →
+ *   stays left through mission / applicators / parent → swings back
+ *   right through the leadership cards → drifts down-right past
+ *   sustainability → ends centred at the bottom (just before Company
+ *   Profile).
+ *
+ * viewBox 0 0 100 100 with preserveAspectRatio="none" — the path stretches
+ * vertically to span the full wrapper height. vectorEffect="non-scaling-
+ * stroke" keeps the line a consistent visual thickness regardless of
+ * the viewBox stretch.
+ *
+ * Path "draws" via Framer Motion `pathLength` (0 → 1 across the scroll
+ * range) — manual strokeDashoffset removed since it was conflicting
+ * with Framer's built-in handling.
  */
 export function AboutScrollLine({
   scrollYProgress,
@@ -19,33 +28,44 @@ export function AboutScrollLine({
   scrollYProgress: MotionValue<number>;
   className?: string;
 }) {
-  // Animation: line draws from nothing to fully-drawn as the user
-  // scrolls through the wrapper range. Wider range than the Skiper19
-  // source (which used 0.5 → 1) so the draw is clearly perceptible
-  // as the user moves down the page.
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <svg
-      width="1278"
-      height="2319"
-      viewBox="0 0 1278 2319"
+      viewBox="0 0 100 100"
       fill="none"
-      overflow="visible"
+      preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       className={className}
     >
+      {/* Single continuous cubic-Bezier snake. Each bow centres on a
+          section gutter to dodge content. Coordinates as % of viewBox:
+
+            Start top-right (off-screen-right at x=105)
+            Bow 1: hero       — stays in right gutter (y 2-18)
+            Bow 2: body       — swings to left gutter (y 18-40)
+            Bow 3: leadership — swings back to right (y 40-72)
+            Bow 4: sustain.   — drifts back to left (y 72-90)
+            End: centre bottom (x 50, y 100)                            */}
       <motion.path
-        d="M876.605 394.131C788.982 335.917 696.198 358.139 691.836 416.303C685.453 501.424 853.722 498.43 941.95 409.714C1016.1 335.156 1008.64 186.907 906.167 142.846C807.014 100.212 712.699 198.494 789.049 245.127C889.053 306.207 986.062 116.979 840.548 43.3233C743.932 -5.58141 678.027 57.1682 672.279 112.188C666.53 167.208 712.538 172.943 736.353 163.088C760.167 153.234 764.14 120.924 746.651 93.3868C717.461 47.4252 638.894 77.8642 601.018 116.979C568.164 150.908 557 201.079 576.467 246.924C593.342 286.664 630.24 310.55 671.68 302.614C756.114 286.446 729.747 206.546 681.86 186.442C630.54 164.898 492 209.318 495.026 287.644C496.837 334.494 518.402 366.466 582.455 367.287C680.013 368.538 771.538 299.456 898.634 292.434C1007.02 286.446 1192.67 309.384 1242.36 382.258C1266.99 418.39 1273.65 443.108 1247.75 474.477C1217.32 511.33 1149.4 511.259 1096.84 466.093C1044.29 420.928 1029.14 380.576 1033.97 324.172C1038.31 273.428 1069.55 228.986 1117.2 216.384C1152.2 207.128 1188.29 213.629 1194.45 245.127C1201.49 281.062 1132.22 280.104 1100.44 272.673C1065.32 264.464 1044.22 234.837 1032.77 201.413C1019.29 162.061 1029.71 131.126 1056.44 100.965C1086.19 67.4032 1143.96 54.5526 1175.78 86.1513C1207.02 117.17 1186.81 143.379 1156.22 166.691C1112.57 199.959 1052.57 186.238 999.784 155.164C957.312 130.164 899.171 63.7054 931.284 26.3214C952.068 2.12513 996.288 3.87363 1007.22 43.58C1018.15 83.2749 1003.56 122.644 975.969 163.376C948.377 204.107 907.272 255.122 913.558 321.045C919.727 385.734 990.968 497.068 1063.84 503.35C1111.46 507.456 1166.79 511.984 1175.68 464.527C1191.52 379.956 1101.26 334.985 1030.29 377.017C971.109 412.064 956.297 483.647 953.797 561.655C947.587 755.413 1197.56 941.828 936.039 1140.66C745.771 1285.32 321.926 950.737 134.536 1202.19C-6.68295 1391.68 -53.4837 1655.38 131.935 1760.5C478.381 1956.91 1124.19 1515 1201.28 1997.83C1273.66 2451.23 100.805 1864.7 303.794 2668.89"
+        d="
+          M 105 2
+          C 108 8  92 14  100 20
+          C 88 28  8  32  -3 42
+          C  -5 50  10 56  -2 64
+          C  6  70  90 70  103 76
+          C 108 82  94 88  102 92
+          C  94 96  60 98  50 100
+        "
         stroke="var(--gold)"
-        strokeWidth="12"
+        strokeWidth="6"
         strokeLinecap="round"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
         style={{
           pathLength,
-          strokeDashoffset: useTransform(pathLength, (value) => 1 - value),
-          opacity: 0.7,
+          opacity: 0.55,
         }}
       />
     </svg>
