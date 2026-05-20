@@ -7,29 +7,51 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-// Two bundles — counts must match what scripts/build-frames.ts emits.
-const FRAME_COUNT_DESKTOP = 169;
-const FRAME_COUNT_MOBILE  = 85;
+// Bundle counts must match what scripts/optimize-frames-fast.ts emits.
+// Apple-class production tuning — small bundles, fast playback.
+const FRAME_COUNT_DESKTOP = 90;
+const FRAME_COUNT_MOBILE  = 45;
 const FRAME_BASE_DESKTOP  = "/animation/desktop/frame-";
 const FRAME_BASE_MOBILE   = "/animation/mobile/frame-";
+
+// Start playing the animation as soon as 30% of frames are decoded.
+// Background decoder keeps loading the rest in parallel.
+const PLAYBACK_THRESHOLD = 0.3;
+
 const frameSrc = (base: string, i: number) =>
   `${base}${String(i).padStart(3, "0")}.webp`;
 
-/** Drawable source — either a fast pre-decoded bitmap, or fallback HTMLImageElement */
 type Frame = ImageBitmap | HTMLImageElement;
 
-const frameWidth = (f: Frame) => ("width" in f ? f.width : (f as HTMLImageElement).naturalWidth);
-const frameHeight = (f: Frame) => ("height" in f ? f.height : (f as HTMLImageElement).naturalHeight);
+const frameWidth = (f: Frame) =>
+  "width" in f ? f.width : (f as HTMLImageElement).naturalWidth;
+const frameHeight = (f: Frame) =>
+  "height" in f ? f.height : (f as HTMLImageElement).naturalHeight;
 
 /**
- * Pinned canvas-based scroll sequence — pure visual.
+ * Detect very low bandwidth or explicit data-saver — same heuristic Apple
+ * uses on iPhone product pages. On those connections we skip the animation
+ * entirely and render only the final frame.
+ */
+function shouldSkipAnimation(): boolean {
+  if (typeof window === "undefined") return false;
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  if (!conn) return false;
+  if (conn.saveData) return true;
+  const slow = conn.effectiveType;
+  return slow === "slow-2g" || slow === "2g";
+}
+
+/**
+ * Pinned canvas-based scroll sequence.
  *
- * Picks the right bundle per viewport:
- *   - md+   → 169 frames @ 2400w (~27 MB, premium fidelity)
- *   - <md   → 85 frames @ 1200w (~3.6 MB, cellular-friendly)
+ *   - Desktop: 90 frames @ 1800w, q55 WebP — ~4.3 MB total
+ *   - Mobile:  45 frames @ 900w,  q55 WebP — ~0.9 MB total
  *
- * Frames decoded to ImageBitmap before pinning is armed (no decode stutter during scrub).
- * Honours prefers-reduced-motion → static final frame, no scroll-jacking.
+ * Parallel fetch + ImageBitmap decode. Animation arms at 30% decoded
+ * (not 100%) so users see the effect inside ~1 s on 4G.
+ * Honours prefers-reduced-motion AND Save-Data — both fall back to a
+ * static final frame, no scroll-jacking.
  */
 export function ScrollSequence() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,15 +66,18 @@ export function ScrollSequence() {
 
   const [loadedCount, setLoadedCount] = useState(0);
   const [reduced, setReduced] = useState(false);
+  const [staticFallback, setStaticFallback] = useState(false);
 
-  // Reduced-motion preference (once on mount)
+  // Reduced-motion + Save-Data preferences (once on mount)
   useEffect(() => {
     if (typeof window === "undefined") return;
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setReduced(prefersReduced);
+    setStaticFallback(prefersReduced || shouldSkipAnimation());
   }, []);
 
-  // Preload + decode frames for the active bundle.
-  // Re-runs if viewport crosses the mobile/desktop boundary.
+  // Preload + decode frames in PARALLEL (browser HTTP/2 multiplexes;
+  // Vercel CDN serves all in one wave).
   useEffect(() => {
     if (typeof window === "undefined") return;
     let cancelled = false;
@@ -82,30 +107,39 @@ export function ScrollSequence() {
     framesRef.current = new Array(frameCount);
 
     (async () => {
-      if (reduced) {
+      if (staticFallback) {
         const last = await loadOne(frameCount - 1);
         if (cancelled) return;
         if (last) framesRef.current[frameCount - 1] = last;
         setLoadedCount(frameCount);
         return;
       }
+
+      // Parallel-fetch ALL frames. Each settle increments the counter so
+      // the playback threshold (30%) trips as soon as enough are ready.
       let loaded = 0;
-      for (let i = 0; i < frameCount; i++) {
-        const frame = await loadOne(i);
-        if (cancelled) return;
-        if (frame) framesRef.current[i] = frame;
-        loaded += 1;
-        setLoadedCount(loaded);
-      }
+      await Promise.all(
+        Array.from({ length: frameCount }, (_, i) => i).map(async i => {
+          const frame = await loadOne(i);
+          if (cancelled) return;
+          if (frame) framesRef.current[i] = frame;
+          loaded += 1;
+          setLoadedCount(loaded);
+        }),
+      );
     })();
 
     return () => { cancelled = true; };
-  }, [reduced, frameCount, frameBase]);
+  }, [staticFallback, frameCount, frameBase]);
 
-  // Arm GSAP + canvas only after all frames are decoded
+  const armed = staticFallback
+    ? loadedCount === frameCount
+    : loadedCount >= Math.ceil(frameCount * PLAYBACK_THRESHOLD);
+
+  // Arm GSAP + canvas once the threshold is met (30% for animated, 100% for fallback)
   useGSAP(
     () => {
-      if (loadedCount < frameCount) return;
+      if (!armed) return;
       const section = sectionRef.current;
       const canvas = canvasRef.current;
       if (!section || !canvas) return;
@@ -127,7 +161,14 @@ export function ScrollSequence() {
       };
 
       const drawFrame = (i: number) => {
-        const frame = framesRef.current[i];
+        // Background loading may not have completed for this index yet —
+        // fall back to the last decoded frame.
+        let frame = framesRef.current[i];
+        if (!frame) {
+          for (let j = i - 1; j >= 0; j--) {
+            if (framesRef.current[j]) { frame = framesRef.current[j]; break; }
+          }
+        }
         if (!frame) return;
         const cw = canvas.clientWidth;
         const ch = canvas.clientHeight;
@@ -155,7 +196,7 @@ export function ScrollSequence() {
 
       sizeCanvas();
 
-      if (reduced) {
+      if (staticFallback) {
         drawFrame(frameCount - 1);
         return;
       }
@@ -171,10 +212,12 @@ export function ScrollSequence() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=420%",
-          // scrub: 3 gives a long, luxurious tail on the canvas after the
-          // underlying scroll position settles.
-          scrub: 3,
+          // 240 % scroll distance — half the prior `+=420%`. Animation
+          // completes inside two viewport heights of scroll.
+          end: "+=240%",
+          // Tight scrub — animation responds immediately. Apple-grade
+          // tuning sits in 0.3–0.8s; 0.6 is the sweet spot for cinematic.
+          scrub: 0.6,
           pin: stickyRef.current,
           anticipatePin: 1,
           invalidateOnRefresh: true,
@@ -204,7 +247,7 @@ export function ScrollSequence() {
         window.removeEventListener("resize", onResize);
       };
     },
-    { scope: sectionRef, dependencies: [loadedCount, reduced, frameCount] },
+    { scope: sectionRef, dependencies: [armed, staticFallback, frameCount] },
   );
 
   const pct = Math.round((loadedCount / frameCount) * 100);
@@ -233,8 +276,9 @@ export function ScrollSequence() {
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 md:h-56 bg-gradient-to-t from-bg via-bg/70 to-transparent"
         />
 
-        {/* Loading state */}
-        {loadedCount < frameCount && !reduced && (
+        {/* Loading state — only blocks until the 30 % threshold is met.
+            Once armed, the rest of the frames stream in behind the scenes. */}
+        {!armed && !staticFallback && (
           <div className="absolute inset-0 z-20 grid place-items-center bg-bg/95">
             <div className="flex flex-col items-center gap-4">
               <span className="eyebrow text-fg-subtle">Loading sequence · {pct}%</span>

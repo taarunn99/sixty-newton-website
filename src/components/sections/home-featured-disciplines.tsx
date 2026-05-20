@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { DISCIPLINES } from "@/constants/site";
 import { cn } from "@/lib/utils";
@@ -63,14 +63,16 @@ export function HomeFeaturedDisciplines() {
                 <p className="mt-4 text-fg-muted text-sm leading-relaxed">
                   {d.description}
                 </p>
-                <p className="mt-7 inline-flex items-center gap-2 eyebrow text-gold group-hover:text-gold-hover transition-colors">
+                {/* Visual-only gold pill — the tile-wide Link handles the
+                    click. Matches the /disciplines hub Explore-button pattern. */}
+                <span className={cn(buttonVariants({ variant: "primary", size: "md" }), "mt-7 inline-flex pointer-events-none")}>
                   Explore
-                  <ArrowUpRight
-                    size={12}
+                  <ArrowRight
+                    size={14}
                     aria-hidden
-                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="ml-1 transition-transform duration-200 group-hover:translate-x-1"
                   />
-                </p>
+                </span>
               </Link>
             </li>
           ))}

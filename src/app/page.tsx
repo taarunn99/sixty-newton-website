@@ -21,11 +21,11 @@ export default function HomePage() {
     <>
       <Hero />
       <ScrollSequence />
+      <HomeEnquiry />
       <HomeFeaturedDisciplines />
       <HomeFeaturedCaseStudies />
       <CredentialsSection showAboutLink />
       <HomeInsightsStrip />
-      <HomeEnquiry />
       <VisitUs />
     </>
   );
