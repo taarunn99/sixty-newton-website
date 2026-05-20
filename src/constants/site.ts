@@ -8,6 +8,7 @@ export const SITE = {
   name: "Sixty Newton",
   legalName: "Sixty Newton Technical Services L.L.C.",
   parentGroup: "Lapiz Blue Group of Companies",
+  parentGroupUrl: "https://www.lapizblue.com",
   tagline: "Your go-to applicators.",
   description:
     "Sixty Newton Technical Services is a specialist contracting company powering some of the UAE's most demanding projects — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
@@ -21,6 +22,8 @@ export const SITE = {
   // ─── Contact ───
   phone: "+971 50 619 4737",
   phoneHref: "+971506194737",
+  landline: "+971 4 885 5257",
+  landlineHref: "+97148855257",
   whatsapp: "+971 50 281 4338",
   whatsappHref: "971502814338",
   whatsappMessage: "Hello Sixty Newton, I'd like to discuss a project.",
@@ -288,15 +291,15 @@ export const REFERENCE_PROJECTS = [
   { name: "Atlantis The Royal",          location: "Palm Jumeirah, Dubai", slug: "atlantis-the-royal",        published: true },
   { name: "Al Wathba Desert Resort & Spa", location: "Abu Dhabi",           slug: "al-wathba-desert-resort",   published: true },
   { name: "St. Regis Developments",      location: "UAE",                   slug: "st-regis-developments",      published: true },
-  { name: "Ahlatci Gold Refinery",       location: "Industrial",            slug: "ahlatci-gold-refinery",      published: false },
-  { name: "The Address Boulevard Hotel", location: "Dubai",                 slug: "address-boulevard-hotel",    published: false },
-  { name: "Jumeirah Golf Villas",        location: "Dubai",                 slug: "jumeirah-golf-villas",       published: false },
-  { name: "Dubai Hills Villas",          location: "Dubai",                 slug: "dubai-hills-villas",         published: false },
-  { name: "Le Méridien Hotels",          location: "UAE",                   slug: "le-meridien-hotels",         published: false },
-  { name: "Masha'Allah Building",        location: "Al Nahda",              slug: "mashaallah-building",        published: false },
-  { name: "Delhi Metro",                 location: "Delhi, India",          slug: "delhi-metro",                published: false },
-  { name: "Patna Metro Station",         location: "Patna, India",          slug: "patna-metro-station",        published: false },
-  { name: "Omaxe Mall",                  location: "Delhi, India",          slug: "omaxe-mall",                 published: false },
+  { name: "Ahlatci Gold Refinery",       location: "Industrial",            slug: "ahlatci-gold-refinery",      published: true},
+  { name: "The Address Boulevard Hotel", location: "Dubai",                 slug: "address-boulevard-hotel",    published: true},
+  { name: "Jumeirah Golf Villas",        location: "Dubai",                 slug: "jumeirah-golf-villas",       published: true},
+  { name: "Dubai Hills Villas",          location: "Dubai",                 slug: "dubai-hills-villas",         published: true},
+  { name: "Le Méridien Hotels",          location: "UAE",                   slug: "le-meridien-hotels",         published: true},
+  { name: "Masha'Allah Building",        location: "Al Nahda",              slug: "mashaallah-building",        published: true},
+  { name: "Delhi Metro",                 location: "Delhi, India",          slug: "delhi-metro",                published: true},
+  { name: "Patna Metro Station",         location: "Patna, India",          slug: "patna-metro-station",        published: true},
+  { name: "Omaxe Mall",                  location: "Delhi, India",          slug: "omaxe-mall",                 published: true},
 ] as const;
 
 // ─── Navbar items (top-level) ───

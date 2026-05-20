@@ -22,4 +22,13 @@ export const PUBLISHED_PROJECT_SLUGS = [
   "atlantis-the-royal",
   "al-wathba-desert-resort",
   "st-regis-developments",
+  "ahlatci-gold-refinery",
+  "address-boulevard-hotel",
+  "jumeirah-golf-villas",
+  "dubai-hills-villas",
+  "le-meridien-hotels",
+  "mashaallah-building",
+  "delhi-metro",
+  "patna-metro-station",
+  "omaxe-mall",
 ] as const;

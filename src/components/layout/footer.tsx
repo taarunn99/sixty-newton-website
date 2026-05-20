@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { FOOTER_SECTIONS, SITE } from "@/constants/site";
 import { Logo } from "./logo";
+import { LapizBlueLink } from "@/components/ui/lapiz-blue-link";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -56,26 +56,45 @@ export function Footer() {
           ))}
         </div>
 
+        {/* ── Phone numbers strip ── */}
+        <div className="mt-14 grid gap-3 border-t border-border pt-8 md:grid-cols-3 md:gap-6">
+          <div>
+            <p className="eyebrow text-fg-subtle">Landline</p>
+            <a
+              href={`tel:${SITE.landlineHref}`}
+              className="mt-2 inline-block font-serif font-light text-xl text-fg hover:text-gold transition-colors"
+            >
+              {SITE.landline}
+            </a>
+          </div>
+          <div>
+            <p className="eyebrow text-fg-subtle">Mobile</p>
+            <a
+              href={`tel:${SITE.phoneHref}`}
+              className="mt-2 inline-block font-serif font-light text-xl text-fg hover:text-gold transition-colors"
+            >
+              {SITE.phone}
+            </a>
+          </div>
+          <div>
+            <p className="eyebrow text-fg-subtle">WhatsApp</p>
+            <a
+              href={`https://wa.me/${SITE.whatsappHref}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block font-serif font-light text-xl text-fg hover:text-gold transition-colors"
+            >
+              {SITE.whatsapp}
+            </a>
+          </div>
+        </div>
+
         {/* ── Parent group attribution ── */}
-        <div className="mt-14 flex flex-col items-start gap-4 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <a
-            href="https://www.lapizblue.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-4 group"
-            aria-label="Lapiz Blue — parent group"
-          >
-            <Image
-              src="/brand/lapizblue-logo.svg"
-              alt="Lapiz Blue"
-              width={120}
-              height={32}
-              className="h-6 w-auto opacity-70 transition-opacity duration-200 group-hover:opacity-100"
-            />
-            <span className="eyebrow text-fg-subtle">
-              Part of the <span className="text-fg-muted">{SITE.parentGroup}</span>
-            </span>
-          </a>
+        <div className="mt-10 flex flex-col items-start gap-4 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-3">
+            <p className="eyebrow text-fg-subtle">A Lapiz Blue Group company</p>
+            <LapizBlueLink />
+          </div>
 
           <p className="text-xs text-fg-subtle md:text-right">
             Sister to Lapiz Blue, Montolite, Dream Box, Global Classic &amp; Al Sama.

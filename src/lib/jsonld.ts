@@ -21,9 +21,17 @@ export function organizationJsonLd() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: SITE.phone,
+        telephone: SITE.landline,
         email: SITE.email,
         contactType: "customer service",
+        areaServed: "AE",
+        availableLanguage: ["English", "Arabic"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: SITE.phone,
+        email: SITE.email,
+        contactType: "sales",
         areaServed: "AE",
         availableLanguage: ["English", "Arabic"],
       },

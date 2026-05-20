@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
 import { Button } from "@/components/ui/button";
+import { LapizBlueLink } from "@/components/ui/lapiz-blue-link";
 import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -94,6 +95,9 @@ export default function AboutPage() {
             Dream Box General Trading GCC, Global Classic Building Material and Al Sama
             Metal Coating &amp; Industries.
           </p>
+          <div className="mt-6">
+            <LapizBlueLink label="Visit Lapiz Blue" />
+          </div>
         </div>
       </section>
     </>

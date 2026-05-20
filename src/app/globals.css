@@ -82,6 +82,10 @@ body {
   font-feature-settings: "ss01", "ss02", "cv11";
   /* Kill the grey flash on taps (mobile) — we have our own focus / active states */
   -webkit-tap-highlight-color: transparent;
+  /* Belt-and-braces overflow guard. Long marquees + wide tables shouldn't
+     cause the whole page to horizontal-scroll on narrow phones (Z-Fold outer,
+     iPhone SE landscape, etc). */
+  overflow-x: clip;
 }
 
 * { box-sizing: border-box; }

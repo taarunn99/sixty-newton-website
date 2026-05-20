@@ -43,8 +43,14 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
   return (
     <div
       aria-hidden={!visible}
+      style={{
+        // Respect Z-Fold / iPhone home-indicator / system gesture areas.
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)",
+        paddingLeft:   "calc(env(safe-area-inset-left, 0px) + 1rem)",
+        paddingRight:  "calc(env(safe-area-inset-right, 0px) + 1rem)",
+      }}
       className={cn(
-        "md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-4 pt-3",
+        "md:hidden fixed inset-x-0 bottom-0 z-40 pt-3",
         "bg-gradient-to-t from-bg via-bg/95 to-transparent",
         "transition-[transform,opacity] duration-300 ease-out",
         visible ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-full opacity-0 pointer-events-none",

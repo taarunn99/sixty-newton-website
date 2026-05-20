@@ -8,6 +8,7 @@ import { ProjectCardGrid } from "@/components/services/project-card";
 import { FAQAccordion } from "@/components/services/faq-accordion";
 import { DualCTA } from "@/components/services/dual-cta";
 import { buttonVariants } from "@/components/ui/button";
+import { LapizBlueLink } from "@/components/ui/lapiz-blue-link";
 import { DISCIPLINES, REFERENCE_PROJECTS, getDisciplinesByBucket } from "@/constants/site";
 import { cn } from "@/lib/utils";
 
@@ -172,17 +173,14 @@ export default function DisciplinesPage() {
             <div className="rounded-md border border-border bg-bg p-6 md:p-8">
               <p className="font-mono text-xs text-gold uppercase tracking-widest">02</p>
               <h3 className="font-serif font-light text-2xl text-fg mt-4 leading-tight">
-                Lapiz Group material backing.
+                Lapiz Blue Group material backing.
               </h3>
               <p className="mt-4 text-fg-muted text-sm leading-relaxed">
                 Sister to Lapiz Blue, Montolite, Dream Box, Global Classic and Al Sama — the UAE's most established construction-chemicals network. Stock security, technical support and supply continuity sit behind every project.
               </p>
-              <Link
-                href="/about"
-                className="mt-6 inline-flex items-center gap-2 eyebrow text-gold hover:text-gold-hover transition-colors"
-              >
-                About the group <ArrowUpRight size={14} aria-hidden />
-              </Link>
+              <div className="mt-6">
+                <LapizBlueLink label="Visit Lapiz Blue" variant="ghost" />
+              </div>
             </div>
 
             <div className="rounded-md border border-border bg-bg p-6 md:p-8">

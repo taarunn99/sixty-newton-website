@@ -42,7 +42,13 @@ export function FloatingWhatsApp() {
       aria-label={`Chat with ${SITE.name} on WhatsApp`}
       onClick={onClick}
       data-mounted={mounted ? "true" : "false"}
-      className="fixed bottom-24 right-5 md:bottom-32 md:right-7 z-50 group inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-gold text-bg shadow-[0_10px_30px_-8px_rgba(184,146,79,0.45),0_0_0_1px_rgba(184,146,79,0.35)] transition-all duration-200 hover:bg-gold-hover hover:scale-105 active:scale-95 motion-reduce:transition-none data-[mounted=false]:opacity-0 data-[mounted=false]:translate-y-3 data-[mounted=true]:opacity-100 data-[mounted=true]:translate-y-0"
+      style={{
+        // Lifted above StickyCTAMobile (~76px tall) + device safe-area bottom inset.
+        // Right-side inset handles Z-Fold / curved-screen / system-gesture overlap.
+        bottom: "calc(env(safe-area-inset-bottom, 0px) + 7rem)",
+        right:  "calc(env(safe-area-inset-right, 0px) + 1.25rem)",
+      }}
+      className="fixed md:!bottom-[calc(env(safe-area-inset-bottom,0px)+8rem)] md:!right-[calc(env(safe-area-inset-right,0px)+1.75rem)] z-50 group inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-gold text-bg shadow-[0_10px_30px_-8px_rgba(184,146,79,0.45),0_0_0_1px_rgba(184,146,79,0.35)] transition-all duration-200 hover:bg-gold-hover hover:scale-105 active:scale-95 motion-reduce:transition-none data-[mounted=false]:opacity-0 data-[mounted=false]:translate-y-3 data-[mounted=true]:opacity-100 data-[mounted=true]:translate-y-0"
     >
       <span
         aria-hidden

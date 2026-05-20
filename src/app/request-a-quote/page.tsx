@@ -38,7 +38,17 @@ export default function RequestQuotePage() {
 
             <div className="mt-10 space-y-8">
               <div>
-                <p className="eyebrow text-fg-subtle">Phone</p>
+                <p className="eyebrow text-fg-subtle">Landline</p>
+                <a
+                  href={`tel:${SITE.landlineHref}`}
+                  className="mt-2 inline-block font-serif font-light text-2xl text-fg hover:text-gold transition-colors duration-200"
+                >
+                  {SITE.landline}
+                </a>
+              </div>
+
+              <div>
+                <p className="eyebrow text-fg-subtle">Mobile</p>
                 <a
                   href={`tel:${SITE.phoneHref}`}
                   className="mt-2 inline-block font-serif font-light text-2xl text-fg hover:text-gold transition-colors duration-200"
