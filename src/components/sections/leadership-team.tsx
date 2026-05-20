@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,7 @@ const LEADERS: Leader[] = [
     name: "Mrs. Ashrat Razi",
     role: "Managing Director",
     imageHint: "Portrait of Mrs. Ashrat Razi, Managing Director of Sixty Newton",
+    imagePath: "/images/team/ashrat-razi.webp",
     quotes: [
       {
         text: "When I look at Sixty Newton, I see more than a contracting company — I see a family that grows together. Every person here, from our applicators to our project engineers, carries the same purpose: deliver to spec, deliver on time, deliver with discipline.",
@@ -40,6 +42,7 @@ const LEADERS: Leader[] = [
     name: "Mr. Shariful Haque",
     role: "Group General Manager",
     imageHint: "Portrait of Mr. Shariful Haque, Group General Manager",
+    imagePath: "/images/team/shariful-haque.webp",
     quotes: [
       {
         text: "In construction, there are no shortcuts. Every system we apply has been tested and proven on projects far more demanding than the next brief. We don't compromise — because the buildings you trust us with shouldn't either.",
@@ -82,34 +85,58 @@ function LeaderCard({ leader, index }: { leader: Leader; index: number }) {
       ref={ref}
       className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16 items-center"
     >
-      {/* Portrait — atelier-style placeholder until real photo lands */}
+      {/* Portrait — real photo when available, atelier placeholder otherwise */}
       <motion.div
         className={cn(
-          "relative w-full h-[480px] sm:h-[560px] lg:h-[680px] rounded-2xl border border-gold/30 bg-gradient-to-br from-bg-elevated via-bg-inset to-bg overflow-hidden",
+          "relative w-full h-[480px] sm:h-[560px] lg:h-[680px] rounded-2xl overflow-hidden",
+          leader.imagePath
+            ? "bg-bg-elevated p-4 sm:p-5 lg:p-6 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)]"
+            : "border border-gold/30 bg-gradient-to-br from-bg-elevated via-bg-inset to-bg",
           reverse ? "lg:order-2" : "lg:order-1",
         )}
         initial={{ opacity: 0, x: reverse ? 50 : -50 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? 50 : -50 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Dashed atelier frame inside */}
-        <div className="absolute inset-4 border border-dashed border-[var(--border-dashed)] rounded-xl" />
-        {/* Placeholder mark */}
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="text-center px-6">
-            <p className="eyebrow text-fg-subtle">Portrait to follow</p>
-            <div aria-hidden className="my-4 mx-auto h-px w-12 bg-gold/60" />
-            <p className="font-serif font-extralight text-fg text-2xl md:text-3xl tracking-[-0.01em] leading-tight">
-              {leader.name}
-            </p>
-            <p className="mt-2 eyebrow text-gold">{leader.role}</p>
+        {leader.imagePath ? (
+          <div className="relative w-full h-full rounded-xl overflow-hidden">
+            <Image
+              src={leader.imagePath}
+              alt={leader.imageHint}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover object-top"
+              quality={90}
+            />
+            {/* Subtle dark-vignette gradient bottom edge so name floats over the
+                lower portion of the image where the portrait fades to neutral */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-bg/40 to-transparent"
+            />
           </div>
-        </div>
-        {/* Soft gold halo */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(184,146,79,0.06),transparent_60%)]"
-        />
+        ) : (
+          <>
+            {/* Dashed atelier frame inside */}
+            <div className="absolute inset-4 border border-dashed border-[var(--border-dashed)] rounded-xl" />
+            {/* Placeholder mark */}
+            <div className="absolute inset-0 grid place-items-center">
+              <div className="text-center px-6">
+                <p className="eyebrow text-fg-subtle">Portrait to follow</p>
+                <div aria-hidden className="my-4 mx-auto h-px w-12 bg-gold/60" />
+                <p className="font-serif font-extralight text-fg text-2xl md:text-3xl tracking-[-0.01em] leading-tight">
+                  {leader.name}
+                </p>
+                <p className="mt-2 eyebrow text-gold">{leader.role}</p>
+              </div>
+            </div>
+            {/* Soft gold halo */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(184,146,79,0.06),transparent_60%)]"
+            />
+          </>
+        )}
       </motion.div>
 
       {/* Content */}
