@@ -8,20 +8,32 @@ import { cn } from "@/lib/utils";
  * Dual CTA — closes every section that completes a story arc.
  * Primary: gold filled "Request a site survey" → /request-a-quote
  * Secondary: WhatsApp deep link, opens in new tab with prefilled message.
+ *
+ * When `serviceContext` is passed, the primary CTA appends a ?service=
+ * query param so the survey form pre-selects the discipline, and the
+ * WhatsApp pre-fill mentions the discipline by name.
  */
 export function DualCTA({
   message,
   className,
   primaryLabel = "Request a site survey",
   align = "left",
+  serviceContext,
 }: {
   message?: string;
   className?: string;
   primaryLabel?: string;
   align?: "left" | "center";
+  serviceContext?: { title: string };
 }) {
-  const text = message ?? SITE.whatsappMessage;
+  const text = message
+    ?? (serviceContext
+        ? `Hello Sixty Newton, I'd like to discuss a ${serviceContext.title} project.`
+        : SITE.whatsappMessage);
   const waHref = `https://wa.me/${SITE.whatsappHref}?text=${encodeURIComponent(text)}`;
+  const quoteHref = serviceContext
+    ? `/request-a-quote?service=${encodeURIComponent(serviceContext.title)}`
+    : "/request-a-quote";
 
   return (
     <div
@@ -32,7 +44,7 @@ export function DualCTA({
       )}
     >
       <Button asChild size="md" className="group">
-        <Link href="/request-a-quote">
+        <Link href={quoteHref}>
           {primaryLabel}
           <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
         </Link>

@@ -8,6 +8,7 @@ import { SITE } from "@/constants/site";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
+import { StickyCTAMobile } from "@/components/layout/sticky-cta-mobile";
 import { GTM } from "@/components/analytics/gtm";
 import { ConsentBanner } from "@/components/analytics/consent-banner";
 import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
@@ -39,16 +40,21 @@ export const metadata: Metadata = {
   creator: SITE.legalName,
   publisher: SITE.legalName,
   keywords: [
-    "fit-out contractor UAE",
-    "MEP contractor Sharjah",
-    "swimming pool contractor UAE",
-    "epoxy flooring Dubai",
-    "waterproofing UAE",
+    "specialist contractor UAE",
+    "waterproofing contractor Dubai",
+    "epoxy flooring contractor UAE",
     "microcement Dubai",
-    "joinery UAE",
+    "microtopping Dubai",
+    "Mapei approved applicator UAE",
+    "Laticrete certified contractor",
+    "AkzoNobel Dulux applicator Dubai",
+    "X-Calibur applicator UAE",
     "Sixty Newton",
   ],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { "en-AE": "/" },
+  },
   formatDetection: { telephone: false, email: false, address: false },
   openGraph: {
     type: "website",
@@ -83,7 +89,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang={SITE.htmlLang}
       data-scroll-behavior="smooth"
       className={`${serif.variable} ${sans.variable} dark`}
     >
@@ -111,6 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <StickyCTAMobile hideOnPath="/request-a-quote" />
         <ConsentBanner />
         <Toaster theme="dark" position="bottom-right" richColors closeButton />
       </body>

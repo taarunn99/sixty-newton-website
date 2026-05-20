@@ -13,11 +13,13 @@ export function ServiceHero({
   h1,
   sub,
   className,
+  serviceContext,
 }: {
   eyebrow: string;
   h1: string;
   sub: string;
   className?: string;
+  serviceContext?: { title: string };
 }) {
   return (
     <section
@@ -52,7 +54,7 @@ export function ServiceHero({
             {sub}
           </p>
 
-          <DualCTA className="mt-10" />
+          <DualCTA className="mt-10" serviceContext={serviceContext} />
 
           {/* Hairline rule + brand strip */}
           <div aria-hidden className="mt-12 h-px w-full bg-border-hairline" />

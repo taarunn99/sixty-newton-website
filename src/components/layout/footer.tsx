@@ -16,8 +16,11 @@ export function Footer() {
             <p className="mt-6 text-sm leading-relaxed text-fg-muted">
               {SITE.shortDescription}
             </p>
-            <p className="mt-6 eyebrow text-fg-subtle">
-              {SITE.address.country}
+            <p className="mt-6 eyebrow text-gold">
+              {SITE.serviceAreaTagline}
+            </p>
+            <p className="mt-3 text-sm text-fg-muted">
+              {SITE.address.streetAddress} · {SITE.address.locality}, {SITE.address.country}
             </p>
           </div>
 

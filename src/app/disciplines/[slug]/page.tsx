@@ -102,10 +102,20 @@ export default async function ServicePage({
         </ol>
       </nav>
 
-      <ServiceHero eyebrow={page.hero.eyebrow} h1={page.hero.h1} sub={page.hero.sub} className="pt-12 md:pt-16" />
+      <ServiceHero
+        eyebrow={page.hero.eyebrow}
+        h1={page.hero.h1}
+        sub={page.hero.sub}
+        className="pt-12 md:pt-16"
+        serviceContext={{ title: serviceName }}
+      />
 
       {page.sections.map((section, idx) => (
-        <SectionRenderer key={idx} section={section} />
+        <SectionRenderer
+          key={idx}
+          section={section}
+          serviceContext={{ title: serviceName }}
+        />
       ))}
 
       {/* Closing brand strip + 48-hour pledge band */}
@@ -131,7 +141,13 @@ function collectSystemVariants(sections: ServiceSection[]): string[] {
   return [];
 }
 
-function SectionRenderer({ section }: { section: ServiceSection }) {
+function SectionRenderer({
+  section,
+  serviceContext,
+}: {
+  section: ServiceSection;
+  serviceContext: { title: string };
+}) {
   switch (section.type) {
     case "intro":
       return (
@@ -306,7 +322,7 @@ function SectionRenderer({ section }: { section: ServiceSection }) {
             <p className="mt-6 max-w-2xl mx-auto font-serif font-light text-fg-muted text-lg md:text-xl leading-relaxed">
               {section.body}
             </p>
-            <DualCTA className="mt-10" align="center" />
+            <DualCTA className="mt-10" align="center" serviceContext={serviceContext} />
           </div>
         </section>
       );

@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { NAV_ITEMS } from "@/constants/site";
 import { Logo } from "./logo";
 import { Drawer } from "./mobile-menu";
+import { DisciplinesMegaMenu } from "./disciplines-mega-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +29,20 @@ export function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pastHero, setPastHero] = useState(pathname !== "/");
 
+  // Disciplines mega-menu state — separate from header hover so the panel
+  // doesn't open on every navbar mouseenter.
+  const [megaOpen, setMegaOpen] = useState(false);
+  const megaTimer = useRef<number | null>(null);
+
+  const openMega = () => {
+    if (megaTimer.current) window.clearTimeout(megaTimer.current);
+    setMegaOpen(true);
+  };
+  const closeMega = () => {
+    if (megaTimer.current) window.clearTimeout(megaTimer.current);
+    megaTimer.current = window.setTimeout(() => setMegaOpen(false), 150);
+  };
+
   useEffect(() => {
     setPastHero(pathname !== "/");
   }, [pathname]);
@@ -48,12 +63,21 @@ export function Navbar() {
     return () => io.disconnect();
   }, [pathname]);
 
-  // Close drawer on route change
+  // Close drawer + mega-menu on route change
   useEffect(() => {
     setDrawerOpen(false);
+    setMegaOpen(false);
   }, [pathname]);
 
-  const solid = hovered || drawerOpen || pastHero;
+  // Escape closes the mega-menu
+  useEffect(() => {
+    if (!megaOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMegaOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [megaOpen]);
+
+  const solid = hovered || drawerOpen || pastHero || megaOpen;
 
   return (
     <>
@@ -95,27 +119,57 @@ export function Navbar() {
                 item.href === "/"
                   ? pathname === "/"
                   : pathname === item.href || pathname.startsWith(item.href + "/");
+
+              const isDisciplines = item.href === "/disciplines";
+
               return (
-                <Link
+                <div
                   key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "eyebrow tracking-[0.22em] text-fg hover:text-gold transition-colors duration-200 relative",
-                    active && "text-gold",
-                  )}
+                  className="relative"
+                  onPointerEnter={isDisciplines ? openMega : undefined}
+                  onPointerLeave={isDisciplines ? closeMega : undefined}
                 >
-                  {item.label}
-                  <span
+                  <Link
+                    href={item.href}
+                    aria-haspopup={isDisciplines ? "menu" : undefined}
+                    aria-expanded={isDisciplines ? megaOpen : undefined}
+                    onFocus={isDisciplines ? openMega : undefined}
                     className={cn(
-                      "absolute -bottom-1.5 left-0 right-0 h-px bg-gold origin-left transition-transform duration-300",
-                      active ? "scale-x-100" : "scale-x-0",
+                      "eyebrow tracking-[0.22em] text-fg hover:text-gold transition-colors duration-200 relative",
+                      "inline-flex items-center gap-1",
+                      active && "text-gold",
                     )}
-                    aria-hidden
-                  />
-                </Link>
+                  >
+                    {item.label}
+                    {isDisciplines && (
+                      <ChevronDown
+                        size={12}
+                        aria-hidden
+                        className={cn(
+                          "transition-transform duration-200",
+                          megaOpen && "rotate-180",
+                        )}
+                      />
+                    )}
+                    <span
+                      className={cn(
+                        "absolute -bottom-1.5 left-0 right-0 h-px bg-gold origin-left transition-transform duration-300",
+                        active ? "scale-x-100" : "scale-x-0",
+                      )}
+                      aria-hidden
+                    />
+                  </Link>
+                </div>
               );
             })}
           </nav>
+
+          {/* Disciplines mega-menu (desktop hover dropdown) */}
+          <DisciplinesMegaMenu
+            open={megaOpen}
+            onPointerEnter={openMega}
+            onPointerLeave={closeMega}
+          />
 
           {/* Right — Hamburger + Request a Quote (col 3, both viewports, hard-pinned to viewport edge) */}
           <div className="col-start-3 flex items-center gap-2 md:gap-3 justify-self-end">

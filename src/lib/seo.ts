@@ -32,7 +32,7 @@ export function buildMetadata({
   return {
     title,
     description: desc,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: { "en-AE": url } },
     keywords,
     openGraph: {
       type: "website",

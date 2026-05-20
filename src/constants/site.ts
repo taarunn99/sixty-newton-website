@@ -14,7 +14,8 @@ export const SITE = {
   shortDescription:
     "UAE specialist contracting — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sixtynewton.com",
-  locale: "en_US",
+  locale: "en_AE",
+  htmlLang: "en-AE",
   themeColor: "#0a0807",
 
   // ─── Contact ───
@@ -26,15 +27,30 @@ export const SITE = {
   email: "salim@60newton.com",          // primary sales contact (direct)
   emailGeneral: "info@60newton.com",    // general/secondary
 
+  // Registered office in Dubai. Sixty Newton serves clients across the
+  // entire UAE — see `serviceAreas` for the full coverage list emitted
+  // in JSON-LD areaServed.
   address: {
-    streetAddress: "TODO_PLACEHOLDER",
+    streetAddress: "Shop 12, 14 Street, Al Quoz Industrial Area 4",
     locality: "Dubai",
     region: "Dubai",
-    postalCode: "TODO_PLACEHOLDER",
+    postalCode: "",
     country: "United Arab Emirates",
     countryCode: "AE",
     geo: { latitude: 25.1972, longitude: 55.2744 },
   },
+
+  // Coverage statement — used on contact, footer, and Visit Us section.
+  serviceAreaTagline: "Registered in Dubai. Serving projects across the UAE.",
+  serviceAreas: [
+    "Dubai",
+    "Abu Dhabi",
+    "Sharjah",
+    "Ajman",
+    "Ras Al Khaimah",
+    "Fujairah",
+    "Umm Al Quwain",
+  ],
 
   // ─── Brand assets ───
   // OG image is generated dynamically by /src/app/opengraph-image.tsx — Next serves
@@ -53,8 +69,8 @@ export const SITE = {
     linkedin: "https://www.linkedin.com/company/lapizblue/posts/?feedView=all",
   },
 
-  // ─── Trade license (UAE Sharjah LLC) ───
-  tradeLicense: "TODO_PLACEHOLDER",
+  // ─── Trade license (UAE Dubai LLC) ───
+  tradeLicense: "1369014",
 
   // ─── Founded ───
   foundedYear: 2024,
@@ -197,6 +213,65 @@ export const DISCIPLINES = [
 
 export type Discipline = (typeof DISCIPLINES)[number];
 
+// ─── Bucket grouping (used by /disciplines hub + Disciplines mega-menu) ───
+// Bucket name and slug must match DISCIPLINES[].bucket so DISCIPLINES_BY_BUCKET
+// computes cleanly. Slugs are URL-safe anchors for #bucket targets on the hub.
+export const DISCIPLINE_BUCKETS = [
+  {
+    slug: "waterproofing-systems",
+    name: "Waterproofing Systems",
+    eyebrow: "Membranes & moisture protection",
+    blurb:
+      "Cementitious, polyurethane, GRP and torch-applied bitumen membranes — across roofs, podiums, basements, water tanks and wet areas.",
+  },
+  {
+    slug: "flooring-systems",
+    name: "Flooring Systems",
+    eyebrow: "Resin · screed · vinyl",
+    blurb:
+      "Industrial, commercial and decorative floor systems — self-levelling screed, epoxy, PU-cement, ESD and luxury vinyl.",
+  },
+  {
+    slug: "tile-stone-works",
+    name: "Tile & Stone Works",
+    eyebrow: "Marble · porcelain · large format",
+    blurb:
+      "Hollow-free marble installation, large-format porcelain slabs to 1.6 × 3.2 m, diamond-pad polishing for hospitality-grade finish.",
+  },
+  {
+    slug: "decorative-concrete",
+    name: "Decorative Concrete",
+    eyebrow: "Architectural finish",
+    blurb:
+      "Polished concrete, microtopping, stamped, exposed-aggregate and colour-hardened systems — concrete as the visible architecture.",
+  },
+  {
+    slug: "coatings-protection",
+    name: "Coatings & Protection",
+    eyebrow: "Sealants · paint · joint systems",
+    blurb:
+      "Joint sealing in PU / silicone / polysulphide / MS polymer, plus AkzoNobel-approved Dulux paint systems for interior and exterior.",
+  },
+  {
+    slug: "repair-insulation",
+    name: "Building Repair & Insulation",
+    eyebrow: "Diagnose · repair · insulate",
+    blurb:
+      "Concrete repair, crack injection, CFRP strengthening and thermal / acoustic insulation across walls, roofs and MEP.",
+  },
+] as const satisfies readonly { slug: string; name: ServiceBucketName; eyebrow: string; blurb: string }[];
+
+export type ServiceBucketName = (typeof DISCIPLINES)[number]["bucket"];
+export type DisciplineBucket = (typeof DISCIPLINE_BUCKETS)[number];
+
+/** Grouped view of disciplines for the hub + mega-menu. */
+export function getDisciplinesByBucket() {
+  return DISCIPLINE_BUCKETS.map(bucket => ({
+    ...bucket,
+    disciplines: DISCIPLINES.filter(d => d.bucket === bucket.name),
+  }));
+}
+
 // ─── Approved applicator brands (per company profile, page 22) ───
 // Slugs MUST match APPLICATOR_CERTIFICATES[].slug below so hamburger / footer
 // anchors resolve to certificate cards on /approach.
@@ -208,19 +283,20 @@ export const APPROVED_APPLICATORS = [
 ] as const;
 
 // ─── Selected reference projects (per company profile, pages 10-17) ───
+// `published: true` = a dedicated /portfolio/[slug] case study exists.
 export const REFERENCE_PROJECTS = [
-  { name: "Atlantis The Royal",          location: "Palm Jumeirah, Dubai" },
-  { name: "Al Wathba Desert Resort & Spa", location: "Abu Dhabi" },
-  { name: "Ahlatci Gold Refinery",       location: "Industrial" },
-  { name: "St. Regis Developments",      location: "UAE" },
-  { name: "The Address Boulevard Hotel", location: "Dubai" },
-  { name: "Jumeirah Golf Villas",        location: "Dubai" },
-  { name: "Dubai Hills Villas",          location: "Dubai" },
-  { name: "Le Méridien Hotels",          location: "UAE" },
-  { name: "Masha'Allah Building",        location: "Al Nahda" },
-  { name: "Delhi Metro",                 location: "Delhi, India" },
-  { name: "Patna Metro Station",         location: "Patna, India" },
-  { name: "Omaxe Mall",                  location: "Delhi, India" },
+  { name: "Atlantis The Royal",          location: "Palm Jumeirah, Dubai", slug: "atlantis-the-royal",        published: true },
+  { name: "Al Wathba Desert Resort & Spa", location: "Abu Dhabi",           slug: "al-wathba-desert-resort",   published: true },
+  { name: "St. Regis Developments",      location: "UAE",                   slug: "st-regis-developments",      published: true },
+  { name: "Ahlatci Gold Refinery",       location: "Industrial",            slug: "ahlatci-gold-refinery",      published: false },
+  { name: "The Address Boulevard Hotel", location: "Dubai",                 slug: "address-boulevard-hotel",    published: false },
+  { name: "Jumeirah Golf Villas",        location: "Dubai",                 slug: "jumeirah-golf-villas",       published: false },
+  { name: "Dubai Hills Villas",          location: "Dubai",                 slug: "dubai-hills-villas",         published: false },
+  { name: "Le Méridien Hotels",          location: "UAE",                   slug: "le-meridien-hotels",         published: false },
+  { name: "Masha'Allah Building",        location: "Al Nahda",              slug: "mashaallah-building",        published: false },
+  { name: "Delhi Metro",                 location: "Delhi, India",          slug: "delhi-metro",                published: false },
+  { name: "Patna Metro Station",         location: "Patna, India",          slug: "patna-metro-station",        published: false },
+  { name: "Omaxe Mall",                  location: "Delhi, India",          slug: "omaxe-mall",                 published: false },
 ] as const;
 
 // ─── Navbar items (top-level) ───

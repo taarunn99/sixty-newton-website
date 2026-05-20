@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { DISCIPLINES, SITE } from "@/constants/site";
+import { DISCIPLINES, REFERENCE_PROJECTS, SITE } from "@/constants/site";
 
 /**
  * Dynamic sitemap. Add blog/portfolio routes here as they come online.
@@ -34,6 +34,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.9,
+    })),
+    // Published case studies.
+    ...REFERENCE_PROJECTS.filter(p => p.published).map(p => ({
+      url: new URL(`/portfolio/${p.slug}`, SITE.url).toString(),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     })),
   ];
 }

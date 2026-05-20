@@ -1,10 +1,10 @@
 "use client";
-import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, type FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DISCIPLINES } from "@/constants/site";
+import { DISCIPLINES, SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
 
 type FieldName =
@@ -14,9 +14,19 @@ type FieldName =
   | "email"
   | "phone"
   | "service"
+  | "emirate"
+  | "timeline"
   | "areaSqm"
   | "message"
   | "consent";
+
+const TIMELINES = [
+  "ASAP",
+  "Within 1 month",
+  "1–3 months",
+  "3+ months",
+  "Not sure yet",
+] as const;
 
 /**
  * Quote / contact enquiry form.
@@ -25,20 +35,38 @@ type FieldName =
  * inline per-field errors after blur; submit button disabled until valid;
  * honeypot field `website` is hidden but rendered for bots; on success →
  * dataLayer push + toast + redirect to /thank-you after 1.5s.
+ *
+ * Pre-fills `service` from the `?service=<title>` URL query parameter
+ * (set by DualCTA when the user lands here from a service page).
  */
 export function QuoteForm() {
   const router = useRouter();
+  const search = useSearchParams();
+
   const [companyName, setCompanyName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [emirate, setEmirate] = useState("");
+  const [timeline, setTimeline] = useState("");
   const [areaSqm, setAreaSqm] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
+
+  // Pre-fill service from URL on mount (lands here from a service-page CTA)
+  useEffect(() => {
+    const qService = search.get("service");
+    if (!qService) return;
+    const match = DISCIPLINES.find(
+      d => d.title.toLowerCase() === qService.toLowerCase() ||
+           d.slug === qService.toLowerCase(),
+    );
+    setService(match ? match.title : qService);
+  }, [search]);
 
   const markTouched = (k: FieldName) => setTouched(t => ({ ...t, [k]: true }));
 
@@ -54,18 +82,16 @@ export function QuoteForm() {
 
   const showError = (field: FieldName) => touched[field] && errors[field];
 
-  // identity error surfaces under whichever of company/name fields was touched
   const showIdentityError =
     (touched.companyName || touched.fullName) && errors.identity;
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isValid || submitting) {
-      // touch everything so errors surface
       setTouched({
         companyName: true, fullName: true, identity: true,
-        email: true, phone: true, service: true, areaSqm: true,
-        message: true, consent: true,
+        email: true, phone: true, service: true, emirate: true,
+        timeline: true, areaSqm: true, message: true, consent: true,
       });
       return;
     }
@@ -81,6 +107,8 @@ export function QuoteForm() {
           email: email.trim(),
           phone: phone.trim(),
           service: service.trim(),
+          emirate: emirate.trim(),
+          timeline: timeline.trim(),
           areaSqm: areaSqm.trim() ? Number(areaSqm) : null,
           message: message.trim(),
           consent,
@@ -94,10 +122,8 @@ export function QuoteForm() {
         return;
       }
 
-      // Success
       toast.success("Thank you — your enquiry is with us.", { id: toastId });
 
-      // GTM dataLayer event for conversion tracking
       if (typeof window !== "undefined") {
         const w = window as Window & { dataLayer?: Record<string, unknown>[] };
         w.dataLayer = w.dataLayer || [];
@@ -108,9 +134,9 @@ export function QuoteForm() {
         });
       }
 
-      // Clear + bounce to /thank-you
       setCompanyName(""); setFullName(""); setEmail(""); setPhone("");
-      setService(""); setAreaSqm(""); setMessage(""); setConsent(false);
+      setService(""); setEmirate(""); setTimeline(""); setAreaSqm("");
+      setMessage(""); setConsent(false);
       setTouched({});
 
       setTimeout(() => router.push("/thank-you"), 1500);
@@ -129,7 +155,7 @@ export function QuoteForm() {
       noValidate
       className="grid gap-5"
     >
-      {/* Company OR Name row — at least one required */}
+      {/* Company OR Name row */}
       <div>
         <p className="eyebrow text-fg-subtle mb-3">
           Who&rsquo;s asking? <span className="text-gold/70">*</span>{" "}
@@ -158,7 +184,7 @@ export function QuoteForm() {
         )}
       </div>
 
-      {/* Email + Phone row */}
+      {/* Email + Phone */}
       <div className="grid gap-5 md:grid-cols-2">
         <Field
           type="email"
@@ -183,25 +209,20 @@ export function QuoteForm() {
         />
       </div>
 
-      {/* Service + Area row */}
+      {/* Service + Area */}
       <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label className="block">
-            <span className="eyebrow text-fg-subtle">Service of interest</span>
-            <select
-              value={service}
-              onChange={e => setService(e.target.value)}
-              onBlur={() => markTouched("service")}
-              className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light"
-            >
-              <option value="" className="bg-bg-elevated">— optional —</option>
-              {DISCIPLINES.map(d => (
-                <option key={d.slug} value={d.title} className="bg-bg-elevated">{d.title}</option>
-              ))}
-              <option value="Multiple / not sure" className="bg-bg-elevated">Multiple / not sure</option>
-            </select>
-          </label>
-        </div>
+        <SelectField
+          label="Discipline of interest"
+          value={service}
+          onChange={setService}
+          onBlur={() => markTouched("service")}
+        >
+          <option value="" className="bg-bg-elevated">— optional —</option>
+          {DISCIPLINES.map(d => (
+            <option key={d.slug} value={d.title} className="bg-bg-elevated">{d.title}</option>
+          ))}
+          <option value="Multiple / not sure" className="bg-bg-elevated">Multiple / not sure</option>
+        </SelectField>
         <Field
           type="number"
           label="Area (sqm)"
@@ -214,7 +235,34 @@ export function QuoteForm() {
         />
       </div>
 
-      {/* Message — optional */}
+      {/* Emirate + Timeline */}
+      <div className="grid gap-5 md:grid-cols-2">
+        <SelectField
+          label="Project Emirate"
+          value={emirate}
+          onChange={setEmirate}
+          onBlur={() => markTouched("emirate")}
+        >
+          <option value="" className="bg-bg-elevated">— optional —</option>
+          {SITE.serviceAreas.map(em => (
+            <option key={em} value={em} className="bg-bg-elevated">{em}</option>
+          ))}
+          <option value="Outside UAE" className="bg-bg-elevated">Outside UAE</option>
+        </SelectField>
+        <SelectField
+          label="Programme"
+          value={timeline}
+          onChange={setTimeline}
+          onBlur={() => markTouched("timeline")}
+        >
+          <option value="" className="bg-bg-elevated">— optional —</option>
+          {TIMELINES.map(t => (
+            <option key={t} value={t} className="bg-bg-elevated">{t}</option>
+          ))}
+        </SelectField>
+      </div>
+
+      {/* Message */}
       <div>
         <label className="block">
           <span className="eyebrow text-fg-subtle">Project brief</span>
@@ -224,12 +272,12 @@ export function QuoteForm() {
             onChange={e => setMessage(e.target.value)}
             onBlur={() => markTouched("message")}
             className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light resize-none"
-            placeholder="Optional — scope, location, timeline, budget range…"
+            placeholder="Optional — scope, location, drawings available, budget range… Email drawings / BOQ to salim@60newton.com if helpful."
           />
         </label>
       </div>
 
-      {/* Honeypot — bots fill this, real users never see it */}
+      {/* Honeypot */}
       <div aria-hidden className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
         <label>
           Don&rsquo;t fill this out
@@ -275,7 +323,8 @@ export function QuoteForm() {
   );
 }
 
-// ─── Small input primitive ───
+// ─── Small primitives ───
+
 type FieldProps = {
   label: string;
   value: string;
@@ -317,6 +366,36 @@ function Field(props: FieldProps) {
         />
       </label>
       {error && <p className="mt-1 text-xs text-red-400/90">{error}</p>}
+    </div>
+  );
+}
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  onBlur,
+  children,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onBlur?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="block">
+        <span className="eyebrow text-fg-subtle">{label}</span>
+        <select
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          onBlur={onBlur}
+          className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light"
+        >
+          {children}
+        </select>
+      </label>
     </div>
   );
 }
