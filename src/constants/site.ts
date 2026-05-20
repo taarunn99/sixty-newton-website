@@ -33,15 +33,21 @@ export const SITE = {
   // Registered office in Dubai. Sixty Newton serves clients across the
   // entire UAE — see `serviceAreas` for the full coverage list emitted
   // in JSON-LD areaServed.
+  // Note: the trading-quote document references Warehouse 11; the
+  // user-confirmed operational address is Shop 12. If correspondence
+  // ever requires the legal unit number, verify with finance.
   address: {
     streetAddress: "Shop 12, 14 Street, Al Quoz Industrial Area 4",
     locality: "Dubai",
     region: "Dubai",
-    postalCode: "",
+    postalCode: "914005",
     country: "United Arab Emirates",
     countryCode: "AE",
     geo: { latitude: 25.1972, longitude: 55.2744 },
   },
+
+  // ─── UAE VAT / tax registration number (from the trading quote) ───
+  trn: "104670113000003",
 
   // Coverage statement — used on contact, footer, and Visit Us section.
   serviceAreaTagline: "Registered in Dubai. Serving projects across the UAE.",

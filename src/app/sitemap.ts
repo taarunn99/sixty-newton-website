@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { DISCIPLINES, REFERENCE_PROJECTS, SITE } from "@/constants/site";
 import { AREAS } from "@/content/areas/_data";
+import { PUBLISHED_BLOG_SLUGS } from "@/lib/blog";
 
 /**
  * Dynamic sitemap. Add blog/portfolio routes here as they come online.
@@ -53,5 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.85,
       })),
     ),
+    // Blog posts.
+    ...PUBLISHED_BLOG_SLUGS.map(slug => ({
+      url: new URL(`/blog/${slug}`, SITE.url).toString(),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }

@@ -9,9 +9,16 @@ import { REFERENCE_PROJECTS, SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Portfolio",
-  description: `Landmark UAE projects delivered by ${SITE.name} — Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, Address Boulevard, Jumeirah Golf Villas and more.`,
+  title: "Portfolio — Tier-1 UAE Reference Projects",
+  description: `Landmark UAE projects delivered by ${SITE.name} — Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, The Address Boulevard, Jumeirah Golf Villas, Dubai Hills Villas, Le Méridien and more.`,
   path: "/portfolio",
+  keywords: [
+    "Sixty Newton portfolio",
+    "UAE hospitality contractor portfolio",
+    "tier-1 hotel applicator projects",
+    "Atlantis The Royal contractor",
+    "St. Regis contractor UAE",
+  ],
 });
 
 export default function PortfolioPage() {

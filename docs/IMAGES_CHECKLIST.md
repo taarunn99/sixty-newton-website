@@ -183,6 +183,33 @@ No action.
 
 ---
 
+## 9 · Company Profile PDF (urgent — needed before launch)
+
+The /about page has a **Company Profile / Download** section with a
+gold CTA pointing to `/docs/sixty-newton-company-profile.pdf`.
+
+**Status:** the PDF is NOT in the repo — the original was 32 MB and
+GitHub push timed out trying to upload it. The CTA will 404 until the
+file is in place.
+
+**To fix:**
+1. Compress the original `Sixty Newton (6).pdf` (32 MB → target 3–5 MB).
+   Free options: [ilovepdf.com/compress_pdf](https://www.ilovepdf.com/compress_pdf),
+   [smallpdf.com](https://smallpdf.com/compress-pdf),
+   or in Preview (macOS): Export → Quartz Filter → Reduce File Size
+2. Save the compressed file as `sixty-newton-company-profile.pdf`
+3. Drop it into `public/docs/` (replacing the missing file)
+4. `git add public/docs/sixty-newton-company-profile.pdf && git commit -m "company profile pdf (compressed)" && git push`
+
+The /about download button + the `/docs/...` URL both pick it up
+automatically — no code changes needed once the file is in place.
+
+**Recommended compression:** PDF settings = "eBook" or "Screen" quality.
+Strip embedded fonts where possible. Convert any large embedded
+images to JPEG q70. Target final size ≤ 5 MB.
+
+---
+
 ## TL;DR — when you have a photo shoot
 
 1. Drop a folder of source JPEGs anywhere (e.g. `~/Downloads/sixty-newton-photos/`)

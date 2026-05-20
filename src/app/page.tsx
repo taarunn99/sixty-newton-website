@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ScrollSequence } from "@/components/sections/scroll-sequence";
+import { HomeFeaturedDisciplines } from "@/components/sections/home-featured-disciplines";
+import { HomeFeaturedCaseStudies } from "@/components/sections/home-featured-case-studies";
 import { CredentialsSection } from "@/components/sections/credentials";
+import { HomeInsightsStrip } from "@/components/sections/home-insights-strip";
 import { HomeEnquiry } from "@/components/sections/home-enquiry";
 import { VisitUs } from "@/components/sections/visit-us";
 import { SITE } from "@/constants/site";
@@ -18,7 +21,10 @@ export default function HomePage() {
     <>
       <Hero />
       <ScrollSequence />
+      <HomeFeaturedDisciplines />
+      <HomeFeaturedCaseStudies />
       <CredentialsSection showAboutLink />
+      <HomeInsightsStrip />
       <HomeEnquiry />
       <VisitUs />
     </>

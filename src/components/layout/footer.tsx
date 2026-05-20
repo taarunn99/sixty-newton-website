@@ -97,16 +97,18 @@ export function Footer() {
           </div>
 
           <p className="text-xs text-fg-subtle md:text-right">
-            Sister to Lapiz Blue, Montolite, Dream Box, Global Classic &amp; Al Sama.
+            Sister to Lapiz Blue, Montolite, Global Classic Building Material &amp; Al Sama Metal Coating.
           </p>
         </div>
 
-        {/* ── Copyright + trade license ── */}
+        {/* ── Copyright + trade license + TRN ── */}
         <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 text-xs text-fg-subtle md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {SITE.legalName}. All rights reserved.
           </p>
-          <p>Trade license: {SITE.tradeLicense}</p>
+          <p>
+            Trade licence: {SITE.tradeLicense} · TRN: {SITE.trn}
+          </p>
         </div>
       </div>
     </footer>

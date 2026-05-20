@@ -5,7 +5,7 @@ import { QuoteForm } from "@/components/sections/quote-form";
 import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Request a Quote",
+  title: "Request a Quote — Free UAE Site Survey · 48-hour Quotation",
   description:
     "Tell us about your project — scope, location, timeline. We&rsquo;ll be back to you with a quote within one business day.",
   path: "/request-a-quote",

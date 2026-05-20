@@ -3,14 +3,26 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { LeadershipTeam } from "@/components/sections/leadership-team";
+import { SustainabilityBand } from "@/components/sections/sustainability-band";
+import { CompanyProfileDownload } from "@/components/sections/company-profile-download";
 import { Button } from "@/components/ui/button";
 import { LapizBlueLink } from "@/components/ui/lapiz-blue-link";
 import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About",
-  description: `${SITE.name} — a specialist contracting company powering some of the UAE's most demanding projects. Part of the ${SITE.parentGroup}.`,
+  title: "About — Sixty Newton",
+  description: `${SITE.name} — a specialist contracting and applicator company powering tier-1 UAE projects. Part of the ${SITE.parentGroup}. Led by Mrs. Ashrat Razi, Mr. Shariful Haque and Mr. Salim Zafar.`,
   path: "/about",
+  keywords: [
+    "Sixty Newton about",
+    "Sixty Newton Technical Services LLC",
+    "Lapiz Blue Group UAE",
+    "Sixty Newton management",
+    "Salim Zafar Sixty Newton",
+    "Ashrat Razi Lapiz Blue",
+    "Shariful Haque Lapiz Blue",
+  ],
 });
 
 export default function AboutPage() {
@@ -19,9 +31,10 @@ export default function AboutPage() {
       <PageHero
         eyebrow="Sixty Newton"
         title="About"
-        subtitle="A specialist contracting company powering some of the UAE&rsquo;s most demanding projects."
+        subtitle="A specialist contracting and applicator company powering some of the UAE&rsquo;s most demanding projects."
       />
 
+      {/* ── Body intro + Mission / Vision + Applicator pointer + Group attribution ── */}
       <section className="mx-auto max-w-3xl px-5 md:px-12 lg:px-16 py-16 md:py-24">
         <div className="space-y-8 text-fg-muted">
           <p className="font-serif font-light text-2xl md:text-3xl text-fg leading-snug">
@@ -60,8 +73,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Approved applicators — moved to a dedicated certifications page.
-            Block left here as a wayfinder, with a CTA to the full credentials surface. */}
+        {/* Approved applicators pointer */}
         <div className="mt-16">
           <p className="eyebrow text-gold">Approved Applicators</p>
           <p className="font-serif font-light text-xl text-fg mt-4 leading-relaxed">
@@ -86,20 +98,32 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Parent group */}
+        {/* Parent group — updated company list, Dream Box GCC removed */}
         <div className="mt-16">
           <p className="eyebrow text-fg-subtle">Part of</p>
           <p className="font-serif font-light text-2xl text-fg mt-3">{SITE.parentGroup}</p>
           <p className="mt-3 text-fg-muted text-sm leading-relaxed">
-            Sister company to Lapiz Blue General Trading, Montolite Building Material,
-            Dream Box General Trading GCC, Global Classic Building Material and Al Sama
-            Metal Coating &amp; Industries.
+            Sister company to{" "}
+            <span className="text-fg">Lapiz Blue General Trading LLC</span>,{" "}
+            <span className="text-fg">Montolite Building Material LLC</span>,{" "}
+            <span className="text-fg">Global Classic Building Material LLC</span> and{" "}
+            <span className="text-fg">Al Sama Metal Coating &amp; Industries LLC</span>.
+            One operational network, one supply chain, one set of quality standards.
           </p>
           <div className="mt-6">
             <LapizBlueLink label="Visit Lapiz Blue" />
           </div>
         </div>
       </section>
+
+      {/* ── Leadership team ── */}
+      <LeadershipTeam />
+
+      {/* ── Sustainability — "60 Newton · 0 Carbon Emission" ── */}
+      <SustainabilityBand />
+
+      {/* ── Company profile download (scroll-revealed gold band) ── */}
+      <CompanyProfileDownload />
     </>
   );
 }

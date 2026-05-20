@@ -217,11 +217,11 @@ export function QuoteForm() {
           onChange={setService}
           onBlur={() => markTouched("service")}
         >
-          <option value="" className="bg-bg-elevated">— optional —</option>
+          <option value="" className="bg-bg-elevated text-white">— optional —</option>
           {DISCIPLINES.map(d => (
-            <option key={d.slug} value={d.title} className="bg-bg-elevated">{d.title}</option>
+            <option key={d.slug} value={d.title} className="bg-bg-elevated text-white">{d.title}</option>
           ))}
-          <option value="Multiple / not sure" className="bg-bg-elevated">Multiple / not sure</option>
+          <option value="Multiple / not sure" className="bg-bg-elevated text-white">Multiple / not sure</option>
         </SelectField>
         <Field
           type="number"
@@ -243,11 +243,11 @@ export function QuoteForm() {
           onChange={setEmirate}
           onBlur={() => markTouched("emirate")}
         >
-          <option value="" className="bg-bg-elevated">— optional —</option>
+          <option value="" className="bg-bg-elevated text-white">— optional —</option>
           {SITE.serviceAreas.map(em => (
-            <option key={em} value={em} className="bg-bg-elevated">{em}</option>
+            <option key={em} value={em} className="bg-bg-elevated text-white">{em}</option>
           ))}
-          <option value="Outside UAE" className="bg-bg-elevated">Outside UAE</option>
+          <option value="Outside UAE" className="bg-bg-elevated text-white">Outside UAE</option>
         </SelectField>
         <SelectField
           label="Programme"
@@ -255,9 +255,9 @@ export function QuoteForm() {
           onChange={setTimeline}
           onBlur={() => markTouched("timeline")}
         >
-          <option value="" className="bg-bg-elevated">— optional —</option>
+          <option value="" className="bg-bg-elevated text-white">— optional —</option>
           {TIMELINES.map(t => (
-            <option key={t} value={t} className="bg-bg-elevated">{t}</option>
+            <option key={t} value={t} className="bg-bg-elevated text-white">{t}</option>
           ))}
         </SelectField>
       </div>
@@ -271,7 +271,7 @@ export function QuoteForm() {
             value={message}
             onChange={e => setMessage(e.target.value)}
             onBlur={() => markTouched("message")}
-            className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light resize-none"
+            className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-white py-2.5 px-0 outline-none transition-colors duration-200 font-normal resize-none"
             placeholder="Optional — scope, location, drawings available, budget range… Email drawings / BOQ to salim@60newton.com if helpful."
           />
         </label>
@@ -360,7 +360,7 @@ function Field(props: FieldProps) {
           min={min}
           aria-invalid={!!error}
           className={cn(
-            "mt-2 w-full bg-transparent border-b focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light placeholder:text-fg-subtle/60",
+            "mt-2 w-full bg-transparent border-b focus:border-gold text-white py-2.5 px-0 outline-none transition-colors duration-200 font-normal placeholder:text-fg-muted/80",
             error ? "border-red-400/70" : "border-border",
           )}
         />
@@ -391,7 +391,7 @@ function SelectField({
           value={value}
           onChange={e => onChange(e.target.value)}
           onBlur={onBlur}
-          className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-fg py-2.5 px-0 outline-none transition-colors duration-200 font-light"
+          className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-white py-2.5 px-0 outline-none transition-colors duration-200 font-normal"
         >
           {children}
         </select>
