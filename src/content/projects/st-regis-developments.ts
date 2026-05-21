@@ -63,6 +63,11 @@ const stRegis: ProjectPage = {
     },
   ],
 
+  images: {
+    hero: "/images/projects/st-regis-developments/hero.webp",
+    heroAlt: "St. Regis developments, UAE — Sixty Newton waterproofing & finishes",
+  },
+
   relatedDisciplines: [
     { slug: "waterproofing",        title: "Waterproofing",         note: "Split-system spec — cementitious + liquid PU." },
     { slug: "marble-installation",  title: "Marble Installation",    note: "Suite bathroom marble across the developments." },

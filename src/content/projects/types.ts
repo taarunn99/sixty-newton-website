@@ -21,6 +21,15 @@ export interface SystemApplied {
   products: string[];        // e.g. ["Mapelastic Smart", "Mapenet 150"]
 }
 
+export interface ProjectImages {
+  /** Hero image path under /public — usually /images/projects/{slug}/hero.webp */
+  hero?: string;
+  /** Alt text for the hero image. Falls back to "<project name> — Sixty Newton" if absent. */
+  heroAlt?: string;
+  /** Gallery image paths, in display order. */
+  gallery?: string[];
+}
+
 export interface ProjectPage {
   slug: string;
   meta: ProjectMeta;
@@ -41,6 +50,8 @@ export interface ProjectPage {
     outcome: string;
   };
   systemsApplied: SystemApplied[];
+  /** Photo bundle for the case-study page renderer + thumbnails. */
+  images?: ProjectImages;
   relatedDisciplines: { slug: string; title: string; note: string }[];
   relatedProjects: { slug: string; name: string; location: string }[];
 }

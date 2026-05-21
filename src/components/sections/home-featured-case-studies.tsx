@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { REFERENCE_PROJECTS } from "@/constants/site";
@@ -10,21 +11,30 @@ const FEATURED_PROJECT_SLUGS = [
   "st-regis-developments",
 ];
 
-const PROJECT_BLURBS: Record<string, { eyebrow: string; scope: string; year: string }> = {
+const PROJECT_BLURBS: Record<
+  string,
+  { eyebrow: string; scope: string; year: string; image: string; imageAlt: string }
+> = {
   "atlantis-the-royal": {
     eyebrow: "Tier-1 hospitality · 2023",
     scope: "Back-of-house waterproofing across 6,400 m² of the resort. Mapei Mapelastic Smart + Mapenet 150 to spec.",
     year: "2023",
+    image: "/images/projects/atlantis-the-royal/hero.webp",
+    imageAlt: "Atlantis The Royal, Palm Jumeirah — Sixty Newton reference project",
   },
   "al-wathba-desert-resort": {
     eyebrow: "Luxury wellness · 2022",
     scope: "Spa wet-room cementitious waterproofing + podium liquid-PU build-up. Two-system split.",
     year: "2022",
+    image: "/images/projects/al-wathba-desert-resort/hero.webp",
+    imageAlt: "Al Wathba Desert Resort & Spa, Abu Dhabi — Sixty Newton reference project",
   },
   "st-regis-developments": {
     eyebrow: "Hospitality portfolio · 2024",
     scope: "Cementitious + PU combination across the back-of-house. MEP-coordinated, photo-documented.",
     year: "2024",
+    image: "/images/projects/st-regis-developments/hero.webp",
+    imageAlt: "St. Regis developments, UAE — Sixty Newton reference project",
   },
 };
 
@@ -62,11 +72,22 @@ export function HomeFeaturedCaseStudies() {
                   href={`/portfolio/${p.slug}`}
                   className="group block h-full rounded-md border border-border bg-bg overflow-hidden transition-colors duration-200 hover:border-gold/50"
                 >
-                  {/* Photo placeholder — will swap to real hero shot per IMAGES_CHECKLIST */}
-                  <div className="relative aspect-[16/10] w-full bg-bg-inset">
-                    <div className="absolute inset-0 grid place-items-center border-b border-dashed border-border-dashed">
-                      <p className="eyebrow text-fg-subtle">Photo to follow</p>
-                    </div>
+                  {/* Real hero shot from public/images/projects/{slug}/hero.webp */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-bg-inset">
+                    {blurb?.image ? (
+                      <Image
+                        src={blurb.image}
+                        alt={blurb.imageAlt}
+                        fill
+                        sizes="(min-width: 1024px) 440px, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 grid place-items-center border-b border-dashed border-border-dashed">
+                        <p className="eyebrow text-fg-subtle">Photo to follow</p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6 md:p-7">

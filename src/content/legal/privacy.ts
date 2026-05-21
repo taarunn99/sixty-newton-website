@@ -19,7 +19,7 @@ Sixty Newton is part of the **Lapiz Blue Group of Companies**, which also includ
 Sixty Newton Technical Services LLC, Dubai, United Arab Emirates
 
 **Contact email:** info@60newton.com
-**Direct line:** salim@60newton.com
+**Chief contractor (ground operations):** salim@60newton.com
 **Telephone:** +971 50 619 4737
 
 ## 2. Data we collect

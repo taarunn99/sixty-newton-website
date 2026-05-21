@@ -31,8 +31,14 @@ export const SITE = {
   whatsapp: "+971 50 281 4338",
   whatsappHref: "971502814338",
   whatsappMessage: "Hello Sixty Newton, I'd like to discuss a project.",
-  email: "salim@60newton.com",          // primary sales contact (direct)
-  emailGeneral: "info@60newton.com",    // general/secondary
+  // Lead-gen primary mailbox. Sales enquiries, quote requests, BOQs,
+  // press, partnerships — everything routes through info@.
+  email: "info@60newton.com",
+  // Chief-contractor direct line. Salim runs ground operations and isn't
+  // always at a desk; promoted only in narrow contexts (Leadership card,
+  // privacy "direct line") where the personal touch matters. Never the
+  // primary CTA — always backed by info@ on lead-gen surfaces.
+  emailDirect: "salim@60newton.com",
 
   // Registered office in Dubai. Sixty Newton serves clients across the
   // entire UAE — see `serviceAreas` for the full coverage list emitted
@@ -470,7 +476,6 @@ export const FOOTER_SECTIONS: readonly FooterSection[] = [
     links: [
       { label: "Request a Quote", href: "/request-a-quote" },
       { label: SITE.email, href: `mailto:${SITE.email}`, external: true },
-      { label: SITE.emailGeneral, href: `mailto:${SITE.emailGeneral}`, external: true },
       { label: "WhatsApp", href: `https://wa.me/${SITE.whatsappHref}`, external: true },
       { label: "Instagram", href: SITE.social.instagram, external: true },
       { label: "LinkedIn", href: SITE.social.linkedin, external: true },

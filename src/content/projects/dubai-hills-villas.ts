@@ -48,6 +48,14 @@ const dubaiHills: ProjectPage = {
     { discipline: "Waterproofing",        disciplineSlug: "waterproofing",        brand: "MAPEI",     products: ["Mapelastic Smart", "Mapelastic Aquadefense"] },
   ],
 
+  images: {
+    hero: "/images/projects/dubai-hills-villas/hero.webp",
+    heroAlt: "Dubai Hills Villa — Sixty Newton marble installation & microtopping",
+    gallery: [
+      "/images/projects/dubai-hills-villas/gallery-1.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "marble-installation", title: "Marble Installation", note: "Book-matched white-marble feature walls were the project signature." },
     { slug: "microtopping",        title: "Microtopping",         note: "Seamless living-area floors and vanity-top wraps." },

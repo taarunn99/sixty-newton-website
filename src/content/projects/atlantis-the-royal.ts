@@ -58,6 +58,19 @@ const atlantis: ProjectPage = {
     },
   ],
 
+  images: {
+    hero: "/images/projects/atlantis-the-royal/hero.webp",
+    heroAlt: "Atlantis The Royal, Palm Jumeirah — Sixty Newton waterproofing reference",
+    gallery: [
+      "/images/projects/atlantis-the-royal/gallery-1.webp",
+      "/images/projects/atlantis-the-royal/gallery-2.webp",
+      "/images/projects/atlantis-the-royal/gallery-3.webp",
+      "/images/projects/atlantis-the-royal/gallery-4.webp",
+      "/images/projects/atlantis-the-royal/gallery-5.webp",
+      "/images/projects/atlantis-the-royal/gallery-6.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "waterproofing",       title: "Waterproofing",       note: "The membrane system that anchored the project." },
     { slug: "large-format-tiling", title: "Large Format Tiling", note: "Tile install over the protected substrate." },

@@ -50,6 +50,14 @@ const ahlatci: ProjectPage = {
     { discipline: "Waterproofing",  disciplineSlug: "waterproofing",  brand: "X-Calibur",  products: ["PolyU 600 (UV-stable liquid PU)"] },
   ],
 
+  images: {
+    hero: "/images/projects/ahlatci-gold-refinery/hero.webp",
+    heroAlt: "Ahlatci Gold Refinery — Sixty Newton industrial epoxy flooring & PU roof",
+    gallery: [
+      "/images/projects/ahlatci-gold-refinery/gallery-1.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "epoxy-flooring", title: "Epoxy Flooring",   note: "Chemical-resistant industrial floor systems were the core of the project." },
     { slug: "insulation",      title: "Insulation",        note: "Combo roof system — PU foam + waterproof topcoat in one trade." },

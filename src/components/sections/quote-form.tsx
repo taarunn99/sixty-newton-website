@@ -257,7 +257,7 @@ export function QuoteForm() {
             onChange={e => setMessage(e.target.value)}
             onBlur={() => markTouched("message")}
             className="mt-2 w-full bg-transparent border-b border-border focus:border-gold text-white py-2.5 px-0 outline-none transition-colors duration-200 font-normal resize-none"
-            placeholder="Optional — scope, location, drawings available, budget range… Email drawings / BOQ to salim@60newton.com if helpful."
+            placeholder="Optional — scope, location, drawings available, budget range… Email drawings / BOQ to info@60newton.com if helpful."
           />
         </label>
       </div>

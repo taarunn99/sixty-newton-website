@@ -57,6 +57,15 @@ const alWathba: ProjectPage = {
     },
   ],
 
+  images: {
+    hero: "/images/projects/al-wathba-desert-resort/hero.webp",
+    heroAlt: "Al Wathba Desert Resort & Spa, Abu Dhabi — Sixty Newton waterproofing & spa wet-rooms",
+    gallery: [
+      "/images/projects/al-wathba-desert-resort/gallery-1.webp",
+      "/images/projects/al-wathba-desert-resort/gallery-2.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "waterproofing",        title: "Waterproofing",          note: "Cementitious + liquid-PU split-system was the project signature." },
     { slug: "microtopping",         title: "Microtopping",            note: "Decorative wet-room overlay where the design called for it." },

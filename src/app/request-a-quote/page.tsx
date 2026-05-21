@@ -87,16 +87,10 @@ export default function RequestQuotePage() {
                 >
                   {SITE.email}
                 </a>
-              </div>
-
-              <div>
-                <p className="eyebrow text-fg-subtle">General enquiries</p>
-                <a
-                  href={`mailto:${SITE.emailGeneral}`}
-                  className="mt-2 inline-block font-serif font-light text-2xl text-fg hover:text-gold transition-colors duration-200 break-words"
-                >
-                  {SITE.emailGeneral}
-                </a>
+                <p className="mt-2 text-xs text-fg-subtle leading-relaxed">
+                  Drawings, BOQs and tenders land in the right hands within one
+                  business day.
+                </p>
               </div>
             </div>
 

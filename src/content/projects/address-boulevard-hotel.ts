@@ -48,6 +48,14 @@ const address: ProjectPage = {
     { discipline: "Polishing — Marble & Floors",      disciplineSlug: "polishing",                         brand: "—",         products: ["On-site final polish through 1500 grit"] },
   ],
 
+  images: {
+    hero: "/images/projects/address-boulevard-hotel/hero.webp",
+    heroAlt: "The Address Boulevard Hotel, Downtown Dubai — Sixty Newton façade & marble works",
+    gallery: [
+      "/images/projects/address-boulevard-hotel/gallery-1.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "specialised-coatings-and-sealants", title: "Specialised Coatings & Sealants", note: "Façade movement-joint sealing was the headline scope." },
     { slug: "marble-installation",                title: "Marble Installation",              note: "White-marble lobby and ballroom installation." },
