@@ -48,6 +48,11 @@ const omaxe: ProjectPage = {
     { discipline: "Polishing — Marble & Floors",  disciplineSlug: "polishing",              brand: "—",         products: ["Diamond-pad progression 50 → 3000 grit"] },
   ],
 
+  images: {
+    hero: "/images/projects/omaxe-mall/hero.webp",
+    heroAlt: "Omaxe Mall, Delhi — Sixty Newton polished concrete concourse + atrium finishes",
+  },
+
   relatedDisciplines: [
     { slug: "design-concrete",      title: "Design Concrete & Screeding", note: "Polished concrete concourse was the project signature." },
     { slug: "large-format-tiling",  title: "Large Format Tiling",          note: "Atrium feature floors in large-format porcelain." },

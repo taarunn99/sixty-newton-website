@@ -55,6 +55,10 @@ const ahlatci: ProjectPage = {
     heroAlt: "Ahlatci Gold Refinery — Sixty Newton industrial epoxy flooring & PU roof",
     gallery: [
       "/images/projects/ahlatci-gold-refinery/gallery-1.webp",
+      "/images/projects/ahlatci-gold-refinery/gallery-2.webp",
+      "/images/projects/ahlatci-gold-refinery/gallery-3.webp",
+      "/images/projects/ahlatci-gold-refinery/gallery-4.webp",
+      "/images/projects/ahlatci-gold-refinery/gallery-5.webp",
     ],
   },
 

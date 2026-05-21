@@ -48,6 +48,11 @@ const mashaallah: ProjectPage = {
     { discipline: "Specialised Coatings & Sealants",    disciplineSlug: "specialised-coatings-and-sealants",     brand: "MAPEI",     products: ["Mapeflex PU45 (movement joints)"] },
   ],
 
+  images: {
+    hero: "/images/projects/mashaallah-building/hero.webp",
+    heroAlt: "Masha'Allah Building, Al Nahda Dubai — Sixty Newton repair + paint + sealants",
+  },
+
   relatedDisciplines: [
     { slug: "general-maintenance", title: "Repair & General Maintenance", note: "Diagnosis-first concrete repair was the project foundation." },
     { slug: "painting",             title: "Interior & Exterior Painting",   note: "Dulux Stucco system + Weathershield finish was the visible outcome." },

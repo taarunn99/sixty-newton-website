@@ -47,6 +47,14 @@ const delhiMetro: ProjectPage = {
     { discipline: "Marble Installation",          disciplineSlug: "marble-installation",   brand: "Laticrete", products: ["C2FT rapid adhesive", "Engineered quartz slabs"] },
   ],
 
+  images: {
+    hero: "/images/projects/delhi-metro/hero.webp",
+    heroAlt: "Delhi Metro — Sixty Newton concourse-floor repair + finish",
+    gallery: [
+      "/images/projects/delhi-metro/gallery-1.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "general-maintenance", title: "Repair & General Maintenance", note: "Overnight concrete repair was the project's organising constraint." },
     { slug: "marble-installation",  title: "Marble Installation",          note: "Quartz concourse floors deliver marble-grade finish with infrastructure-grade durability." },
