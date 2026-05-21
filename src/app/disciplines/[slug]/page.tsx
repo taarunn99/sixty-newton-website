@@ -15,6 +15,8 @@ import { SITE, DISCIPLINES } from "@/constants/site";
 import { ServiceHero } from "@/components/services/service-hero";
 import { BrandStrip } from "@/components/services/brand-strip";
 import { SectionRenderer, collectSystemVariants } from "@/components/services/section-renderer";
+import { PhotoSlideshow } from "@/components/ui/photo-slideshow";
+import { getDisciplineImages } from "@/content/disciplines/images";
 
 export function generateStaticParams() {
   return PUBLISHED_SERVICE_SLUGS.map(slug => ({ slug }));
@@ -95,6 +97,29 @@ export default async function ServicePage({
         className="pt-12 md:pt-16"
         serviceContext={{ title: serviceName }}
       />
+
+      {/* Photography strip — auto-advancing slideshow under the hero
+          for disciplines that have a published image manifest. Shown
+          only when at least a hero exists; thumbnails only appear if
+          there's gallery imagery alongside. */}
+      {(() => {
+        const imgs = getDisciplineImages(page.slug);
+        if (!imgs) return null;
+        return (
+          <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-12">
+            <PhotoSlideshow
+              priorityFirst={false}
+              images={[
+                { src: imgs.hero, alt: imgs.heroAlt },
+                ...imgs.gallery.map((src, i) => ({
+                  src,
+                  alt: `${serviceName} — site photography ${i + 1} of ${imgs.gallery.length}`,
+                })),
+              ]}
+            />
+          </section>
+        );
+      })()}
 
       {page.sections.map((section, idx) => (
         <SectionRenderer

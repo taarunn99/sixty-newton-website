@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, ChevronRight } from "lucide-react";
+
+import { PhotoSlideshow } from "@/components/ui/photo-slideshow";
 
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbJsonLd, jsonLdScript } from "@/lib/jsonld";
@@ -107,40 +108,18 @@ export default async function CaseStudyPage({
       {/* ── Section 2 — Photography ── */}
       <section className="mx-auto max-w-[1200px] px-5 md:px-12 lg:px-16 py-12">
         {page.images?.hero ? (
-          <>
-            {/* Hero — full-bleed reference shot */}
-            <figure className="relative aspect-[16/10] w-full overflow-hidden rounded-md border border-border bg-bg-inset">
-              <Image
-                src={page.images.hero}
-                alt={page.images.heroAlt ?? `${page.hero.h1} — Sixty Newton`}
-                fill
-                sizes="(min-width: 1200px) 1200px, 100vw"
-                className="object-cover"
-                priority
-              />
-            </figure>
-
-            {/* Gallery — two-up grid below, lazy-loaded */}
-            {page.images.gallery && page.images.gallery.length > 0 && (
-              <ul className="mt-3 grid gap-3 md:grid-cols-2 md:gap-4">
-                {page.images.gallery.map((src, i) => (
-                  <li
-                    key={src}
-                    className="relative aspect-[4/3] overflow-hidden rounded-md border border-border bg-bg-inset"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${page.hero.h1} — site photography ${i + 1} of ${page.images!.gallery!.length}`}
-                      fill
-                      sizes="(min-width: 768px) 600px, 100vw"
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
+          <PhotoSlideshow
+            images={[
+              {
+                src: page.images.hero,
+                alt: page.images.heroAlt ?? `${page.hero.h1} — Sixty Newton`,
+              },
+              ...(page.images.gallery ?? []).map((src, i) => ({
+                src,
+                alt: `${page.hero.h1} — site photography ${i + 1} of ${page.images!.gallery!.length}`,
+              })),
+            ]}
+          />
         ) : (
           // Placeholder for projects without photography yet
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md border border-dashed border-border-dashed bg-bg-inset">
