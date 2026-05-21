@@ -44,7 +44,7 @@ Sitemap: https://sixtynewton.com/sitemap.xml
 - Dubai Hills Villas (Dubai)
 - Le Méridien Hotels (UAE)
 - Ahlatci Gold Refinery
-- Delhi Metro / Patna Metro Station / Omaxe Mall (India)
+- Delhi Metro / Omaxe Mall (India)
 
 # Contact
 Email: info@60newton.com
