@@ -102,24 +102,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd())}
         />
-        {/* Preload the first batch of scroll-sequence frames so they're in
-            the HTTP cache before the JS bundle runs. Apple-style optimisation
-            — eliminates the initial RTT cost for the hero animation. */}
-        {Array.from({ length: 8 }, (_, i) => {
-          const name = `frame-${String(i).padStart(3, "0")}.webp`;
-          return (
-            <link
-              key={name}
-              rel="preload"
-              as="image"
-              href={`/animation/desktop/${name}`}
-              type="image/webp"
-              // Only fetch on viewports likely to be desktop (cheap heuristic;
-              // mobile clients fetch the smaller bundle on demand).
-              media="(min-width: 768px)"
-            />
-          );
-        })}
+        {/* Scroll-sequence frame preloads moved into src/app/page.tsx so
+            other routes don't waste bandwidth on the home-only animation.
+            Hero-image preload not needed — <Image priority/> in Hero.tsx
+            already issues it. */}
       </head>
       <body className="bg-bg text-fg antialiased font-sans">
         <GTM />

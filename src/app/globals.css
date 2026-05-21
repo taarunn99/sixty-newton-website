@@ -16,7 +16,10 @@
   /* Foreground */
   --fg:                 #efe8d5;  /* primary type — slightly cooler cream */
   --fg-muted:           #8f8674;  /* secondary type */
-  --fg-subtle:          #5a5346;  /* labels, meta */
+  /* labels, meta — bumped 2026-05-21 from #5a5346 (2.6:1 against bg) to
+     pass WCAG AA 4.5:1 minimum contrast. New value still reads as a
+     "subtle muted" tone distinctly behind --fg and --fg-muted. */
+  --fg-subtle:          #897e6a;
 
   /* Accent — champagne gold (desaturated one tone for premium feel) */
   --gold:               #b8924f;

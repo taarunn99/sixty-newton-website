@@ -56,6 +56,11 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
   return (
     <div
       aria-hidden={!visible}
+      // React 19 supports `inert` as a boolean prop directly. When set,
+      // the browser removes all focusable descendants from the focus
+      // order and ignores pointer events — satisfies WCAG
+      // aria-hidden-focus rule.
+      inert={!visible}
       style={{
         // Respect Z-Fold / iPhone home-indicator / system gesture areas.
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)",

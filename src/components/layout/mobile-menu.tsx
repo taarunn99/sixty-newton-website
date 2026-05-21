@@ -65,6 +65,9 @@ export function Drawer({ open, onClose }: DrawerProps) {
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
+        // `inert` when closed — removes children from focus order to
+        // satisfy WCAG aria-hidden-focus rule.
+        inert={!open}
         className={cn(
           // Mobile: full-screen overlay
           "fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md transition-all duration-300",

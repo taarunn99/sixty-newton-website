@@ -18,9 +18,13 @@ const FRAME_COUNT_MOBILE  = 90;
 const FRAME_BASE_DESKTOP  = "/animation/desktop/frame-";
 const FRAME_BASE_MOBILE   = "/animation/mobile/frame-";
 
-// Start playing the animation as soon as 30% of frames are decoded.
-// Background decoder keeps loading the rest in parallel.
-const PLAYBACK_THRESHOLD = 0.3;
+// Start playing the animation as soon as 6 % of frames are decoded
+// (≈ 5-6 frames). The remaining 84 frames stream in behind the scenes
+// while the canvas already shows the opening few frames. The previous
+// 30 % threshold cost us ~25 frames of payload (~1.4 MB on mobile)
+// before LCP could fire — a Lighthouse-blocking number on simulated
+// throttling.
+const PLAYBACK_THRESHOLD = 0.06;
 
 const frameSrc = (base: string, i: number) =>
   `${base}${String(i).padStart(3, "0")}.webp`;
@@ -71,6 +75,11 @@ export function ScrollSequence() {
   const [loadedCount, setLoadedCount] = useState(0);
   const [reduced, setReduced] = useState(false);
   const [staticFallback, setStaticFallback] = useState(false);
+  // IntersectionObserver gate — only kick off the 4-MB frame fetch
+  // once the section is within 2 viewport heights of the viewport.
+  // Lets the hero LCP fire on its own bandwidth, then the scroll
+  // sequence streams in as the user scrolls toward it.
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   // Reduced-motion + Save-Data preferences (once on mount)
   useEffect(() => {
@@ -80,10 +89,31 @@ export function ScrollSequence() {
     setStaticFallback(prefersReduced || shouldSkipAnimation());
   }, []);
 
+  // Intersection-gate the frame fetch
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const el = sectionRef.current;
+    if (!el) return;
+    // Pre-fetch when within 2 viewport heights so the animation is ready
+    // by the time the user actually scrolls into the section.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200% 0px 200% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Preload + decode frames in PARALLEL (browser HTTP/2 multiplexes;
   // Vercel CDN serves all in one wave).
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!shouldLoad) return;
     let cancelled = false;
     const supportsBitmap = typeof window.createImageBitmap === "function";
 
@@ -134,7 +164,7 @@ export function ScrollSequence() {
     })();
 
     return () => { cancelled = true; };
-  }, [staticFallback, frameCount, frameBase]);
+  }, [shouldLoad, staticFallback, frameCount, frameBase]);
 
   const armed = staticFallback
     ? loadedCount === frameCount
