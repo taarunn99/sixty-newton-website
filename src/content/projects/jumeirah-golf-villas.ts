@@ -48,6 +48,15 @@ const jumeirah: ProjectPage = {
     { discipline: "Specialised Coatings & Sealants",  disciplineSlug: "specialised-coatings-and-sealants", brand: "MAPEI", products: ["Mapeflex PU45"] },
   ],
 
+  images: {
+    hero: "/images/projects/jumeirah-golf-villas/hero.webp",
+    heroAlt: "Jumeirah Golf Villas, Dubai — Sixty Newton pool-deck LFT + sealants",
+    gallery: [
+      "/images/projects/jumeirah-golf-villas/gallery-1.webp",
+      "/images/projects/jumeirah-golf-villas/gallery-2.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "large-format-tiling",                title: "Large Format Tiling",              note: "Pool-deck pavers across the cluster were the headline scope." },
     { slug: "specialised-coatings-and-sealants",  title: "Specialised Coatings & Sealants",   note: "Podium movement-joint sealing was the parallel scope." },

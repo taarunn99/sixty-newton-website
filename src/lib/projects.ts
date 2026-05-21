@@ -29,6 +29,5 @@ export const PUBLISHED_PROJECT_SLUGS = [
   "le-meridien-hotels",
   "mashaallah-building",
   "delhi-metro",
-  "patna-metro-station",
   "omaxe-mall",
 ] as const;

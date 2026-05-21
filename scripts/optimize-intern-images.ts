@@ -42,6 +42,11 @@ const MAPPING: Record<string, Target> = {
   "PROJECTS/ST REGIS": { type: "projects", slug: "st-regis-developments" },
   "PROJECTS/The Address Boulevard Hotel": { type: "projects", slug: "address-boulevard-hotel" },
   "PROJECTS/AHLATCI GOLD REFINERY": { type: "projects", slug: "ahlatci-gold-refinery" },
+  "PROJECTS/JUMEIRAH GOLF VILLAS": { type: "projects", slug: "jumeirah-golf-villas" },
+  "PROJECTS/LE MERIDIEN HOTELS": { type: "projects", slug: "le-meridien-hotels" },
+  "PROJECTS/DELHI METRO": { type: "projects", slug: "delhi-metro" },
+  "PROJECTS/OMAXE MALL": { type: "projects", slug: "omaxe-mall" },
+  "PROJECTS/MASHAALLAH BUILDING": { type: "projects", slug: "mashaallah-building" },
 
   // The "grouting at atlantis" shots belong to the Atlantis case study
   // as additional gallery imagery — not a discipline page.
@@ -59,10 +64,10 @@ const MAPPING: Record<string, Target> = {
   "SERVICES PAGE/tile installation": { type: "disciplines", slug: "large-format-tiling" },
 };
 
-const HERO_RE = /_main\.(jpg|jpeg|png|webp|heic)$/i;
+const HERO_RE = /_main\.(jpg|jpeg|png|webp|heic|avif)$/i;
 
 function isImage(name: string) {
-  return /\.(jpe?g|png|webp)$/i.test(name);
+  return /\.(jpe?g|png|webp|avif)$/i.test(name);
 }
 
 async function listImages(dir: string): Promise<string[]> {

@@ -56,7 +56,7 @@ const omaxe: ProjectPage = {
 
   relatedProjects: [
     { slug: "delhi-metro",          name: "Delhi Metro",          location: "Delhi, India" },
-    { slug: "patna-metro-station",  name: "Patna Metro Station",  location: "Patna, India" },
+    { slug: "ahlatci-gold-refinery", name: "Ahlatci Gold Refinery", location: "Industrial" },
   ],
 };
 

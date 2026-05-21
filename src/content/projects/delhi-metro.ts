@@ -54,8 +54,8 @@ const delhiMetro: ProjectPage = {
   ],
 
   relatedProjects: [
-    { slug: "patna-metro-station", name: "Patna Metro Station", location: "Patna, India" },
     { slug: "omaxe-mall",          name: "Omaxe Mall",          location: "Delhi, India" },
+    { slug: "ahlatci-gold-refinery", name: "Ahlatci Gold Refinery", location: "Industrial" },
   ],
 };
 

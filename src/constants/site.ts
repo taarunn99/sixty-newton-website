@@ -314,7 +314,6 @@ export const REFERENCE_PROJECTS = [
   { name: "Le Méridien Hotels",          location: "UAE",                   slug: "le-meridien-hotels",         published: true},
   { name: "Masha'Allah Building",        location: "Al Nahda",              slug: "mashaallah-building",        published: true},
   { name: "Delhi Metro",                 location: "Delhi, India",          slug: "delhi-metro",                published: true},
-  { name: "Patna Metro Station",         location: "Patna, India",          slug: "patna-metro-station",        published: true},
   { name: "Omaxe Mall",                  location: "Delhi, India",          slug: "omaxe-mall",                 published: true},
 ] as const;
 

@@ -53,6 +53,7 @@ const address: ProjectPage = {
     heroAlt: "The Address Boulevard Hotel, Downtown Dubai — Sixty Newton façade & marble works",
     gallery: [
       "/images/projects/address-boulevard-hotel/gallery-1.webp",
+      "/images/projects/address-boulevard-hotel/gallery-2.webp",
     ],
   },
 

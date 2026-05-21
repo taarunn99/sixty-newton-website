@@ -49,6 +49,15 @@ const leMeridien: ProjectPage = {
     { discipline: "Self-Levelling & Screed", disciplineSlug: "self-levelling",        brand: "MAPEI",   products: ["Ultraplan (SR1 substrate prep)"] },
   ],
 
+  images: {
+    hero: "/images/projects/le-meridien-hotels/hero.webp",
+    heroAlt: "Le Méridien Hotels, Dubai — Sixty Newton reroofing + guestroom refurb",
+    gallery: [
+      "/images/projects/le-meridien-hotels/gallery-1.webp",
+      "/images/projects/le-meridien-hotels/gallery-2.webp",
+    ],
+  },
+
   relatedDisciplines: [
     { slug: "bitumen-waterproofing",  title: "Bitumen Waterproofing", note: "APP two-layer roof renewal was the headline scope." },
     { slug: "vinyl-flooring",          title: "Vinyl Flooring",         note: "5,800 m² of guestroom LVT was the parallel scope." },

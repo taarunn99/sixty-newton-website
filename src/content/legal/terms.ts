@@ -24,7 +24,7 @@ Our scope includes:
 - Design concrete and decorative finishes
 - Microtopping floors
 
-We are an **approved applicator** for leading manufacturers including **Mapei, Laticrete, AkzoNobel and X-Calibur**, and our completed reference projects include developments such as Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, Le Méridien Hotels, The Address Boulevard, Dubai Hills Villas, Jumeirah Golf Villas, Ahlatci Gold Refinery, Delhi Metro, Patna Metro Station and Omaxe Mall.
+We are an **approved applicator** for leading manufacturers including **Mapei, Laticrete, AkzoNobel and X-Calibur**, and our completed reference projects include developments such as Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, Le Méridien Hotels, The Address Boulevard, Dubai Hills Villas, Jumeirah Golf Villas, Ahlatci Gold Refinery, Delhi Metro and Omaxe Mall.
 
 Sixty Newton is part of the **Lapiz Blue Group of Companies**.
 
