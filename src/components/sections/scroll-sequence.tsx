@@ -7,10 +7,14 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-// Bundle counts must match what scripts/optimize-frames-fast.ts emits.
-// Apple-class production tuning — small bundles, fast playback.
+// Bundle counts must match what scripts/optimize-frames-fast.ts + the
+// mobile-v2 script emit. Apple-class production tuning.
+// Mobile bumped 45 → 90 frames (and q55 → q62) — the previous 45-frame
+// bundle was visibly choppy on phone. 90 frames matches desktop count
+// for fluid playback; smaller dimension (900 w q62) keeps payload at
+// ~1.8 MB which is acceptable on 4G.
 const FRAME_COUNT_DESKTOP = 90;
-const FRAME_COUNT_MOBILE  = 45;
+const FRAME_COUNT_MOBILE  = 90;
 const FRAME_BASE_DESKTOP  = "/animation/desktop/frame-";
 const FRAME_BASE_MOBILE   = "/animation/mobile/frame-";
 

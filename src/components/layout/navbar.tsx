@@ -63,6 +63,21 @@ export function Navbar() {
     return () => io.disconnect();
   }, [pathname]);
 
+  // Belt-and-braces: also lock the navbar solid once we've scrolled past
+  // ~100px on any page. iOS Safari's IntersectionObserver can fire
+  // inconsistently during URL-bar transitions and GSAP ScrollTrigger pin
+  // events, which was causing the navbar to briefly "disappear" on
+  // mobile (transparent state over a dark frame). Scroll-Y is a stable
+  // fallback signal that doesn't depend on the hero observer.
+  const [scrolledDown, setScrolledDown] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => setScrolledDown(window.scrollY > 100);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Close drawer + mega-menu on route change
   useEffect(() => {
     setDrawerOpen(false);
@@ -77,7 +92,7 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [megaOpen]);
 
-  const solid = hovered || drawerOpen || pastHero || megaOpen;
+  const solid = hovered || drawerOpen || pastHero || megaOpen || scrolledDown;
 
   return (
     <>

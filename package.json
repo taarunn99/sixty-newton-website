@@ -11,6 +11,7 @@
     "frames:optimize": "tsx scripts/optimize-frames.ts",
     "frames:build": "tsx scripts/build-frames.ts",
     "frames:fast": "tsx scripts/optimize-frames-fast.ts",
+    "frames:mobile-v2": "tsx scripts/optimize-frames-mobile-v2.ts",
     "image:visit": "tsx scripts/optimize-visit-image.ts",
     "images:seed": "tsx scripts/seed-placeholders.ts",
     "image:debg": "tsx scripts/remove-white-bg.ts"

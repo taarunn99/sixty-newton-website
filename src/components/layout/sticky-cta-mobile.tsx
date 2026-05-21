@@ -21,7 +21,14 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
     if (typeof window === "undefined") return;
     if (hideOnPath && window.location.pathname.startsWith(hideOnPath)) return;
 
+    // Hysteresis — show at >65%, hide at <45%. Big buffer band prevents
+    // the bar from flickering when the user oscillates around a single
+    // scroll-percentage threshold (which is what was happening on phone).
+    const SHOW_AT = 0.65;
+    const HIDE_AT = 0.45;
+    let currentlyVisible = false;
     let ticking = false;
+
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
@@ -29,7 +36,13 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
         const scrolled = window.scrollY;
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const pct = max > 0 ? scrolled / max : 0;
-        setVisible(pct > 0.55);
+        if (!currentlyVisible && pct > SHOW_AT) {
+          currentlyVisible = true;
+          setVisible(true);
+        } else if (currentlyVisible && pct < HIDE_AT) {
+          currentlyVisible = false;
+          setVisible(false);
+        }
         ticking = false;
       });
     };

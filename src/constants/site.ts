@@ -9,7 +9,11 @@ export const SITE = {
   legalName: "Sixty Newton Technical Services L.L.C.",
   parentGroup: "Lapiz Blue Group of Companies",
   parentGroupUrl: "https://www.lapizblue.com",
-  tagline: "Your go-to applicators.",
+  // Concise tagline used in meta titles, OG headers and other compact
+  // brand surfaces. The long-form hero headline lives in the Hero
+  // component itself ("Your trusted partner in technical services and
+  // contracting.") — that's the company-profile-anchored statement.
+  tagline: "Specialist technical services & contracting · UAE",
   description:
     "Sixty Newton Technical Services is a specialist contracting company powering some of the UAE's most demanding projects — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   shortDescription:
