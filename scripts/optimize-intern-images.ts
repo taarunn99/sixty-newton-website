@@ -71,6 +71,10 @@ const MAPPING: Record<string, Target> = {
   "SERVICES PAGE/marble installation": { type: "disciplines", slug: "marble-installation" },
   "SERVICES PAGE/screed": { type: "disciplines", slug: "self-levelling" },
   "SERVICES PAGE/tile installation": { type: "disciplines", slug: "large-format-tiling" },
+  "SERVICES PAGE/VINYL FLOORING": { type: "disciplines", slug: "vinyl-flooring" },
+  "SERVICES PAGE/POLISHING": { type: "disciplines", slug: "polishing" },
+  "SERVICES PAGE/SPECIALISED COATINGS": { type: "disciplines", slug: "specialised-coatings-and-sealants" },
+  "SERVICES PAGE/PAINTING": { type: "disciplines", slug: "painting" },
 };
 
 const HERO_RE = /_main\.(jpg|jpeg|png|webp|heic|avif)$/i;

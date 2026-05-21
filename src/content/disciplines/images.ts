@@ -74,9 +74,31 @@ export const DISCIPLINE_IMAGES: Record<string, DisciplineImages> = {
       `${ROOT}/self-levelling/gallery-3.webp`,
       `${ROOT}/self-levelling/gallery-4.webp`,
       `${ROOT}/self-levelling/gallery-5.webp`,
-      `${ROOT}/self-levelling/gallery-6.webp`,
-      `${ROOT}/self-levelling/gallery-7.webp`,
     ],
+  },
+
+  "vinyl-flooring": {
+    hero: `${ROOT}/vinyl-flooring/hero.webp`,
+    heroAlt: "Sixty Newton — LVT vinyl flooring installation, MAPEI Ultrabond spec",
+    gallery: [],
+  },
+
+  "polishing": {
+    hero: `${ROOT}/polishing/hero.webp`,
+    heroAlt: "Sixty Newton — marble & floor polishing, diamond-pad grit progression",
+    gallery: [],
+  },
+
+  "specialised-coatings-and-sealants": {
+    hero: `${ROOT}/specialised-coatings-and-sealants/hero.webp`,
+    heroAlt: "Sixty Newton — specialised PU coatings and joint sealants",
+    gallery: [],
+  },
+
+  "painting": {
+    hero: `${ROOT}/painting/hero.webp`,
+    heroAlt: "Sixty Newton — interior & exterior painting, AkzoNobel Dulux applicator",
+    gallery: [],
   },
 };
 
