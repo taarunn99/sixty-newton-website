@@ -130,7 +130,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Navbar />
-        <main id="main" className="min-h-[60dvh]">
+        {/* `relative z-10 bg-bg` + a subtle bottom shadow make <main>
+            sit on top of the sticky footer behind it. The shadow is
+            cast downward so when <main> lifts away at the end of any
+            page, the footer is revealed underneath with a clean edge —
+            "page stacked over a sheet" effect. */}
+        <main
+          id="main"
+          className="relative z-10 bg-bg min-h-[60dvh] shadow-[0_24px_50px_-24px_rgba(0,0,0,0.55)]"
+        >
           {children}
         </main>
         <Footer />

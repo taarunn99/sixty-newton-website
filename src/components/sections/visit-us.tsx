@@ -117,18 +117,46 @@ export function VisitUs() {
             <p className="mt-3 text-fg-muted text-base leading-relaxed">
               Monday – Saturday, by appointment. Drop us a WhatsApp first and we&rsquo;ll have a coffee ready.
             </p>
-            <div className="mt-6 flex flex-col gap-1 text-sm">
+            {/* Tiny circle call-buttons — minimalist, light up gold on
+                hover/press. tel: hrefs open the dialler on mobile. */}
+            <div className="mt-7 flex items-start gap-5">
               <a
                 href={`tel:${SITE.landlineHref}`}
-                className="text-fg-muted hover:text-gold transition-colors"
+                aria-label={`Call landline ${SITE.landline}`}
+                title={SITE.landline}
+                className="group flex flex-col items-center gap-2"
               >
-                Landline · {SITE.landline}
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-gold/50 text-fg-muted transition-colors duration-200 group-hover:border-gold group-hover:bg-gold group-hover:text-bg group-active:bg-gold group-active:text-bg">
+                  {/* Old-school desk-phone icon — semantic distinction from mobile */}
+                  <svg viewBox="0 0 24 24" aria-hidden focusable="false" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 4h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1.5l-1 2h-9l-1-2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
+                    <path d="M8 15h8" />
+                    <path d="M8 19h8" />
+                    <path d="M7 7h.01" />
+                    <path d="M11 7h.01" />
+                    <path d="M15 7h.01" />
+                  </svg>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-fg-subtle transition-colors group-hover:text-gold">
+                  Landline
+                </span>
               </a>
               <a
                 href={`tel:${SITE.phoneHref}`}
-                className="text-fg-muted hover:text-gold transition-colors"
+                aria-label={`Call mobile ${SITE.phone}`}
+                title={SITE.phone}
+                className="group flex flex-col items-center gap-2"
               >
-                Mobile · {SITE.phone}
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-gold/50 text-fg-muted transition-colors duration-200 group-hover:border-gold group-hover:bg-gold group-hover:text-bg group-active:bg-gold group-active:text-bg">
+                  {/* Handset / mobile icon */}
+                  <svg viewBox="0 0 24 24" aria-hidden focusable="false" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="7" y="2" width="10" height="20" rx="2" />
+                    <path d="M11 18h2" />
+                  </svg>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-fg-subtle transition-colors group-hover:text-gold">
+                  Mobile
+                </span>
               </a>
             </div>
           </div>
