@@ -72,9 +72,11 @@ export const SITE = {
   ],
 
   // ─── Brand assets ───
-  // OG image is generated dynamically by /src/app/opengraph-image.tsx — Next serves
-  // it at /opengraph-image. Use absolute path so it works in meta tags too.
-  ogImage: "/opengraph-image",
+  // Static OG image at src/app/opengraph-image.png — Next.js App Router
+  // auto-serves it at /opengraph-image.png. The extension matters here:
+  // some social-card crawlers (WhatsApp, older Slack) refuse to fetch
+  // the image when the URL has no file extension. Keep ".png" suffix.
+  ogImage: "/opengraph-image.png",
   logo: {
     placeholder: false,
     dark: "/brand/logo.svg",        // white wordmark + gold mark — for dark bg
