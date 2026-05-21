@@ -56,8 +56,17 @@ const MAPPING: Record<string, Target> = {
 
   // ── Discipline / service pages ─────────────────────────────────────
   "SERVICES PAGE/EPOXY_FLOORING": { type: "disciplines", slug: "epoxy-flooring" },
-  "SERVICES PAGE/WATERPROOFING": { type: "disciplines", slug: "waterproofing" },
-  "SERVICES PAGE/PRIMER": { type: "disciplines", slug: "waterproofing" },
+  // The intern's "WATERPROOFING" folder is actually all bitumen-torched
+  // membrane shots — re-route to the bitumen-waterproofing discipline.
+  "SERVICES PAGE/WATERPROOFING": { type: "disciplines", slug: "bitumen-waterproofing" },
+  // Primer images are part of the bitumen / heavy-waterproofing prep
+  // workflow — route to bitumen-waterproofing rather than vanilla
+  // waterproofing (which now uses its own dedicated hero).
+  "SERVICES PAGE/PRIMER": { type: "disciplines", slug: "bitumen-waterproofing" },
+  // Clean dedicated waterproofing imagery — separate folder so the
+  // bitumen content above doesn't bleed in.
+  "SERVICES PAGE/WATERPROOFING-LIQUID": { type: "disciplines", slug: "waterproofing" },
+  "SERVICES PAGE/MICROTOPPING": { type: "disciplines", slug: "microtopping" },
   "SERVICES PAGE/SELF LEVELING": { type: "disciplines", slug: "self-levelling" },
   "SERVICES PAGE/marble installation": { type: "disciplines", slug: "marble-installation" },
   "SERVICES PAGE/screed": { type: "disciplines", slug: "self-levelling" },

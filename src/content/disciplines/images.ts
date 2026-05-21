@@ -21,6 +21,29 @@ export interface DisciplineImages {
 const ROOT = "/images/disciplines";
 
 export const DISCIPLINE_IMAGES: Record<string, DisciplineImages> = {
+  "waterproofing": {
+    hero: `${ROOT}/waterproofing/hero.webp`,
+    heroAlt: "Sixty Newton — liquid-membrane waterproofing, MAPEI applicator",
+    gallery: [],
+  },
+
+  "bitumen-waterproofing": {
+    hero: `${ROOT}/bitumen-waterproofing/hero.webp`,
+    heroAlt: "Sixty Newton — APP bitumen torch-applied roof membrane",
+    gallery: [
+      `${ROOT}/bitumen-waterproofing/gallery-1.webp`,
+      `${ROOT}/bitumen-waterproofing/gallery-2.webp`,
+      `${ROOT}/bitumen-waterproofing/gallery-3.webp`,
+      `${ROOT}/bitumen-waterproofing/gallery-4.webp`,
+    ],
+  },
+
+  "microtopping": {
+    hero: `${ROOT}/microtopping/hero.webp`,
+    heroAlt: "Sixty Newton — microtopping / microcement seamless finish",
+    gallery: [`${ROOT}/microtopping/gallery-1.webp`],
+  },
+
   "epoxy-flooring": {
     hero: `${ROOT}/epoxy-flooring/hero.webp`,
     heroAlt: "Sixty Newton — epoxy flooring application, brand-certified applicator",
@@ -53,20 +76,6 @@ export const DISCIPLINE_IMAGES: Record<string, DisciplineImages> = {
       `${ROOT}/self-levelling/gallery-5.webp`,
       `${ROOT}/self-levelling/gallery-6.webp`,
       `${ROOT}/self-levelling/gallery-7.webp`,
-      `${ROOT}/self-levelling/gallery-8.webp`,
-    ],
-  },
-
-  "waterproofing": {
-    hero: `${ROOT}/waterproofing/hero.webp`,
-    heroAlt: "Sixty Newton — waterproofing membrane application, MAPEI applicator",
-    gallery: [
-      `${ROOT}/waterproofing/gallery-1.webp`,
-      `${ROOT}/waterproofing/gallery-2.webp`,
-      `${ROOT}/waterproofing/gallery-3.webp`,
-      `${ROOT}/waterproofing/gallery-4.webp`,
-      `${ROOT}/waterproofing/gallery-5.webp`,
-      `${ROOT}/waterproofing/gallery-6.webp`,
     ],
   },
 };
