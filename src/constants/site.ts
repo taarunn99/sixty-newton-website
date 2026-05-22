@@ -18,7 +18,13 @@ export const SITE = {
     "Sixty Newton Technical Services is a specialist contracting company powering some of the UAE's most demanding projects — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
   shortDescription:
     "UAE specialist contracting — waterproofing, seamless flooring, microtopping, large-format tiling and high-performance finishes. Approved applicators for Mapei, Laticrete, AkzoNobel and X-Calibur.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sixtynewton.com",
+  // Live production domain. Fallback matches the canonical www-prefixed
+  // URL so the og:image meta tag resolves correctly even if the
+  // NEXT_PUBLIC_SITE_URL env var isn't set in Vercel. Previously this
+  // fell back to "sixtynewton.com" which is a different domain — link
+  // unfurls (WhatsApp, LinkedIn, Slack, Facebook) fetched the OG image
+  // from there, got nothing, and rendered text-only previews.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.60newton.com",
   locale: "en_AE",
   htmlLang: "en-AE",
   themeColor: "#0a0807",

@@ -1,5 +1,5 @@
 # Sixty Newton — llms.txt
-# Guidance for LLM crawlers indexing https://sixtynewton.com
+# Guidance for LLM crawlers indexing https://www.60newton.com
 
 Site: Sixty Newton Technical Services
 Tagline: Your go-to applicators.
@@ -11,7 +11,7 @@ Allow: /
 Disallow: /api/
 Disallow: /_next/
 
-Sitemap: https://sixtynewton.com/sitemap.xml
+Sitemap: https://www.60newton.com/sitemap.xml
 
 # Core disciplines
 - Waterproofing (cementitious, acrylic — surface, facade, roof)
