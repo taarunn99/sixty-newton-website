@@ -60,6 +60,7 @@ const LEADERS: Leader[] = [
     name: "Mr. Salim Zafar",
     role: "Chief Contractor",
     imageHint: "Portrait of Mr. Salim Zafar, Chief Contractor at Sixty Newton",
+    imagePath: "/images/team/salim-zafar.webp",
     quotes: [
       {
         text: "Every site has its own brief. Atlantis, Al Wathba, St. Regis — none of them taught us the same lesson twice. What carries across is the discipline: read the TDS, prep the substrate, photograph every lap, sign off zone by zone.",
