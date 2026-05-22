@@ -16,6 +16,12 @@ import { cn } from "@/lib/utils";
  */
 export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
   const [visible, setVisible] = useState(false);
+  // Footer-visibility flag — when the footer is on-screen the sticky CTA
+  // gets out of the way so the copyright + group attribution aren't
+  // obscured by the floating pill. Driven by IntersectionObserver on
+  // the page-level <footer> element so it works regardless of route /
+  // page length.
+  const [footerOnScreen, setFooterOnScreen] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -51,16 +57,36 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [hideOnPath]);
 
+  // Watch the footer — when it scrolls into view, the sticky CTA hides
+  // so it doesn't cover the copyright / group attribution / call icons.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setFooterOnScreen(entry.isIntersecting),
+      // `rootMargin: 0px 0px -80px 0px` — engage when 80 px of footer is
+      // visible. Tuned so the pill drops away just before it would start
+      // covering the "Call us" icon row.
+      { rootMargin: "0px 0px -80px 0px", threshold: 0 },
+    );
+    io.observe(footer);
+    return () => io.disconnect();
+  }, []);
+
+  // Final visibility = scroll-past-threshold AND footer-not-visible.
+  const showing = visible && !footerOnScreen;
+
   const waHref = `https://wa.me/${SITE.whatsappHref}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
 
   return (
     <div
-      aria-hidden={!visible}
+      aria-hidden={!showing}
       // React 19 supports `inert` as a boolean prop directly. When set,
       // the browser removes all focusable descendants from the focus
       // order and ignores pointer events — satisfies WCAG
       // aria-hidden-focus rule.
-      inert={!visible}
+      inert={!showing}
       style={{
         // Respect Z-Fold / iPhone home-indicator / system gesture areas.
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)",
@@ -71,7 +97,7 @@ export function StickyCTAMobile({ hideOnPath }: { hideOnPath?: string } = {}) {
         "md:hidden fixed inset-x-0 bottom-0 z-40 pt-3",
         "bg-gradient-to-t from-bg via-bg/95 to-transparent",
         "transition-[transform,opacity] duration-300 ease-out",
-        visible ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-full opacity-0 pointer-events-none",
+        showing ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-full opacity-0 pointer-events-none",
       )}
     >
       <div className="flex items-center gap-3">
