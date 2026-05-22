@@ -42,7 +42,7 @@ export default function ApproachPage() {
         <p className="mt-4 max-w-2xl font-serif font-light text-fg-muted text-lg leading-relaxed">
           Click any document to open the PDF. Current as of this trading year.
         </p>
-        <div className="mt-8 grid gap-3 md:grid-cols-2 md:gap-4">
+        <div className="mt-8 grid gap-3 md:grid-cols-2 md:gap-4 [&>*]:min-w-0">
           {COMPANY_DOCUMENTS.map(doc => (
             <DocButton
               key={doc.slug}
@@ -85,7 +85,10 @@ export default function ApproachPage() {
               key={cert.slug}
               id={cert.slug}
               className={cn(
-                "scroll-mt-28 min-h-[120px]",
+                // `min-w-0` — prevents the grid item from auto-sizing to
+                // its content (which made the applicator cards bleed
+                // past the right edge on mobile).
+                "min-w-0 scroll-mt-28 min-h-[120px]",
                 cert.puzzleSpan === 7 ? "md:col-span-7" : "md:col-span-5",
                 cert.puzzleSpan === 7 ? "md:min-h-[160px]" : "md:min-h-[140px]",
               )}

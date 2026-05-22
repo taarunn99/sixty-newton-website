@@ -7,63 +7,62 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    /* The footer is `position: sticky; bottom: 0` — so it always sits at
-       the viewport bottom while the main content (which has z-10 + a
-       solid bg) covers it from above. As the user scrolls toward the
-       end of any page, the main lifts off and reveals the footer
-       underneath, like a sheet stacked beneath the page. CSS-only, no
-       JS measurement needed. */
-    <footer className="sticky bottom-0 z-0 border-t border-border bg-bg-inset">
-      <div className="mx-auto max-w-[1600px] px-5 md:px-12 lg:px-16 py-16 md:py-20">
+    <footer className="relative z-0 border-t border-border bg-bg-inset">
+      <div className="mx-auto max-w-[1600px] px-5 md:px-12 lg:px-16 py-10 md:py-20">
         {/* ── Brand block + 4 link columns ── */}
-        <div className="grid gap-12 md:grid-cols-12 md:gap-8">
+        <div className="grid gap-8 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4 max-w-md">
-            <Logo size={96} />
-            <p className="mt-6 text-sm leading-relaxed text-fg-muted">
+            <Logo size={72} className="md:hidden" />
+            <Logo size={96} className="hidden md:inline-flex" />
+            <p className="mt-4 md:mt-6 text-sm leading-relaxed text-fg-muted">
               {SITE.shortDescription}
             </p>
-            <p className="mt-6 eyebrow text-gold">
+            <p className="mt-4 md:mt-6 eyebrow text-gold">
               {SITE.serviceAreaTagline}
             </p>
-            <p className="mt-3 text-sm text-fg-muted">
+            <p className="mt-2 md:mt-3 text-sm text-fg-muted">
               {SITE.address.streetAddress} · {SITE.address.locality}, {SITE.address.country}
             </p>
           </div>
 
-          {FOOTER_SECTIONS.map((section) => (
-            <div key={section.heading} className="md:col-span-2">
-              <p className="eyebrow text-fg-subtle">{section.heading}</p>
-              <ul className="mt-5 space-y-1 text-sm">
-                {section.links.map((link) =>
-                  link.external ? (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ),
-                )}
-              </ul>
-            </div>
-          ))}
+          {/* 4 link sections — 2-col grid on mobile (halves the vertical
+              footprint vs. the old single-column stack), 4-col on md+ */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-6 md:col-span-8 md:grid-cols-4 md:gap-8">
+            {FOOTER_SECTIONS.map((section) => (
+              <div key={section.heading}>
+                <p className="eyebrow text-fg-subtle">{section.heading}</p>
+                <ul className="mt-4 space-y-0.5 text-sm">
+                  {section.links.map((link) =>
+                    link.external ? (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ) : (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="inline-flex min-h-11 items-center text-fg/90 hover:text-gold transition-colors duration-200"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* ── Contact strip — three matching icon buttons, slim section ── */}
-        <div className="mt-10 border-t border-border pt-5">
+        <div className="mt-8 md:mt-10 border-t border-border pt-5">
           <div className="flex items-center gap-5 md:gap-6">
             <p className="text-[10px] uppercase tracking-[0.22em] text-fg-subtle font-medium">Call us</p>
 
@@ -116,19 +115,23 @@ export function Footer() {
         </div>
 
         {/* ── Parent group attribution ── */}
-        <div className="mt-10 flex flex-col items-start gap-4 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 md:mt-10 flex flex-col items-start gap-3 border-t border-border pt-5 md:pt-8 md:flex-row md:items-center md:justify-between md:gap-4">
           <div className="flex flex-col gap-3">
             <p className="eyebrow text-fg-subtle">A Lapiz Blue Group company</p>
             <LapizBlueLink />
           </div>
 
-          <p className="text-xs text-fg-subtle md:text-right">
+          {/* Sister-company line — hidden on mobile to save vertical room.
+              The "A Lapiz Blue Group company" eyebrow + button already
+              communicates parent-group attribution; the full sister
+              list is desktop-only context. */}
+          <p className="hidden md:block text-xs text-fg-subtle md:text-right">
             Sister to Lapiz Blue, Montolite, Global Classic Building Material &amp; Al Sama Metal Coating.
           </p>
         </div>
 
         {/* ── Copyright + trade license + TRN ── */}
-        <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 text-xs text-fg-subtle md:flex-row md:items-center md:justify-between">
+        <div className="mt-5 md:mt-8 flex flex-col gap-2 md:gap-3 border-t border-border pt-4 md:pt-6 text-xs text-fg-subtle md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {SITE.legalName}. All rights reserved.
           </p>

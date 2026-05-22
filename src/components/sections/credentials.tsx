@@ -45,7 +45,10 @@ export function CredentialsSection({ showAboutLink = false }: CredentialsSection
         {/* ── Row 1 — Legal credentials (no logos, simple 2-col) ── */}
         <div className="mt-14">
           <p className="eyebrow text-fg-subtle">Licensed &amp; Compliant</p>
-          <div className="mt-6 grid gap-3 md:grid-cols-2 md:gap-4">
+          {/* `min-w-0` on each grid item — grid defaults to min-width:auto
+              which lets long subtitles push the item past its column on
+              mobile (cards "bleed right"). Forces shrink-to-fit. */}
+          <div className="mt-6 grid gap-3 md:grid-cols-2 md:gap-4 [&>*]:min-w-0">
             {COMPANY_DOCUMENTS.map(doc => (
               <DocButton
                 key={doc.slug}
@@ -71,7 +74,9 @@ export function CredentialsSection({ showAboutLink = false }: CredentialsSection
               <div
                 key={cert.slug}
                 className={cn(
-                  "min-h-[120px]",
+                  // `min-w-0` — same fix as above; without it the grid
+                  // item sizes to content and overflows the column.
+                  "min-w-0 min-h-[120px]",
                   cert.puzzleSpan === 7 ? "md:col-span-7" : "md:col-span-5",
                   // Vary row height for the bento feel: bigger spans get the
                   // taller cells, smaller spans get the shorter cells.
@@ -91,11 +96,12 @@ export function CredentialsSection({ showAboutLink = false }: CredentialsSection
           </div>
         </div>
 
-        {/* Bottom-right About Us CTA — home page only.
-            outlineFill variant: outline at rest, fills solid gold on hover.
-            Text + icon flip to bg colour automatically (currentColor inherit). */}
+        {/* Bottom About Us CTA — home page only.
+            Centered on mobile (where space is tight and an off-side button
+            reads as orphaned); right-aligned on md+ to follow the
+            traditional desktop "tail" position. */}
         {showAboutLink && (
-          <div className="mt-12 flex justify-end">
+          <div className="mt-12 flex justify-center md:justify-end">
             <Button asChild variant="outlineFill" size="md" className="group">
               <Link href="/about">
                 About Us
