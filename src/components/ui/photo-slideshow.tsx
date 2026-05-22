@@ -66,12 +66,24 @@ export function PhotoSlideshow({
     return () => window.clearTimeout(t);
   }, [active, paused, interval, count]);
 
-  // Keep the active thumbnail visible inside its horizontally-scrolling row.
+  // Keep the active thumbnail centred inside its horizontally-scrolling
+  // row. CRITICAL: do NOT use `scrollIntoView` — it walks all ancestor
+  // scroll containers and yanks the PAGE vertically every time the
+  // slideshow auto-advances. Manual horizontal `scrollTo` on the track
+  // touches only the track's own scroll context, leaving the page
+  // scroll position completely untouched.
   useEffect(() => {
     const list = trackRef.current;
     if (!list) return;
     const node = list.children[active] as HTMLElement | undefined;
-    node?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    if (!node) return;
+    const listRect = list.getBoundingClientRect();
+    const nodeRect = node.getBoundingClientRect();
+    const offset =
+      list.scrollLeft +
+      (nodeRect.left - listRect.left) -
+      (listRect.width / 2 - nodeRect.width / 2);
+    list.scrollTo({ left: offset, behavior: "smooth" });
   }, [active]);
 
   // Cleanup the manual-pause timer on unmount.

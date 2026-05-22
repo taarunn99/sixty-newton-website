@@ -3,7 +3,7 @@ import { SystemSelector } from "@/components/services/system-selector";
 import { CrossSectionDiagram } from "@/components/services/cross-section-diagram";
 import { ProcessTimeline } from "@/components/services/process-timeline";
 import { ApplicationFitGrid } from "@/components/services/application-fit-grid";
-import { ProjectCardGrid } from "@/components/services/project-card";
+import { ProjectCardGrid, resolveProjectImage } from "@/components/services/project-card";
 import { SpecCard } from "@/components/services/spec-card";
 import { FAQAccordion } from "@/components/services/faq-accordion";
 import { RelatedServices } from "@/components/services/related-services";
@@ -111,13 +111,20 @@ export function SectionRenderer({
         </Section>
       );
 
-    case "projects":
+    case "projects": {
+      // Prune entries that can't resolve to a real project image — the
+      // user explicitly asked for "Photo to follow" ghost cards to be
+      // removed. If NONE of the entries resolve, hide the entire
+      // section so no orphan section header shows above zero cards.
+      const resolved = section.projects.filter(p => Boolean(resolveProjectImage(p)));
+      if (resolved.length === 0) return null;
       return (
         <Section>
           <Header eyebrow={section.eyebrow} heading={section.heading} />
-          <ProjectCardGrid projects={[...section.projects]} className="mt-10" />
+          <ProjectCardGrid projects={resolved} className="mt-10" />
         </Section>
       );
+    }
 
     case "warranty":
       return (
