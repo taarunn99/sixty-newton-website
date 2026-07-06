@@ -12,7 +12,12 @@ import { cn } from "@/lib/utils";
 
 /**
  * Navbar layout (all viewports, left → right):
- *   [Logo]    [Centre nav (md+)]    [Hamburger] [Request a Quote]
+ *   [Logo][Nav-items ↔ close]           [Hamburger][Request a Quote]
+ *
+ * Left-clustered layout — logo + nav read as one cohesive group on the
+ * left, CTA cluster pinned right. Container width matches page content
+ * (max-w-[1200px]) so the navbar aligns with everything below and no
+ * longer "splatters" across ultrawide monitors.
  *
  * The hamburger button lives DIRECTLY in the navbar (not inside the Drawer
  * component) — this keeps the click handler and the open state right next to
@@ -120,15 +125,25 @@ export function Navbar() {
           remaining items into cols 1 and 2 — the right cluster falls into
           col 2 and col 3 collapses, leaving empty space on the far right.
           col-start fixes each item to its column regardless of hidden siblings.
+
+          Cols `auto_1fr_auto`:
+            col 1 sizes to the logo; col 3 sizes to the CTA cluster;
+            col 2 absorbs the remaining horizontal space. The <nav>
+            in col 2 uses `justify-self-start` + a small left margin so
+            the items cling to the logo rather than dead-centering across
+            a 1200px band (which read as "splattered" on wide monitors).
+
+          Container width matched to page-content (`max-w-[1200px]`) so
+          logo edge + CTA edge align with every section's inner gutter.
         */}
-        <div className="mx-auto grid h-16 md:h-[72px] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12 lg:px-16">
+        <div className="mx-auto grid h-16 md:h-[72px] max-w-[1200px] grid-cols-[auto_1fr_auto] items-center px-5 md:px-12 lg:px-16">
           {/* Left — brand (col 1) */}
           <div className="col-start-1 flex items-center justify-self-start">
             <Logo size={72} priority />
           </div>
 
-          {/* Centre — main nav (col 2, md+ only) */}
-          <nav className="col-start-2 hidden md:flex items-center gap-8 lg:gap-10 justify-self-center">
+          {/* Left-clustered — main nav (col 2, md+ only) hugs the logo */}
+          <nav className="col-start-2 hidden md:flex items-center gap-7 lg:gap-9 justify-self-start md:ml-6 lg:ml-10">
             {NAV_ITEMS.map(item => {
               const active =
                 item.href === "/"
