@@ -24,7 +24,7 @@ Our scope includes:
 - Design concrete and decorative finishes
 - Microtopping floors
 
-We are an **approved applicator** for leading manufacturers including **Mapei, Laticrete, AkzoNobel and X-Calibur**, and our completed reference projects include developments such as Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, Le Méridien Hotels, The Address Boulevard, Dubai Hills Villas, Jumeirah Golf Villas, Ahlatci Gold Refinery, Delhi Metro and Omaxe Mall.
+We are an **approved applicator** for leading manufacturers including **Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit**, and our completed reference projects include developments such as Atlantis The Royal, Al Wathba Desert Resort & Spa, St. Regis developments, Le Méridien Hotels, The Address Boulevard, Dubai Hills Villas, Jumeirah Golf Villas, Ahlatci Gold Refinery, Delhi Metro and Omaxe Mall.
 
 Sixty Newton is part of the **Lapiz Blue Group of Companies**.
 
@@ -69,7 +69,7 @@ Unless expressly allowed, you may not copy, reproduce, modify, adapt, translate,
 
 **Third-party brands**
 
-Logos and trademarks of manufacturer partners such as **Mapei, Laticrete, AkzoNobel and X-Calibur**, and of developers, hotel operators and asset owners referenced on this Website (for example Atlantis, St. Regis, Le Méridien, The Address, Jumeirah and others) remain the property of their respective owners. Sixty Newton references these names solely to identify approved manufacturer systems we apply and reference projects we have executed. Nothing on this Website grants you any licence to use these marks.
+Logos and trademarks of manufacturer partners such as **Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit**, and of developers, hotel operators and asset owners referenced on this Website (for example Atlantis, St. Regis, Le Méridien, The Address, Jumeirah and others) remain the property of their respective owners. Sixty Newton references these names solely to identify approved manufacturer systems we apply and reference projects we have executed. Nothing on this Website grants you any licence to use these marks.
 
 Downloading or using materials from the Website is only allowed where this is clearly permitted, and then solely for personal, non-commercial use.
 
@@ -106,7 +106,7 @@ Sixty Newton will not be liable for indirect or consequential losses such as los
 
 ## 7. Materials, manufacturer systems and warranties
 
-- Where Sixty Newton supplies the materials, we will use systems from our approved manufacturer partners (including Mapei, Laticrete, AkzoNobel and X-Calibur) or alternative systems agreed in writing.
+- Where Sixty Newton supplies the materials, we will use systems from our approved manufacturer partners (including Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit) or alternative systems agreed in writing.
 - Where materials are free-issued by the client or main contractor, the client remains responsible for the suitability, quantity and condition of those materials, and any warranty on the material itself is governed by the manufacturer.
 - **Workmanship warranty:** Sixty Newton warrants its workmanship for the period stated in the relevant project agreement, or where not stated, for 12 months from the date of substantial completion or handover.
 - **System and product warranties** are separately issued by the manufacturer in accordance with their published warranty terms, and remain subject to correct system selection, substrate preparation, environmental conditions, maintenance and use.

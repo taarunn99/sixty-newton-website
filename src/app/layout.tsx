@@ -49,6 +49,9 @@ export const metadata: Metadata = {
     "Laticrete certified contractor",
     "AkzoNobel Dulux applicator Dubai",
     "X-Calibur applicator UAE",
+    "Weber Saint-Gobain applicator UAE",
+    "Kerakoll certified contractor Dubai",
+    "Saveto Vetonit applicator UAE",
     "Sixty Newton",
   ],
   alternates: {

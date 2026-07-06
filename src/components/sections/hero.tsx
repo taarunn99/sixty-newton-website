@@ -83,9 +83,12 @@ export function Hero() {
               Brand-certified applicators for{" "}
               <span className="text-fg">Mapei</span>,{" "}
               <span className="text-fg">Laticrete</span>,{" "}
-              <span className="text-fg">AkzoNobel</span> and{" "}
-              <span className="text-fg">X-Calibur</span> — tier-1 hospitality,
-              residential and industrial projects across the UAE.
+              <span className="text-fg">AkzoNobel</span>,{" "}
+              <span className="text-fg">X-Calibur</span>,{" "}
+              <span className="text-fg">Weber Saint-Gobain</span>,{" "}
+              <span className="text-fg">Kerakoll</span> and{" "}
+              <span className="text-fg">Saveto Vetonit</span> — tier-1
+              hospitality, residential and industrial projects across the UAE.
             </p>
 
             {/* Dual CTAs */}
@@ -108,10 +111,17 @@ export function Hero() {
               </Button>
             </div>
 
-            {/* Approved-applicator strip — quiet attribution */}
-            <p className="mt-10 md:mt-12 pt-6 border-t border-[var(--border-hairline)] eyebrow text-fg-subtle text-[10px] md:text-[11px]">
-              Approved applicator · Mapei · Laticrete · AkzoNobel · X-Calibur
-            </p>
+            {/* Approved-applicator strip — quiet attribution.
+                Label sits as a small heading; brand list uses short forms
+                (Weber / Saveto) so 7 names fit on one line at md+. */}
+            <div className="mt-10 md:mt-12 pt-6 border-t border-[var(--border-hairline)]">
+              <p className="eyebrow text-fg-subtle text-[10px] md:text-[11px]">
+                Approved applicator
+              </p>
+              <p className="mt-2 eyebrow text-fg-subtle text-[10px] md:text-[11px] whitespace-normal md:whitespace-nowrap">
+                Mapei · Laticrete · AkzoNobel · X-Calibur · Weber · Kerakoll · Saveto
+              </p>
+            </div>
 
           </div>
         </div>

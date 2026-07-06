@@ -77,9 +77,12 @@ export default function AboutPage() {
             Certified to install and warrant systems from{" "}
             <span className="text-fg">Mapei</span>,{" "}
             <span className="text-fg">Laticrete</span>,{" "}
-            <span className="text-fg">AkzoNobel</span> and{" "}
-            <span className="text-fg">X-Calibur</span>. Certificates and trade
-            licence sit on a dedicated page.
+            <span className="text-fg">AkzoNobel</span>,{" "}
+            <span className="text-fg">X-Calibur</span>,{" "}
+            <span className="text-fg">Weber Saint-Gobain</span>,{" "}
+            <span className="text-fg">Kerakoll</span> and{" "}
+            <span className="text-fg">Saveto Vetonit</span>. Certificates and
+            trade licence sit on a dedicated page.
           </p>
           <div className="mt-6">
             <Button asChild variant="outlineFill" size="md" className="group">

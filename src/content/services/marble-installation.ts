@@ -23,7 +23,7 @@ const marble: ServicePage = {
     sub: "Book-matched feature walls. Honeycomb-backed lobby slabs. Bookend bathroom vanities. We set marble with the right system for the stone — and we sound-test every panel.",
   },
 
-  primaryBrands: ["laticrete", "mapei"],
+  primaryBrands: ["laticrete", "mapei", "kerakoll"],
 
   sections: [
     {

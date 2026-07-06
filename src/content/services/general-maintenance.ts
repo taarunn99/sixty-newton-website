@@ -23,7 +23,7 @@ const maintenance: ServicePage = {
     sub: "Cracks, spalls, exposed rebar, water ingress, settlement. We diagnose the cause first, then specify the right Mapei Planitop repair mortar, epoxy or PU injection, CFRP wrap or jacketing — and we document every step.",
   },
 
-  primaryBrands: ["mapei", "xcalibur"],
+  primaryBrands: ["mapei", "xcalibur", "weber"],
 
   sections: [
     {

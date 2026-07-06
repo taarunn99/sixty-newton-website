@@ -23,7 +23,7 @@ const selfLevelling: ServicePage = {
     sub: "From a 3 mm smoothing skim to a 50 mm structural screed. Pumped. Gauge-raked. Spiked. Ready for the next trade in 24 hours.",
   },
 
-  primaryBrands: ["mapei", "laticrete"],
+  primaryBrands: ["mapei", "laticrete", "weber", "saveto"],
 
   sections: [
     {

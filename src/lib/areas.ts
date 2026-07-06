@@ -27,11 +27,14 @@ export function getAreasGroupedByEmirate(): {
 /** Generate the unique hero-sub text for a discipline-area pair. */
 export function areaHeroSub(area: Area, disciplineTitle: string): string {
   const lm = area.landmarks.slice(0, 2).join(" and ");
-  return `${disciplineTitle} in ${area.searchName} sits at the intersection of brand-certified applicator discipline and ${area.vibe}. From ${lm} to the back-of-house surfaces nobody photographs — same Mapei, Laticrete, AkzoNobel and X-Calibur systems, same TDS coverage rates, same signed-off Inspection Request documentation. We mobilise to ${area.searchName} from our Al Quoz office on the same programme as anywhere else in the UAE.`;
+  return `${disciplineTitle} in ${area.searchName} sits at the intersection of brand-certified applicator discipline and ${area.vibe}. From ${lm} to the back-of-house surfaces nobody photographs — same Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit systems, same TDS coverage rates, same signed-off Inspection Request documentation. We mobilise to ${area.searchName} from our Al Quoz office on the same programme as anywhere else in the UAE.`;
 }
 
-/** Generate the unique meta description for a discipline-area pair. */
+/** Generate the unique meta description for a discipline-area pair.
+ *  Uses short brand names (Weber, Kerakoll, Saveto) to stay under the 320-char
+ *  hard cap once the discipline title, area name and parent-meta first-clause
+ *  are interpolated. */
 export function areaMetaDescription(area: Area, disciplineTitle: string, parentMeta: string): string {
   const trimmedParent = parentMeta.split(/[.•—]/)[0].trim();
-  return `${disciplineTitle} contractor in ${area.searchName} — Sixty Newton applies brand-certified Mapei, Laticrete, AkzoNobel and X-Calibur systems across ${area.name} addresses. ${trimmedParent}. Free site survey, 48-hour quotation.`.slice(0, 320);
+  return `${disciplineTitle} contractor in ${area.searchName} — Sixty Newton applies brand-certified Mapei, Laticrete, AkzoNobel, X-Calibur, Weber, Kerakoll & Saveto systems across ${area.name} addresses. ${trimmedParent}. Free site survey, 48-hour quotation.`.slice(0, 320);
 }

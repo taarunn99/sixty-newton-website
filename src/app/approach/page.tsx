@@ -12,13 +12,16 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = buildMetadata({
   title: "Approach — Sixty Newton",
   description:
-    "How Sixty Newton works. Brand-approved applicator status with Mapei, Laticrete, AkzoNobel and X-Calibur. Trade licence and VAT registration on file. Disciplined execution, signed-off finish.",
+    "How Sixty Newton works. Brand-approved applicator status with Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit. Trade licence and VAT registration on file. Disciplined execution, signed-off finish.",
   path: "/approach",
   keywords: [
     "Mapei approved applicator UAE",
     "Laticrete certified contractor Dubai",
     "AkzoNobel Dulux applicator UAE",
     "X-Calibur applicator Dubai",
+    "Weber Saint-Gobain applicator UAE",
+    "Kerakoll certified contractor Dubai",
+    "Saveto Vetonit applicator UAE",
     "Sixty Newton approach",
     "Sixty Newton certifications",
   ],
@@ -70,13 +73,13 @@ export default function ApproachPage() {
       >
         <p className="eyebrow text-fg-subtle">Approved applicator</p>
         <h2 className="font-serif font-extralight text-fg mt-5 text-[clamp(1.75rem,4.2vw,3rem)] leading-[1.04] tracking-[-0.02em] max-w-3xl">
-          Four manufacturers. Four current certificates.
+          Seven manufacturers. Seven current certificates.
         </h2>
         <p className="mt-4 max-w-2xl font-serif font-light text-fg-muted text-lg leading-relaxed">
-          Active approved-applicator status with Mapei, Laticrete, AkzoNobel and
-          X-Calibur — which is what qualifies our work for joint
-          manufacturer-applicator warranties on tier-1 projects. Click any logo
-          to open the certificate.
+          Active approved-applicator status with Mapei, Laticrete, AkzoNobel,
+          X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit — which is
+          what qualifies our work for joint manufacturer-applicator warranties
+          on tier-1 projects. Click any logo to open the certificate.
         </p>
 
         <div className="mt-10 grid gap-3 md:grid-cols-12 md:gap-4">
@@ -89,8 +92,16 @@ export default function ApproachPage() {
                 // its content (which made the applicator cards bleed
                 // past the right edge on mobile).
                 "min-w-0 scroll-mt-28 min-h-[120px]",
-                cert.puzzleSpan === 7 ? "md:col-span-7" : "md:col-span-5",
-                cert.puzzleSpan === 7 ? "md:min-h-[160px]" : "md:min-h-[140px]",
+                cert.puzzleSpan === 7
+                  ? "md:col-span-7"
+                  : cert.puzzleSpan === 5
+                    ? "md:col-span-5"
+                    : "md:col-span-4",
+                cert.puzzleSpan === 7
+                  ? "md:min-h-[160px]"
+                  : cert.puzzleSpan === 5
+                    ? "md:min-h-[140px]"
+                    : "md:min-h-[130px]",
               )}
             >
               <DocButton
@@ -100,6 +111,7 @@ export default function ApproachPage() {
                 logoSrc={cert.logoSrc}
                 logoAlt={`${cert.brand} logo`}
                 logoAspect={cert.logoAspect}
+                logoNeedsLightBg={cert.logoNeedsLightBg}
               />
             </div>
           ))}
@@ -134,7 +146,7 @@ export default function ApproachPage() {
               n: "02",
               title: "Material approval",
               body:
-                "Mapei, Laticrete, AkzoNobel or X-Calibur TDS / SDS pack submitted to the consultant. Substitutions only with written approval — never to save a half-day on procurement.",
+                "Manufacturer TDS / SDS pack submitted to the consultant — Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll or Saveto Vetonit per the specified system. Substitutions only with written approval — never to save a half-day on procurement.",
             },
             {
               n: "03",

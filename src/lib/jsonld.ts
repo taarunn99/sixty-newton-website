@@ -85,6 +85,9 @@ export function localBusinessJsonLd() {
       "Approved applicator — LATICRETE",
       "Approved applicator — AKZONOBEL",
       "Approved applicator — X-CALIBUR",
+      "Approved applicator — WEBER SAINT-GOBAIN",
+      "Approved applicator — KERAKOLL",
+      "Approved applicator — SAVETO VETONIT",
     ],
   };
 }

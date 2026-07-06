@@ -127,7 +127,7 @@ Where required by law, we will ask for your consent before placing non-essential
 We may share your data with trusted third parties that help us deliver our services and operate our business, strictly on a need-to-know basis:
 
 - **Project stakeholders** — main contractors, consultants, MEP and finishing trades and the client, where this is needed to plan and execute the works.
-- **Material suppliers and manufacturer technical teams** — including Mapei, Laticrete, AkzoNobel, X-Calibur and other approved partners, where their input is needed for material selection, approvals or warranty support.
+- **Material suppliers and manufacturer technical teams** — including Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll, Saveto Vetonit and other approved partners, where their input is needed for material selection, approvals or warranty support.
 - **Group companies** — including Lapiz Blue General Trading LLC and other Lapiz Blue Group of Companies entities, for material supply, logistics and shared back-office functions.
 - **Logistics and transport partners** — to move materials, tools and equipment to and from site.
 - **IT, hosting and communication providers** — to host the Website, CRM, project management tools, email and WhatsApp Business communications.

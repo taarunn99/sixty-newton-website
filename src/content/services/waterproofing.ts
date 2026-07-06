@@ -36,7 +36,7 @@ const waterproofing: ServicePage = {
       body:
         "Waterproofing is the system that fails most often in UAE construction — and it's the system clients hide. By the time water shows up on a ceiling, the membrane underneath has already been failing for months. We work upstream: site survey, substrate prep, primer, the right system at the right thickness, full IR sign-off, and the protection layer before the next trade walks on it." +
         "\n\n" +
-        "We're an approved applicator for MAPEI, Laticrete, AkzoNobel and X-Calibur — which means our crews are trained on each manufacturer's protocols and our work qualifies for joint manufacturer-applicator warranties where available. We don't switch systems mid-project. We don't skip the primer to save half a day. We document every step with photos, moisture readings and IR sign-offs that go straight into the project handover file.",
+        "We're an approved applicator for MAPEI, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit — which means our crews are trained on each manufacturer's protocols and our work qualifies for joint manufacturer-applicator warranties where available. We don't switch systems mid-project. We don't skip the primer to save half a day. We document every step with photos, moisture readings and IR sign-offs that go straight into the project handover file.",
     },
 
     {
@@ -195,12 +195,15 @@ const waterproofing: ServicePage = {
     {
       type: "brands",
       eyebrow: "Brands we apply",
-      heading: "Brand-certified across four manufacturers.",
+      heading: "Brand-certified across seven manufacturers.",
       lines: [
-        { brand: "MAPEI",      systems: "Mapelastic Smart · Mapelastic Foundation · Mapelastic Aquadefense · Idrosilex Pronto · Mapenet 150" },
-        { brand: "Laticrete",  systems: "Hydro Ban · Hydro Ban 9235 · Hydro Ban Sheet Membrane · Plazadeck" },
-        { brand: "AkzoNobel",  systems: "Dulux Weathershield Waterguard" },
-        { brand: "X-Calibur",  systems: "PolyU 600 · PolyU 800 · GRP lining system · Crystalline range" },
+        { brand: "MAPEI",              systems: "Mapelastic Smart · Mapelastic Foundation · Mapelastic Aquadefense · Idrosilex Pronto · Mapenet 150" },
+        { brand: "Laticrete",          systems: "Hydro Ban · Hydro Ban 9235 · Hydro Ban Sheet Membrane · Plazadeck" },
+        { brand: "AkzoNobel",          systems: "Dulux Weathershield Waterguard" },
+        { brand: "X-Calibur",          systems: "PolyU 600 · PolyU 800 · GRP lining system · Crystalline range" },
+        { brand: "Weber Saint-Gobain", systems: "weberdry PUR seal · weberdry 116 FX (cementitious) · weberdry 360 PU · weberdry roof" },
+        { brand: "Kerakoll",           systems: "Aquastop cementitious membranes · Aquastop 120 mesh · Nanoflex flexible membrane" },
+        { brand: "Saveto Vetonit",     systems: "Vetoproof CM 745 · Vetoproof AZL · Vetoproof NWP mesh · cementitious slurry range" },
       ],
     },
 

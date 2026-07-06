@@ -15,13 +15,16 @@ export const metadata: Metadata = buildMetadata({
     "joint manufacturer warranty UAE",
     "Mapei applicator FAQ",
     "Laticrete applicator UAE",
+    "Weber Saint-Gobain applicator UAE",
+    "Kerakoll applicator Dubai",
+    "Saveto Vetonit applicator UAE",
   ],
 });
 
 const FAQ_ITEMS = [
   {
     q: "Are you a contractor or just an applicator?",
-    a: "Both. Sixty Newton holds an active UAE trade licence and operates as a specialist contractor — but the work we deliver is brand-certified applicator scope: Mapei, Laticrete, AkzoNobel and X-Calibur systems applied to manufacturer protocols and TDS. We're the trade you call when the brief explicitly requires brand-applicator status.",
+    a: "Both. Sixty Newton holds an active UAE trade licence and operates as a specialist contractor — but the work we deliver is brand-certified applicator scope: Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit systems applied to manufacturer protocols and TDS. We're the trade you call when the brief explicitly requires brand-applicator status.",
   },
   {
     q: "What does 'approved applicator' actually mean?",

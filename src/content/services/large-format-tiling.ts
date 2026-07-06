@@ -23,7 +23,7 @@ const lft: ServicePage = {
     sub: "Floor, wall, podium, façade. The bigger the slab, the less margin for the wrong adhesive, the wrong trowel, the wrong substrate flatness. We install LFT to the system spec — every slab back-buttered, every layout dry-laid.",
   },
 
-  primaryBrands: ["laticrete", "mapei"],
+  primaryBrands: ["laticrete", "mapei", "kerakoll"],
 
   sections: [
     {

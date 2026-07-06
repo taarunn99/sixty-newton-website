@@ -303,10 +303,13 @@ export function getDisciplinesByBucket() {
 // Slugs MUST match APPLICATOR_CERTIFICATES[].slug below so hamburger / footer
 // anchors resolve to certificate cards on /approach.
 export const APPROVED_APPLICATORS = [
-  { name: "Mapei",     slug: "mapei" },
-  { name: "Laticrete", slug: "laticrete" },
-  { name: "AkzoNobel", slug: "akzonobel" },
-  { name: "X-Calibur", slug: "xcalibur" },
+  { name: "Mapei",               slug: "mapei" },
+  { name: "Laticrete",           slug: "laticrete" },
+  { name: "AkzoNobel",           slug: "akzonobel" },
+  { name: "X-Calibur",           slug: "xcalibur" },
+  { name: "Weber Saint-Gobain",  slug: "weber" },
+  { name: "Kerakoll",            slug: "kerakoll" },
+  { name: "Saveto Vetonit",      slug: "saveto" },
 ] as const;
 
 // ─── Selected reference projects (per company profile, pages 10-17) ───
@@ -408,16 +411,31 @@ export const COMPANY_DOCUMENTS: readonly CompanyDocument[] = [
 // Each logo uses whichever format compressed smaller (mixed PNG/WebP).
 // `puzzleSpan` controls the bento layout at md+ (col-span on a 12-col grid).
 export type ApplicatorCertificate = {
-  slug: "mapei" | "laticrete" | "akzonobel" | "xcalibur";
+  slug: "mapei" | "laticrete" | "akzonobel" | "xcalibur" | "weber" | "kerakoll" | "saveto";
   brand: string;
   scope: string;
   href: string;
   logoSrc: string;
   logoAspect: "square" | "wide";
-  puzzleSpan: 5 | 7;  // 12-col bento: alternates 7+5 / 5+7 for zigzag interlock
+  // 12-col bento, 3 rows for 7 brands:
+  //   Row 1 (7+5): Mapei · Laticrete
+  //   Row 2 (4+4+4): Weber · Kerakoll · Saveto
+  //   Row 3 (5+7): AkzoNobel · X-Calibur
+  puzzleSpan: 4 | 5 | 7;
+  /** True when the brand mark is dark/black and needs a small white pad
+   *  behind it to stay visible on the dark card background. Default false
+   *  (naked logo) preserves the aesthetic on light/coloured marks. */
+  logoNeedsLightBg?: boolean;
+  /** Optical size correction inside the BrandStrip tile. Some vendor
+   *  logos ship with generous whitespace inside their SVG/PNG bounding
+   *  box (e.g. Vetonit at ~20% of its viewBox) and render visually
+   *  smaller than the others. A scale of 1.25–1.4 restores parity.
+   *  Applied only inside the certificate-wall tiles, not the bento cards. */
+  logoScale?: number;
 };
 
 export const APPLICATOR_CERTIFICATES: readonly ApplicatorCertificate[] = [
+  // Row 1 (7+5)
   {
     slug: "mapei",
     brand: "Mapei",
@@ -436,6 +454,40 @@ export const APPLICATOR_CERTIFICATES: readonly ApplicatorCertificate[] = [
     logoAspect: "square",
     puzzleSpan: 5,
   },
+  // Row 2 (4+4+4) — newly authorised partners
+  {
+    slug: "weber",
+    brand: "Weber Saint-Gobain",
+    scope: "Waterproofing, self-levelling, repair mortars",
+    href: "/docs/weber-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/weber.png",
+    logoAspect: "wide",
+    puzzleSpan: 4,
+    logoNeedsLightBg: true,
+  },
+  {
+    slug: "kerakoll",
+    brand: "Kerakoll",
+    scope: "GreenBuilding adhesives & finishes",
+    href: "/docs/kerakoll-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/kerakoll.png",
+    logoAspect: "square",
+    puzzleSpan: 4,
+    logoNeedsLightBg: true,
+  },
+  {
+    slug: "saveto",
+    brand: "Saveto Vetonit",
+    scope: "Waterproofing, putty & building chemicals",
+    href: "/docs/saveto-applicator-certificate.pdf",
+    logoSrc: "/brand/applicators/saveto.svg",
+    logoAspect: "square",
+    puzzleSpan: 4,
+    // The Vetonit SVG has ~80% empty padding inside its viewBox — scale up
+    // in the certificate-wall tile to match the optical weight of siblings.
+    logoScale: 1.35,
+  },
+  // Row 3 (5+7)
   {
     slug: "akzonobel",
     brand: "AkzoNobel · Dulux",

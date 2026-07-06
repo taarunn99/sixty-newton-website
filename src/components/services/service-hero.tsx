@@ -56,13 +56,15 @@ export function ServiceHero({
 
           <DualCTA className="mt-10" serviceContext={serviceContext} />
 
-          {/* Hairline rule + brand strip */}
+          {/* Hairline rule + brand strip.
+              Label sits as a heading above the logos; 7 logos flow in a single
+              row on md+ and centre-wrap on mobile. */}
           <div aria-hidden className="mt-12 h-px w-full bg-border-hairline" />
-          <div className="mt-8 flex items-end justify-between gap-6 flex-wrap">
-            <BrandStrip className="!grid-cols-4 !gap-x-8 max-w-md sm:max-w-lg" />
-            <p className="eyebrow text-fg-subtle whitespace-nowrap">
+          <div className="mt-8">
+            <p className="eyebrow text-fg-subtle text-center md:text-left">
               Approved applicator · brand-certified
             </p>
+            <BrandStrip className="mt-6" />
           </div>
         </div>
       </div>

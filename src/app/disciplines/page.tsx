@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = buildMetadata({
   title: "Disciplines — Sixty Newton UAE",
   description:
-    "14 specialist contracting disciplines under one contract — waterproofing, flooring, tile & stone, decorative concrete, coatings, building repair & insulation. Brand-certified across Mapei, Laticrete, AkzoNobel and X-Calibur. Delivered across the UAE.",
+    "14 specialist contracting disciplines under one contract — waterproofing, flooring, tile & stone, decorative concrete, coatings, building repair & insulation. Brand-certified across Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit. Delivered across the UAE.",
   path: "/disciplines",
   keywords: [
     "specialist contractor UAE",
@@ -24,13 +24,16 @@ export const metadata: Metadata = buildMetadata({
     "Laticrete applicator Dubai",
     "AkzoNobel applicator UAE",
     "X-Calibur applicator Dubai",
+    "Weber Saint-Gobain applicator UAE",
+    "Kerakoll certified contractor Dubai",
+    "Saveto Vetonit applicator UAE",
   ],
 });
 
 const HUB_FAQ = [
   {
     q: "Are you a contractor or just an applicator?",
-    a: "Both. Sixty Newton holds an active UAE trade licence and operates as a specialist contractor — but the work we deliver is brand-certified applicator scope: Mapei, Laticrete, AkzoNobel and X-Calibur systems applied to manufacturer protocols and TDS.",
+    a: "Both. Sixty Newton holds an active UAE trade licence and operates as a specialist contractor — but the work we deliver is brand-certified applicator scope: Mapei, Laticrete, AkzoNobel, X-Calibur, Weber Saint-Gobain, Kerakoll and Saveto Vetonit systems applied to manufacturer protocols and TDS.",
   },
   {
     q: "What does 'approved applicator' actually mean?",
@@ -157,10 +160,10 @@ export default function DisciplinesPage() {
             <div className="rounded-md border border-border bg-bg p-6 md:p-8">
               <p className="font-mono text-xs text-gold uppercase tracking-widest">01</p>
               <h3 className="font-serif font-light text-2xl text-fg mt-4 leading-tight">
-                Brand-certified across four manufacturers.
+                Brand-certified across seven manufacturers.
               </h3>
               <p className="mt-4 text-fg-muted text-sm leading-relaxed">
-                Mapei · Laticrete · AkzoNobel · X-Calibur. Our crews are trained, audited and current on each manufacturer's protocols — which is what qualifies our work for joint manufacturer-applicator warranties.
+                Mapei · Laticrete · AkzoNobel · X-Calibur · Weber Saint-Gobain · Kerakoll · Saveto Vetonit. Our crews are trained, audited and current on each manufacturer&rsquo;s protocols — which is what qualifies our work for joint manufacturer-applicator warranties.
               </p>
               <Link
                 href="/approach#applicators"
@@ -176,7 +179,7 @@ export default function DisciplinesPage() {
                 Lapiz Blue Group material backing.
               </h3>
               <p className="mt-4 text-fg-muted text-sm leading-relaxed">
-                Sister to Lapiz Blue, Montolite, Dream Box, Global Classic and Al Sama — the UAE's most established construction-chemicals network. Stock security, technical support and supply continuity sit behind every project.
+                Sister to Lapiz Blue, Montolite, Dream Box, Global Classic and Al Sama — the UAE&rsquo;s most established construction-chemicals network. Stock security, technical support and supply continuity sit behind every project.
               </p>
               <div className="mt-6">
                 <LapizBlueLink label="Visit Lapiz Blue" variant="ghost" />

@@ -24,6 +24,9 @@ type DocButtonProps = {
   logoAspect?: "square" | "wide";
   /** When true, omit the logo entirely (used for legal docs row). */
   hideLogo?: boolean;
+  /** True when the brand mark is dark/black and needs a small white pad
+   *  behind it to stay legible on the dark card background. */
+  logoNeedsLightBg?: boolean;
   /** Optional extra className to override layout in puzzle/bento cells. */
   className?: string;
 };
@@ -36,6 +39,7 @@ export function DocButton({
   logoAlt,
   logoAspect = "square",
   hideLogo = false,
+  logoNeedsLightBg = false,
   className,
 }: DocButtonProps) {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -79,13 +83,15 @@ export function DocButton({
         }}
       />
 
-      {/* Logo — naked, no chip */}
+      {/* Logo — naked by default; a small white pad wraps dark marks
+          (Weber, Kerakoll) so they stay visible on the dark card. */}
       {showLogo && logoSrc && (
         <span
           aria-hidden
           className={cn(
             "relative z-10 inline-flex shrink-0 items-center justify-center",
             logoAspect === "wide" ? "h-7 w-20" : "h-10 w-10",
+            logoNeedsLightBg && "rounded-[4px] bg-white p-1",
           )}
         >
           <Image

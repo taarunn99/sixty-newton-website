@@ -24,7 +24,7 @@ const microtopping: ServicePage = {
     sub: "Over tile. Over screed. Over plaster. We apply microcement at 3 mm thickness across floors, walls, stairs, vanities and joinery — for a continuous surface nothing else can deliver.",
   },
 
-  primaryBrands: ["mapei", "xcalibur"],
+  primaryBrands: ["mapei", "xcalibur", "kerakoll"],
 
   sections: [
     {
