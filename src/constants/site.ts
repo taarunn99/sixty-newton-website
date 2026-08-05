@@ -342,14 +342,24 @@ export const NAV_ITEMS = [
 
 // ─── Hamburger drawer groups (overflow nav, visible on ALL viewports) ───
 export type HamburgerLink = { label: string; href: string; external?: boolean };
-export type HamburgerGroup = { heading: string; items: readonly HamburgerLink[] };
+export type HamburgerSubgroup = { heading: string; items: readonly HamburgerLink[] };
+export type HamburgerGroup = {
+  heading: string;
+  items?: readonly HamburgerLink[];
+  /** When present, the drawer renders bucket sub-headings instead of a
+   *  flat list — mirrors the desktop mega-menu's 6-bucket grouping. */
+  subgroups?: readonly HamburgerSubgroup[];
+};
 
 export const HAMBURGER_GROUPS: readonly HamburgerGroup[] = [
   {
     heading: "Disciplines",
-    items: DISCIPLINES.filter(d => d.published).map(d => ({
-      label: d.title,
-      href: `/disciplines/${d.slug}`,
+    subgroups: DISCIPLINE_BUCKETS.map(bucket => ({
+      heading: bucket.name,
+      items: DISCIPLINES.filter(d => d.bucket === bucket.name && d.published).map(d => ({
+        label: d.title,
+        href: `/disciplines/${d.slug}`,
+      })),
     })),
   },
   {

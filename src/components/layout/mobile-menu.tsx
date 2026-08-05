@@ -121,33 +121,63 @@ export function Drawer({ open, onClose }: DrawerProps) {
             {HAMBURGER_GROUPS.map(group => (
               <div key={group.heading}>
                 <p className="eyebrow text-gold">{group.heading}</p>
-                <ul className="mt-4 space-y-2">
-                  {group.items.map(item =>
-                    item.external ? (
-                      <li key={`${group.heading}-${item.label}-${item.href}`}>
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={onClose}
-                          className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
-                        >
-                          {item.label}
-                        </a>
-                      </li>
-                    ) : (
-                      <li key={`${group.heading}-${item.label}-${item.href}`}>
-                        <Link
-                          href={item.href}
-                          onClick={onClose}
-                          className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ),
-                  )}
-                </ul>
+
+                {/* Bucket subgroups (Disciplines) — 2-col grid so 14 links
+                    don't stack into one confusing wall. */}
+                {group.subgroups && (
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                    {group.subgroups.map(sub => (
+                      <div key={sub.heading}>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-fg-subtle">
+                          {sub.heading}
+                        </p>
+                        <ul className="mt-1.5 space-y-0.5">
+                          {sub.items.map(item => (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                onClick={onClose}
+                                className="inline-flex min-h-8 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {group.items && (
+                  <ul className="mt-4 space-y-2">
+                    {group.items.map(item =>
+                      item.external ? (
+                        <li key={`${group.heading}-${item.label}-${item.href}`}>
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={onClose}
+                            className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
+                          >
+                            {item.label}
+                          </a>
+                        </li>
+                      ) : (
+                        <li key={`${group.heading}-${item.label}-${item.href}`}>
+                          <Link
+                            href={item.href}
+                            onClick={onClose}
+                            className="inline-flex min-h-9 items-center text-sm text-fg-muted hover:text-fg transition-colors duration-200"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                )}
               </div>
             ))}
           </div>

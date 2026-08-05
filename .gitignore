@@ -40,3 +40,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# local source documents — served copies live in public/docs
+Sixty Newton Docs/
