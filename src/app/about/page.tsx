@@ -106,7 +106,15 @@ export default function AboutPage() {
             Sister company to{" "}
             <span className="text-fg">Lapiz Blue General Trading LLC</span>,{" "}
             <span className="text-fg">Montolite Building Material LLC</span>,{" "}
-            <span className="text-fg">Global Classic Building Material LLC</span> and{" "}
+            <a
+              href="https://www.gcbuae.com"
+              target="_blank"
+              rel="noopener"
+              className="text-fg underline underline-offset-2"
+            >
+              Global Classic Building Materials Trading LLC
+            </a>{" "}
+            and{" "}
             <span className="text-fg">Al Sama Metal Coating &amp; Industries LLC</span>.
             One operational network, one supply chain, one set of quality standards.
           </p>

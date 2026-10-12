@@ -126,7 +126,16 @@ export function Footer() {
               communicates parent-group attribution; the full sister
               list is desktop-only context. */}
           <p className="hidden md:block text-xs text-fg-subtle md:text-right">
-            Sister to Lapiz Blue, Montolite, Global Classic Building Material &amp; Al Sama Metal Coating.
+            Sister to Lapiz Blue, Montolite,{" "}
+            <a
+              href="https://www.gcbuae.com"
+              target="_blank"
+              rel="noopener"
+              className="underline underline-offset-2 hover:text-fg"
+            >
+              Global Classic Building Materials
+            </a>{" "}
+            &amp; Al Sama Metal Coating.
           </p>
         </div>
 
