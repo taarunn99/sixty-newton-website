@@ -117,16 +117,16 @@ export default function AboutPage() {
             and{" "}
             <span className="text-fg">Al Sama Metal Coating &amp; Industries LLC</span>.
             One operational network, one supply chain, one set of quality standards.
-            Materials are supplied by Lapiz Blue General Trading LLC, the group&rsquo;s{" "}
+            Materials are supplied by{" "}
             <a
               href="https://www.lapizblue.com/construction-chemicals-dubai"
               target="_blank"
               rel="noopener"
               className="text-fg underline underline-offset-2"
             >
-              construction chemicals distributor in Dubai
+              Lapiz Blue General Trading LLC
             </a>
-            .
+            , the group&rsquo;s construction chemicals distributor in Dubai.
           </p>
           <div className="mt-6">
             <LapizBlueLink label="Visit Lapiz Blue" />
